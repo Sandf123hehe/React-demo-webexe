@@ -1,0 +1,347 @@
+/* #region 搜索添加start */
+/* 搜索框区域样式 */
+.achievements-container h2 {
+  font-size: 20px;
+  margin-top: 10px;
+} 
+.achievements-searchsection {
+  display: flex;
+  justify-content: flex-start;
+  /* 左右对齐 */
+  align-items: center;
+  /* 垂直居中 */
+  padding: 10px 20px;
+  /* 内边距 */
+  background-color: #f7f7f7;
+  /* 背景颜色 */
+  border-radius: 8px;
+  /* 圆角 */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  /* 阴影 */
+  margin-bottom: 20px;
+  /* 底部间距 */
+}
+
+/* 搜索框样式 */
+.achievements-searchInput {
+  width: 70%;
+  /* 搜索框占据大部分空间 */
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  /* 边框 */
+  border-radius: 4px;
+  /* 圆角 */
+  outline: none;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+  color: #333;
+  /* 输入框文本颜色 */
+}
+
+/* 聚焦时改变边框颜色 */
+.achievements-searchInput:focus {
+  border-color: #007bff;
+  /* 聚焦时的边框颜色 */
+}
+
+/* 自定义 placeholder 样式 */
+.achievements-searchInput::placeholder {
+  color: #999;
+  /* 默认淡灰色 */
+  font-style: italic;
+  /* 斜体 */
+  font-size: 14px;
+  /* 文字大小 */
+  opacity: 0.7;
+  /* 透明度 */
+  transition: opacity 0.3s ease;
+  /* 透明度过渡 */
+}
+
+/* 聚焦时 placeholder 的效果 */
+.achievements-searchInput:focus::placeholder {
+  opacity: 0.5;
+  /* 聚焦时使 placeholder 更加隐蔽 */
+}
+
+/*  #endregion 搜索添加end */
+
+/* #region start */
+
+/* 显示表格样式 */
+
+/* 外层容器 */
+.achievement-item {
+  display: flex;
+  align-items: center;
+  /* 垂直居中 */
+  justify-content: space-between;
+  /* 两端对齐 */
+  background-color: #ffffff;
+  /* 背景白色 */
+  border-radius: 10px;
+  /* 圆角 */
+  padding: 15px 20px;
+  /* 内边距 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* 阴影效果 */
+  margin-bottom: 15px;
+  /* 项目之间的间距 */
+  transition: transform 0.3s ease-in-out;
+  /* 动画过渡 */
+}
+
+.achievement-item:hover {
+  transform: translateY(-5px);
+  /* 鼠标悬停时轻微上升 */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  /* 增加阴影 */
+}
+
+/* 项目信息容器 */
+.achievement-info {
+  display: flex;
+  flex-wrap: wrap;
+  /* 允许换行 */
+  justify-content: space-between;
+  /* 内容两端对齐 */
+  width: 100%;
+}
+
+/* 每个项目信息的单独项 */
+.achievement-info span {
+  font-size: 14px;
+  color: #333;
+  /* 文本颜色 */
+  margin-right: 20px;
+  /* 每项之间的间距 */
+  white-space: nowrap;
+  /* 防止文本换行 */
+}
+
+/* 项目号的样式 */
+.achievement-projectcode {
+  font-weight: bold;
+  color: #0056b3;
+  /* 蓝色 */
+}
+
+/* 项目名称的样式 */
+.achievement-project {
+  font-weight: bold;
+  color: #007bff;
+  /* 蓝色 */
+}
+
+/* 收费金额的样式 */
+.achievement-charge-amount {
+  color: #d9534f;
+  /* 红色 */
+  font-weight: bold;
+}
+
+/* 收费时间的样式 */
+.achievement-date {
+  color: #5bc0de;
+  /* 蓝色 */
+}
+
+/*  #endregion end */
+
+/* #region 弹出编辑界面start */
+ /* 模态框样式 */
+.achievement-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4); /* 更淡的模态背景 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.achievement-modal-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 更轻的阴影 */
+   
+  width:90%;
+  min-width: 800px;
+  max-width: 1200px; 
+}
+ 
+.achievement-modal-content .close-button {
+  margin-right: 10px;
+  margin-bottom: 10px; 
+   
+  
+}
+
+.achievement-form {
+
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 auto;
+}
+
+
+.achievement-form div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+}
+
+.achievement-form div label {
+  width: 80px;
+  /* 设置宽度 */
+  text-align: justify;
+  /* 使文本两端对齐 */
+}
+
+.achievement-form div input,
+.achievement-form div textarea {
+  width: calc(100% - 120px);   /* 宽度为 100% 减去 80px */
+  padding: 10px;              /* 内边距，增加内容和边框之间的距离 */
+  font-size: 16px;            /* 设置字体大小，增加可读性 */
+  font-family: Arial, sans-serif; /* 设置字体 */
+  border: 1px solid #ccc;     /* 边框颜色 */
+  border-radius: 8px;         /* 圆角边框，增加柔和感 */
+  background-color: #f9f9f9;  /* 背景色，略浅的灰色 */
+  color: #333;                /* 字体颜色，深灰色 */
+  box-sizing: border-box;     /* 包括内边距和边框在内的宽度计算方式 */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* 添加过渡效果 */
+  word-wrap: break-word;      /* 自动换行，防止长单词或链接超出容器 */
+  overflow-wrap: break-word;  /* 同样实现自动换行 */
+  
+}
+
+.achievement-form div input:focus,
+.achievement-form div textarea:focus {
+  border-color: #66afe9;      /* 聚焦时边框颜色变为蓝色 */
+  outline: none;              /* 去除默认的聚焦时外部轮廓 */
+  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6); /* 聚焦时添加阴影效果 */
+}
+
+.achievement-form div textarea {
+  resize: vertical;           /* 允许垂直方向调整大小 */
+  min-height: 100px;           /* 最小高度，避免 textarea 太小 */
+}
+.achievement-form .form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+ 
+/*  #endregion 弹出编辑界面 end */
+
+
+/* #region 字体图标start */
+
+ 
+
+.icon-address {
+  width: 3em;
+  height: 3em;
+  vertical-align: -1em;/* 将图标向上偏移 1.15em */
+  fill: red; /* 设置图标颜色为红色 */
+  overflow: hidden;
+   
+   
+}
+/*  #endregion end */
+
+
+.achievements-container {
+  width: 90%;
+  margin: 20px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.achievements-searchsection {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.achievements-searchInput {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.achievements-monthSelect {
+  margin-left: 10px;
+}
+
+.achievements-addButton {
+  padding: 10px 20px;
+  background-color: #3c80ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.achievements-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.achievements-table th, .achievements-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.achievements-table th {
+  background-color: #f2f2f2;
+}
+
+.achievement-detail-row {
+  background-color: #f9f9f9;
+}
+
+.achievement-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.achievement-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  float: right;
+}
+.achievement-expanded-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}

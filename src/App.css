@@ -1,0 +1,14 @@
+
+.App {
+  height: 100vh; /* 设置 App 组件的高度 */
+  display: flex;
+  flex-direction: column;
+   width: 100%;
+  padding: 0;  
+}
+.App-Header {
+  width: 100%;
+}
+
+.App-AppRoutes {
+  width: 100%;}

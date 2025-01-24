@@ -1,0 +1,89 @@
+/* SiteLinks.css */
+
+.site-links {
+  font-family: Arial, sans-serif;
+  width: 100%;
+  margin: 0 auto;
+   
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ddd;
+}
+
+.tab {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #555;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.tab:hover {
+  background-color: #f0f0f0;
+}
+
+.tab.active {
+  color: rgb(0, 0, 0);
+  background-color: #007bff;
+  border-color: #007bff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+.links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding-top: 20px;
+}
+
+.link-item {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.link-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.link-item a {
+  display: block;
+  color: #007bff;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.link-item a:hover {
+  color: #0056b3;
+}
+
+.link-item a:active {
+  color: #003f7f;
+}
+
+@media (max-width: 768px) {
+  .tabs {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .links {
+    grid-template-columns: 1fr;
+  }
+}

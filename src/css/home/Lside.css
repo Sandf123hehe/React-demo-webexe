@@ -1,0 +1,105 @@
+.lside-container {
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+    background-color: rgb(247, 248, 248);
+    justify-content: flex-start; /* 更改为 flex-start 以避免按键与内容对齐 */
+    height: 100%;
+    position: relative; /* 使子元素的绝对定位相对于这个容器 */
+}
+
+.lside-container.expanded {
+    width: 200px;
+    transition: width 0.3s ease;
+}
+
+.lside-container.collapsed {
+    width: 0px;
+    transition: width 0.3s ease;
+}
+
+.lside-tree-sub-container.hidden {
+    display: none;
+
+}
+.tree-sub-ul {
+    padding-left: 20px;
+    padding-top: 20px;
+}
+/* 二级菜单样式 */
+.submenu {
+    display: none;
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.submenu.expanded {
+    display: block;
+}
+
+.submenu-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+/* 链接样式 */
+.tree-link {
+    text-decoration: none;
+    color: black;
+}
+
+.tree-link:hover {
+    color: blue;
+}
+
+.lside-container-icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+    padding-right: 5px;
+}
+
+.lside-expanded-container {
+    position: absolute; /* 绝对定位 */
+    top: 50%; /* 垂直居中 */
+    right: -30px; /* 调整为右侧浮动，负值使其超出边界 */
+    transform: translateY(-50%); /* 使其完全垂直居中 */
+    background-color: transparent;
+    z-index: 1; /* 确保按钮在其他内容之上 */
+}
+
+.lside-expanded-toggle-btn {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background: none;
+    border: none; /* 去除边框 */
+}
+.lside-tree-sub-container li {
+    list-style-type: none;
+    padding-left: 0; /* Optional: If there is padding to the left, remove it */
+    padding-top: 10px;
+  }
+  .lside-tree-sub-container{
+    width: 200px;
+  }
+  .tree-sub-li-div {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+  .lside-container-icon {
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+    padding-left: 2px;
+    text-align: center;
+  }

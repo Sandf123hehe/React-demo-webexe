@@ -1,0 +1,115 @@
+/* 整个 Header 容器 */
+.header-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #ffffff;
+    padding: 10px 0;
+    height: 60px;
+    border-bottom: 2px solid #e6e3e3; /* 添加下划线样式 */
+  }
+  
+  .header-container-rside {
+   width:33%;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+     
+     padding-right: 10px;
+  }
+  .header-container-rside div {
+     
+    
+     display: flex;
+     flex-direction: row;
+     justify-content: flex-end;
+      align-items: center;
+      padding-right: 30px;
+   }
+  /* header 部分样式 */
+   
+  
+  /* ul 样式 */
+  .header-container-ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
+  
+  /* li 项目的样式 */
+  .header-container-ul-li {
+    display: inline-block;
+    margin: 0 15px;
+  }
+  
+  /* 链接样式 */
+  .header-container-ul-li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .header-container-iconname {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0; /* 去除默认的间距，确保紧密排列 */
+  }
+  /* hover 状态下的样式 */
+  .header-container-ul-li a:hover {
+    color: #ff6347; /* 橙色 */
+    text-decoration: underline;
+  }
+  
+.header-container-icon {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  padding-left: 20px;
+}
+.header-container-icon-logo {
+  width: 2em;
+  height: 2em;
+  vertical-align: 0em;
+  fill: currentColor;
+  overflow: hidden;
+  padding-left: 20px;
+  padding-top: 3px;
+}
+
+.header-container-ul {
+  display: flex;
+  flex-direction: row;
+   
+  align-items: center; /* 垂直居中 */
+  justify-content: space-between; /* 左右间隔 */
+}
+
+.header-container-lside {
+  width:33%;
+    
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start; /* 左对齐 */
+  align-items: center; /* 垂直居中 */
+  gap: 2px; /* 让各个元素之间有一点间距，可以根据需要调整 */
+ padding-left: 50px;
+}
+.header-container-cside {
+  display: flex;
+  flex-direction: row;
+  width:33%;
+   
+  align-items: center; /* 垂直居中 */
+  justify-content: flex-end; /* 左右间隔 */
+}
+@media only screen and (max-width: 600px) {
+
+  .header-container-lside {
+    visibility: hidden;
+  }
+}

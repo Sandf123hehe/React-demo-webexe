@@ -1,0 +1,26 @@
+/* #region start container Set up */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+     
+}
+
+.home-container-bodycontainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;  /* 使得子组件之间有间隔 */
+    align-items: stretch;  /* 确保子组件的高度相同 */
+    height: 100%;  /* 设置高度为视口高度 */
+    
+}
+
+.home-container-ccontainer {
+    height: 100%; 
+    width: 100%; 
+}
+
+ 
+
+ 
+/*  #endregion end */

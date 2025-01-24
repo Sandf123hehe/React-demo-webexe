@@ -1,0 +1,190 @@
+/* 给整个组件一个背景色 */
+.download-table-container {
+    background-color: #f4f4f9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 文字样式 */
+.download-table-p {
+    color: #333;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: center; /* 中心对齐 */
+}
+
+/* 改善表格样式 */
+.download-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.download-table th, .download-table td {
+    padding: 15px;
+    text-align: center;
+    font-size: 1rem;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+/* 表头样式 */
+.download-table th {
+    background-color: #2c3e50;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* 表格数据行样式 */
+.download-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.download-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.download-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* “无数据”行的样式 */
+.download-no-data {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
+
+/* 下载按钮样式 */
+.download-button {
+    background-color: #27ae60;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border: none; /* 移除边框 */
+    cursor: pointer; /* 鼠标指针 */
+}
+
+.download-button:hover {
+    background-color: #2ecc71;
+}
+
+/* 文件列表样式 */
+.file-list {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9; /* 背景色 */
+}
+
+.file-list div {
+    padding: 5px 0; /* 增加每个文件项的间距 */
+    display: flex;
+    align-items: center; /* 垂直居中对齐 */
+}
+
+.file-list input[type="checkbox"] {
+    margin-right: 10px; /* 复选框与文件名之间的间距 */
+}
+
+/* 其他页面内容的样式 */
+.download-h2 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 40px;
+}
+
+/* 联系信息的样式 */
+.download-h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* 中心对齐的文本样式 */
+.download-table-p {
+    text-align: center;
+}
+
+
+
+/* 隐藏默认复选框 */
+.custom-checkbox {
+    display: none; /* 隐藏默认复选框 */
+}
+
+/* 自定义复选框样式 */
+.custom-checkbox-label {
+    position: relative;
+    padding-left: 30px; /* 为复选框留出空间 */
+    cursor: pointer;
+    font-size: 1rem; /* 文件名字体大小 */
+    color: #333; /* 文件名颜色 */
+}
+
+/* 自定义复选框的外观 */
+.custom-checkbox-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px; /* 复选框宽度 */
+    height: 20px; /* 复选框高度 */
+    border: 2px solid #27ae60; /* 边框颜色 */
+    border-radius: 4px; /* 圆角 */
+    background-color: #fff; /* 背景颜色 */
+    transition: background-color 0.3s, border-color 0.3s; /* 动画效果 */
+}
+
+/* 选中状态 */
+.custom-checkbox:checked + .custom-checkbox-label::before {
+    background-color: #27ae60; /* 选中时背景颜色 */
+    border-color: #27ae60; /* 选中时边框颜色 */
+}
+
+/* 复选框选中时的勾号 */
+.custom-checkbox:checked + .custom-checkbox-label::after {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white; /* 勾号颜色 */
+    border-width: 0 3px 3px 0; /* 勾号形状 */
+    transform: rotate(45deg); /* 旋转勾号 */
+      
+    
+}
+.expanded-icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+    transform: rotate(90deg);
+    transform-origin: center; /* 可以选择不同的点，比如左上角(0 0)、中心(center)等 */
+  }
+  .file-icon {
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+     margin-right: 8px;
+  }

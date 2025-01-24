@@ -1,0 +1,215 @@
+/* #region 外部最大的容器start */
+/* 外部容器设置 */
+.carousel-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 auto;
+  width: 1200px;
+  height: 504px;
+  
+ height: 500px; /* 设置高度 */
+}
+
+/*  #endregion end */
+
+/* #region carousel-container-left start */
+.carousel-container-left {
+  height: 80%;
+  margin: 0 auto;
+ 
+}
+
+.carousel-container-left .carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  /* 隐藏超出容器部分 */
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+/* 图片容器，使用 flex 排列 */
+.carousel-container-left .carousel .carousel-wrapper {
+  display: flex;
+  width: 264px;
+  height: 100%;
+}
+
+/* 图片部分，采用 flex 排列方式 */
+.carousel-container-left .carousel .carousel-wrapper .carousel-images {
+  display: flex;
+  /* transition: transform 2s ease-in-out; */
+  /* 动画效果 */
+}
+
+/* 每个图片的样式 */
+.carousel-container-left .carousel .carousel-wrapper .carousel-images .carousel-image {
+  width: 264px;
+  height: 100%;
+  object-fit: cover;
+  /* 保证图片按比例填充并裁剪 */
+}
+/*  #endregion end */
+
+
+/* #region carousel-container-center start */
+.carousel-container-center {
+  height: 100%;
+  margin: 0 auto;
+  width: 56%;
+  /* 672px */
+}
+
+.carousel-container-center .carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  /* 隐藏超出容器部分 */
+  border-radius: 10px;
+}
+/* 图片容器，使用 flex 排列 */
+.carousel-container-center .carousel .carousel-wrapper {
+  display: flex;
+  width: 672px;
+  height: 100%;
+  
+}
+
+/* 图片部分，采用 flex 排列方式 */
+.carousel-container-center .carousel .carousel-wrapper .carousel-images {
+  display: flex;
+  /* transition: transform 2s ease-in-out; */
+  /* 动画效果 */
+}
+
+/* 每个图片的样式 */
+.carousel-container-center .carousel .carousel-wrapper .carousel-images .carousel-image {
+  width:672px;
+  height: 100%;
+  object-fit: cover;
+  /* 保证图片按比例填充并裁剪 */
+}
+/*  #endregion end */
+
+
+/* #region carousel-container-right start */
+.carousel-container-right {
+  height: 80%;
+  margin: 0 auto;
+ 
+}
+
+.carousel-container-right .carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  /* 隐藏超出容器部分 */
+ border-bottom-right-radius: 10px;
+ border-top-right-radius: 10px;
+  
+}
+/* 图片容器，使用 flex 排列 */
+.carousel-container-right .carousel .carousel-wrapper {
+  display: flex;
+  width: 264px;
+  height: 100%;
+  
+}
+
+/* 图片部分，采用 flex 排列方式 */
+.carousel-container-right .carousel .carousel-wrapper .carousel-images {
+  display: flex;
+  border-radius: 50px;
+  /* transition: transform 2s ease-in-out; */
+  /* 动画效果 */
+   
+}
+
+/* 每个图片的样式 */
+.carousel-container-right .carousel .carousel-wrapper .carousel-images .carousel-image {
+  width: 264px;
+  height: 100%;
+  object-fit: cover;
+  
+  /* 保证图片按比例填充并裁剪 */
+}
+/*  #endregion end */
+
+
+/* #region 小圆点和按钮start */
+/* 按钮样式 */
+.carousel-container button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  /* 垂直居中 */
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+  /* 确保按钮在最前面 */
+}
+
+/* 左侧按钮位置 */
+.prev {
+  left: 10px;
+}
+
+/* 右侧按钮位置 */
+.next {
+  right: 10px;
+}
+
+/* 鼠标悬停时按钮颜色变化 */
+.carousel-container button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* 小圆点容器 */
+.carousel-dots {
+  position: absolute;
+  top: 95%;
+  /* 设置小圆点的垂直位置为图片的中间 */
+  left: 50%;
+  /* 设置小圆点的水平位置为图片的中间 */
+  transform: translate(-50%, -50%);
+  /* 调整小圆点位置到中心 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  /* 确保圆点在图片之上 */
+}
+
+.dot {
+  width: 12px;
+  /* 小圆点大小 */
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 0 8px;
+  /* 圆点之间的间距 */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: #ee1616;
+  /* 激活的圆点颜色 */
+}
+
+/* 小圆点 hover 效果 */
+.dot:hover {
+  background-color: #ee1616;
+}
+/*  #endregion end */
+

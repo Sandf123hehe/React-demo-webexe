@@ -1,0 +1,72 @@
+/* MessageDetail组件的容器 */
+.messageDetailContainer {
+  width: 98%;
+   
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* 消息标题 */
+.messageDetail-messageTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #e2e2e2;
+  padding-bottom: 10px;
+  text-align: center;
+  /* 居中对齐标题 */
+
+
+}
+
+/* 消息发布时间 */
+.messageDetail-messageTime {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 20px;
+  text-align: right;
+  padding-right: 20px;
+}
+
+/* 消息内容 */
+.messageDetail-messageContent {
+  font-size: 1.5rem;
+  line-height: 2;
+  color: #444;
+  padding: 10px 0;
+  text-align: justify;
+  white-space: pre-wrap;
+  /* 保持文本的格式 */
+  margin-bottom: 30px;  /* 如果需要在不同段落之间增加额外的空间，可以使用 margin */
+}
+
+.messagedetail-container-icon {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  padding-left: 20px;
+} 
+
+/* 添加一些响应式设计，确保在不同设备上也能很好地显示 */
+@media (max-width: 768px) {
+  .messageDetail-messageDetailContainer {
+    padding: 15px;
+  }
+
+  .messageDetail-messageTitle {
+    font-size: 1.8rem;
+  }
+
+  .messageDetail-messageContent {
+    font-size: 1rem;
+    line-height: 1.5em;  /* 行间距为字体大小的 1.5 倍 */
+     
+  }
+}

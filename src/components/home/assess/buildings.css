@@ -1,0 +1,203 @@
+/* 基本布局 */
+.buildings-container {
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  background-color: #f4f4f4; /* 使用更柔和的背景色 */
+}
+
+.buildings-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.buildings-header h1 {
+  font-size: 2rem; /* 调整字体大小 */
+  color: #333; /* 深色文字 */
+  margin-bottom: 10px;
+}
+
+.search-box {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.search-input {
+  padding: 10px;
+  width: 100%;
+  max-width: 400px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s; /* 添加过渡效果 */
+}
+
+.search-input:focus {
+  border-color: #007bff; /* 聚焦时的边框颜色 */
+}
+
+.add-button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  background-color: #007bff; /* 按钮背景颜色 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* 添加过渡效果 */
+}
+
+.add-button:hover {
+  background-color: #0056b3; /* 悬停时的颜色 */
+}
+
+.buildings-list {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #fff; /* 使用白色背景 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 更轻的阴影 */
+  border-radius: 8px;
+}
+
+/* 表格样式 */
+.buildings-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.buildings-table th,
+.buildings-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.buildings-table th {
+  background-color: #007bff; /* 表头背景颜色 */
+  color: white;
+}
+
+.buildings-table tr:hover {
+  background-color: #f1f1f1; /* 悬停时的背景色 */
+}
+
+.no-results {
+  text-align: center;
+  color: #e74c3c; /* 使用红色显示没有结果 */
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* 模态框样式 */
+/* 模态框样式 */
+.buildings-modal {
+  position: fixed;          /* 固定定位 */
+  top: 50%;                 /* 距离顶部 50% */
+  left: 50%;                /* 距离左侧 50% */
+  transform: translate(-50%, -50%); /* 将自身宽高向上和向左平移各 50%，实现完全居中 */
+  width: 500px;             /* 固定宽度 */
+  max-width: 90%;           /* 响应式宽度，最大为 90% */
+  background-color: rgb(255, 255, 255);  /* 背景颜色为白色 */
+  display: flex;            /* 使用 Flexbox 布局 */
+  justify-content: center;  /* 水平居中 */
+  align-items: center;      /* 垂直居中 */
+  z-index: 1000;            /* 确保模态框在最上层 */
+}
+
+
+.modal-content {
+  background-color: #fff; /* 模态框背景 */
+   
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 500px; /* 固定宽度 */
+   
+  position: relative; /* 使内容相对定位 */
+}
+
+.buildings-modal h2 {
+  margin-bottom: 20px;
+}
+
+.buildings-modal label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.buildings-modal input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-actions button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal-actions button[type="submit"] {
+  background-color: #28a745; /* 绿色 */
+  color: white;
+}
+
+.modal-actions button[type="button"] {
+  background-color: #dc3545; /* 红色 */
+  color: white;
+}
+
+.modal-actions button:hover {
+  opacity: 0.9; /* 悬停时透明度变化 */
+}
+/* #region 字体图标start */
+/* 设置带图标的 .building-edit-container 按钮 */
+.building-edit-container {
+  display: inline-flex;  /* 使用 inline-flex 实现行内元素的 flex 布局 */
+  align-items: center;  /* 垂直居中对齐 */
+  background-color: #28a745;  /* 背景色：绿色 */
+  color: white;  /* 文字颜色：白色 */
+  padding: 12px 20px;  /* 内边距 */
+  border: none;  /* 去掉边框 */
+  border-radius: 5px;  /* 圆角边框 */
+  font-size: 20px;  /* 字体大小 */
+  cursor: pointer;  /* 鼠标悬停时显示指针 */
+  transition: background-color 0.3s, transform 0.3s;  /* 背景色和缩放的过渡效果 */
+}
+
+/* 按钮中的图标 */
+.building-edit-container svg {
+  margin-right: 8px;  /* 图标和文本之间的间距 */
+   
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: -1em;/* 将图标向上偏移 1.15em */
+  fill: red; /* 设置图标颜色为红色 */
+  overflow: hidden;
+}
+
+/* 鼠标悬停时 */
+.building-edit-container:hover {
+  background-color: #218838;  /* 悬停时背景色稍深 */
+  transform: scale(1.05);  /* 鼠标悬停时按钮稍微放大 */
+}
+
+/* 鼠标点击时 */
+.building-edit-container:active {
+  transform: scale(0.98);  /* 点击时按钮缩小 */
+}
+
+ 
+ 
+/*  #endregion end */

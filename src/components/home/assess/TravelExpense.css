@@ -1,0 +1,111 @@
+.travel-expense-container {
+  padding: 20px;
+}
+
+.travel-expense-searchsection {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.travel-expense-searchInput {
+  width: 70%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+.travel-expense-searchInput:focus {
+  border-color: #007bff;
+}
+
+.travel-expense-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.travel-expense-table th, .travel-expense-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.travel-expense-table th {
+  background-color: #f2f2f2;
+}
+
+.travel-expense-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.travelExpense-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.travelExpense-modal-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  min-width: 400px;
+}
+
+.travel-expense-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 auto;
+}
+
+.travel-expense-form div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+}
+
+.travel-expense-form div label {
+  width: 100px;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.travel-expense-form div input,
+.travel-expense-form div textarea {
+  width: calc(100% - 120px);
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.travel-expense-form div input:focus,
+.travel-expense-form div textarea:focus {
+  border-color: #66afe9;
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+.travel-expanded-icon { 
+   width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;}

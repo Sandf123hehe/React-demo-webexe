@@ -1,0 +1,69 @@
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Home from '../pages/Home';
+import About from '../pages/About';
+import Login from '../pages/Login';
+import First from '../components/home/cside/First';
+import Second from '../components/home/cside/Second';
+import Billingpage from '../components/bookkeeping/Billingpage';
+import SiteLinks from '../components/usedwebsites/SiteLinks';
+import Specialtips from '../components/home/specialtips/Specialtips';
+import PublicNews from '../components/home/publicnews/PublicNews';
+import MessageDetail from '../components/home/publicnews/MessageDetail';
+import RealEstate from '../components/home/assess/RealEstate';
+import Buildings from '../components/home/assess/Buildings';
+import Equipment from '../components/home/assess/Equipment';
+import Download from '../components/home/assess/Download';
+import Achievements from '../components/home/assess/Achievements';
+import TravelExpense from '../components/home/assess/TravelExpense';
+import FeeCalculation from '../components/home/feecalculation/FeeCalculation';
+import Carousel from '../components/home/amusement/Carousel';
+import Music from '../components/home/amusement/Music';
+const AppRoutes = () => {
+    return (
+        <Routes>
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/billingpage" element={<Billingpage />} />
+            <Route path="/home" element={<Home />}>
+                {/* 设置 'first' 为默认子路由 */}
+                <Route index element={<First />} />
+                <Route path="first" element={<First />} />
+                <Route path="second" element={<Second />} />
+                {/* 常用网站 */}
+                <Route path="siteLinks" element={<SiteLinks />} />
+                {/* 特别提示 */}
+                <Route path="specialtips" element={<Specialtips />} />
+                {/* 消息通知 */}
+                <Route path="publicnews" element={<PublicNews />} />
+                {/* 消息通知-详细 */}
+                {/* <Route path="messagedetail" element={<MessageDetail />} /> */}
+                <Route path="messageDetail/:messageId" element={<MessageDetail />} />
+                {/* 房地产价格查询 */}
+                <Route path="realestate" element={<RealEstate />} />
+                {/* 构筑物价格查询 */}
+                <Route path="buildings" element={<Buildings />} />
+
+                {/* 机器设备价格查询 */}
+                <Route path="equipment" element={<Equipment />} />
+                {/* 报告下载 */}
+                <Route path="download" element={<Download />} />
+                {/* 绩效 */}
+                <Route path="achievements" element={<Achievements />} />
+                {/* 车费报销 */}
+                <Route path="travelexpense" element={<TravelExpense />} />
+                {/* 收费计算 */}
+                <Route path="feecalculation" element={<FeeCalculation />} />
+                {/* 音乐 */}
+                <Route path="music" element={<Music />} />
+                {/* 图片 */}
+                <Route path="carousel" element={<Carousel />} />
+
+            </Route>
+
+            <Route path="/" element={<Home />} /> {/* 默认路由 */}
+        </Routes>
+    );
+};
+
+export default AppRoutes;
