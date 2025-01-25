@@ -42,7 +42,7 @@
     border: none;
     cursor: pointer;
     padding: 5px;
-    font-size: 18px;
+    font-size: 25px;
     margin-left: 10px;
 }
 
@@ -94,6 +94,7 @@
     flex-direction: row;
     align-items: baseline;
   }
+ 
   .lside-container-icon {
     width: 1.2em;
     height: 1.2em;

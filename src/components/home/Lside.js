@@ -34,18 +34,18 @@ const Lside = () => {
               <use xlinkHref="#icon-web"></use>
             </svg>常用网站</Link></li>
           <li><Link to="/home/specialtips" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
-              <use xlinkHref="#icon-tishi"></use>
-            </svg>特别提示</Link></li>
+            <use xlinkHref="#icon-tishi"></use>
+          </svg>特别提示</Link></li>
           <li><Link to="/home/publicnews" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
-              <use xlinkHref="#icon-tongzhi4"></use>
-            </svg>消息通知</Link></li>
+            <use xlinkHref="#icon-tongzhi4"></use>
+          </svg>消息通知</Link></li>
 
           {/* 评估系统 */}
           <li className="tree-sub-li">
             <div className="tree-sub-li-div">
               <Link to="/home/realestate" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
-              <use xlinkHref="#icon-banxuepinggu"></use>
-            </svg>评估系统</Link>
+                <use xlinkHref="#icon-banxuepinggu"></use>
+              </svg>评估系统</Link>
               <button onClick={() => toggleSubmenu('second')} className="submenu-toggle-btn">
                 {activeSubmenus.second ?
                   <svg className="lside-container-icon" aria-hidden="true">
@@ -61,27 +61,36 @@ const Lside = () => {
 
             {/* 二级菜单 */}
             <ul className={`submenu ${activeSubmenus.second ? 'expanded' : 'collapsed'}`}>
-              <li><Link to="/home/realestate" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
-              <use xlinkHref="#icon-changfangchuzu"></use>
-            </svg>房地产查询</Link></li>
-              <li><Link to="/home/buildings" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
-              <use xlinkHref="#icon-gouzhuwu1"></use>
-            </svg>构筑物查询</Link></li>
+              <li>
+                <Link to="/home/realestate" className="tree-link">
+                  <svg className="lside-container-icon" aria-hidden="true">
+                    <use xlinkHref="#icon-changfangchuzu">
+                    </use>
+                  </svg>
+                  房地产查询
+                </Link></li>
+              <li><Link to="/home/buildings" className="tree-link">
+                <svg className="lside-container-icon" aria-hidden="true">
+                  <use xlinkHref="#icon-gouzhuwu1">
+                  </use>
+                </svg>
+                构筑物查询
+              </Link></li>
               <li><Link to="/home/equipment" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
-              <use xlinkHref="#icon-jiqiren2"></use>
-            </svg>机器设备查询</Link></li>
+                <use xlinkHref="#icon-jiqiren2"></use>
+              </svg>设备查询</Link></li>
               <li><Link to="/home/download" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
-              <use xlinkHref="#icon-baogao"></use>
-            </svg>报告下载</Link></li>
+                <use xlinkHref="#icon-baogao"></use>
+              </svg>报告下载</Link></li>
               <li><Link to="/home/achievements" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
-              <use xlinkHref="#icon-wodejixiao"></use>
-            </svg>绩效</Link></li>
+                <use xlinkHref="#icon-wodejixiao"></use>
+              </svg>绩效</Link></li>
               <li><Link to="/home/travelexpense" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
-              <use xlinkHref="#icon-weibiaoti-"></use>
-            </svg>报销</Link></li>
+                <use xlinkHref="#icon-weibiaoti-"></use>
+              </svg>报销</Link></li>
               <li><Link to="/home/feecalculation" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
-              <use xlinkHref="#icon-jisuanji"></use>
-            </svg>收费计算</Link></li>
+                <use xlinkHref="#icon-jisuanji"></use>
+              </svg>收费计算</Link></li>
             </ul>
           </li>
 
@@ -102,14 +111,14 @@ const Lside = () => {
             {/* 二级菜单 */}
             <ul className={`submenu ${activeSubmenus.entertainment ? 'expanded' : 'collapsed'}`}>
               <li><Link to="/home/music" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
-                  <use xlinkHref="#icon-yinleliebiao"></use>
-                </svg>音乐</Link></li>
+                <use xlinkHref="#icon-yinleliebiao"></use>
+              </svg>音乐</Link></li>
               <li><Link to="/home/carousel" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
-                  <use xlinkHref="#icon-tupian1"></use>
-                </svg>图片</Link></li>
-                <li><Link to="/billingpage" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
-                  <use xlinkHref="#icon-jizhang"></use>
-                </svg>记账</Link></li>
+                <use xlinkHref="#icon-tupian1"></use>
+              </svg>图片</Link></li>
+              <li><Link to="/billingpage" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
+                <use xlinkHref="#icon-jizhang"></use>
+              </svg>记账</Link></li>
             </ul>
           </li>
         </ul>

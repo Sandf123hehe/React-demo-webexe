@@ -36,7 +36,7 @@ const Header = () => {
 
             <div className="header-container-rside">
                 <div>
-                    <li className="header-container-ul-li"><Link to="/home/realestate">
+                    <li className="header-container-ul-li"><Link to="/home/personalhome">
                         <svg className="header-container-icon" aria-hidden="true">
                             <use xlinkHref="#icon-shouye-zhihui"></use>
                         </svg>

@@ -1,0 +1,87 @@
+.personalhome-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: #edf1ee; /* 浅绿色 */
+    flex-direction: column; /* 确保上下排列 */
+    overflow-y: auto;  /* 在内容超出时开启垂直滚动条 */
+}
+
+.personalhome-container-header {
+    flex: 0 0 10%; /* 固定高度为20% */
+     
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 30px;
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+.personalhome-greeting-container {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;  /* 设置背景颜色 */
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.personalhome-greeting-container h2 {
+    margin: 10px 0;
+    color: #333;
+    text-align: center;
+}
+
+.personalhome-greeting-time {
+    font-size: 1.5em;
+    color: #4CAF50;
+}
+
+.personalhome-greeting-user {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.personalhome-container-body {
+    flex: 1; /* 使主体部分占据剩余空间 */
+    
+    display: flex; /* 使主体部分为flex容器 */
+    flex-direction: column; /* 垂直排列 */
+}
+
+.personalhome-container-body-content {
+    display: flex;
+    flex-wrap: wrap; /* 允许换行 */
+    justify-content: space-around; /* 在主体中均匀分布内容 */
+    padding: 10px; /* 添加内边距 */
+    overflow-y: auto; /* 允许垂直滚动 */
+}
+
+.personalhome-section {
+    box-sizing: border-box;
+    flex: 1 1 30%; /* 每个section占据30%的宽度 */
+    margin: 10px; /* 添加间距 */
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s; /* 添加过渡效果 */
+    text-align: center;
+}
+
+.personalhome-section:hover {
+    transform: scale(0.98); /* 向内缩小 */
+}
+
+.personalhome-hovered {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* 悬停时的阴影 */
+}
+
+.personalhome-container-footer {
+    flex: 0 0 10%; /* 固定高度为10% */
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em; /* 增大字体 */
+}

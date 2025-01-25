@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../pages/Home';
 import About from '../pages/About';
 import Login from '../pages/Login';
@@ -19,15 +19,18 @@ import TravelExpense from '../components/home/assess/TravelExpense';
 import FeeCalculation from '../components/home/feecalculation/FeeCalculation';
 import Carousel from '../components/home/amusement/Carousel';
 import Music from '../components/home/amusement/Music';
+import Personalhome from '../components/project/Personalhome';
 const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/billingpage" element={<Billingpage />} />
+
             <Route path="/home" element={<Home />}>
                 {/* 设置 'first' 为默认子路由 */}
-                <Route index element={<First />} />
+                {/* <Route index element={<Navigate to="/home/personalhome" />} />  */}
+                {/* <Route index element={<First />} /> */}
                 <Route path="first" element={<First />} />
                 <Route path="second" element={<Second />} />
                 {/* 常用网站 */}
@@ -59,9 +62,15 @@ const AppRoutes = () => {
                 {/* 图片 */}
                 <Route path="carousel" element={<Carousel />} />
 
-            </Route>
+                {/* 项目个人首页 */}
+                <Route path="personalhome" element={<Personalhome />} />
 
-            <Route path="/" element={<Home />} /> {/* 默认路由 */}
+            </Route>
+            {/* 默认路由 */}
+            {/* <Route path="/" element={<Home />} />  */}
+            {/* <Route path="/home/personalhome" element={<Home />} /> */}
+            <Route path="/" element={<Navigate to="/home/personalhome" />} />
+             
         </Routes>
     );
 };
