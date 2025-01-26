@@ -32,6 +32,7 @@ const TravelExpenseForm = ({ expense, onSave, onCancel, onDelete }) => {
   const [businessTripDate, setBusinessTripDate] = useState('');
   const [reimbursementDate, setReimbursementDate] = useState('');
   const [remarks, setRemarks] = useState('');
+  const [whetherOver, setWhetherOver] = useState(false); // 新增状态
 
   useEffect(() => {
     if (expense) {
@@ -42,6 +43,7 @@ const TravelExpenseForm = ({ expense, onSave, onCancel, onDelete }) => {
       setBusinessTripDate(formatDate(expense.BusinessTripDate));
       setReimbursementDate(formatDate(expense.ReimbursementDate));
       setRemarks(expense.Remarks);
+      setWhetherOver(expense.Whetherover); // 新增
     } else {
       setProjectCode('');
       setProjectName('');
@@ -50,6 +52,7 @@ const TravelExpenseForm = ({ expense, onSave, onCancel, onDelete }) => {
       setBusinessTripDate('');
       setReimbursementDate('');
       setRemarks('');
+      setWhetherOver(false); // 新增
     }
   }, [expense]);
 
@@ -67,6 +70,7 @@ const TravelExpenseForm = ({ expense, onSave, onCancel, onDelete }) => {
       BusinessTripDate: businessTripDate,
       ReimbursementDate: reimbursementDate,
       Remarks: remarks,
+      Whetherover: whetherOver, // 新增
     });
   };
 
@@ -137,7 +141,16 @@ const TravelExpenseForm = ({ expense, onSave, onCancel, onDelete }) => {
           onChange={(e) => setRemarks(e.target.value)}
         />
       </div>
-
+      <div>
+        <label>报销状态：</label>
+        <select
+          value={whetherOver ? '1' : '0'}
+          onChange={(e) => setWhetherOver(e.target.value === '1')}
+        >
+          <option value="0">未报销</option>
+          <option value="1">已报销</option>
+        </select>
+      </div>
       <div className="form-actions">
         <button type="submit">保存</button>
         <button type="button" onClick={onCancel}>取消</button>
@@ -281,6 +294,8 @@ const TravelExpense = () => {
             <th>项目名称</th>
             <th>金额</th>
             <th>出差时间</th>
+            <th>地点</th>
+            <th>状态</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -297,14 +312,16 @@ const TravelExpense = () => {
                 <td>{expense.ProjectName}</td>
                 <td>¥{expense.Amount.toFixed(2)}</td>
                 <td>{formatDate(expense.BusinessTripDate)}</td>
+                <td>{expense.Location}</td>
+                <td>{expense.Whetherover ? '已报销' : '未报销'}</td> {/* 新增 */}
                 <td>
                   <button onClick={(e) => { e.stopPropagation(); handleEditExpense(expense); }}>编辑</button>
                 </td>
               </tr>
               {expandedRows[expense.ID] && (
                 <tr>
-                  <td colSpan="6">
-                    <div>地点: {expense.Location}</div>
+                  <td colSpan="8">
+                    {/* <div>地点: {expense.Location}</div> */}
                     <div>备注: {expense.Remarks}</div>
                   </td>
                 </tr>

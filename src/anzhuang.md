@@ -56,6 +56,7 @@ CREATE TABLE Achievements (
     ReimbursementDate DATE,  -- 报销时间，日期类型
     Remarks NVARCHAR(255),  -- 备注，长度为255
     ReimbursedBy NVARCHAR(100) NOT NULL  -- 报销人，长度为100
+    Whetherover BIT  -- 是否已完成，波尔类型（使用 BIT 存储，值为 0 或 1）
 );
 
 
@@ -150,6 +151,20 @@ CREATE TABLE BillingApp.dbo.EvaluateworklogTable (
     communication_record NVARCHAR(MAX),  -- 沟通记录
     contact_time DATE,  -- 联系时间
 );
+
+
+//机器设备价格查询
+CREATE TABLE BillingApp.dbo.MachineryEquipmentPricesTable (
+    id INT IDENTITY(1,1) PRIMARY KEY,   -- 自动递增的唯一标识符（主键）
+    name NVARCHAR(100) NOT NULL,         -- 设备名称，字符串类型，最大长度为100
+    model NVARCHAR(100) NOT NULL,        -- 规格型号，字符串类型，最大长度为100
+    manufacturer NVARCHAR(100) NOT NULL, -- 品牌，字符串类型，最大长度为100
+    unit NVARCHAR(50) NOT NULL,          -- 单位，字符串类型，最大长度为50
+    price DECIMAL(18, 2) NOT NULL        -- 价格，数值类型，保留两位小数
+);
+
+
+
 
 http://111.231.79.183:5201/api/getUsedWebsitesData
 

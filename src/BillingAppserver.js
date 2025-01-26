@@ -94,8 +94,9 @@ app.get('/api/getTravelExpenseReimbursementData', async (req, res) => {
     }
 });
 // 添加差旅报销记录
+// 添加差旅报销记录
 app.post('/api/addTravelExpense', async (req, res) => {
-    const { ProjectCode, ProjectName, Location, Amount, BusinessTripDate, ReimbursementDate, Remarks, ReimbursedBy } = req.body;
+    const { ProjectCode, ProjectName, Location, Amount, BusinessTripDate, ReimbursementDate, Remarks, ReimbursedBy, Whetherover } = req.body;
     try {
         let pool = await sql.connect(firstconfig);
         const result = await pool.request()
@@ -107,7 +108,8 @@ app.post('/api/addTravelExpense', async (req, res) => {
             .input('ReimbursementDate', sql.Date, ReimbursementDate)
             .input('Remarks', sql.NVarChar, Remarks)
             .input('ReimbursedBy', sql.NVarChar, ReimbursedBy)
-            .query('INSERT INTO TravelExpenseReimbursement (ProjectCode, ProjectName, Location, Amount, BusinessTripDate, ReimbursementDate, Remarks, ReimbursedBy) OUTPUT INSERTED.ID VALUES (@ProjectCode, @ProjectName, @Location, @Amount, @BusinessTripDate, @ReimbursementDate, @Remarks, @ReimbursedBy)');
+            .input('Whetherover', sql.Bit, Whetherover) // 新增
+            .query('INSERT INTO TravelExpenseReimbursement (ProjectCode, ProjectName, Location, Amount, BusinessTripDate, ReimbursementDate, Remarks, ReimbursedBy, Whetherover) OUTPUT INSERTED.ID VALUES (@ProjectCode, @ProjectName, @Location, @Amount, @BusinessTripDate, @ReimbursementDate, @Remarks, @ReimbursedBy, @Whetherover)');
         
         res.json({ ID: result.recordset[0].ID });
         pool.close();
@@ -120,7 +122,7 @@ app.post('/api/addTravelExpense', async (req, res) => {
 // 更新差旅报销记录
 app.put('/api/updateTravelExpense/:id', async (req, res) => {
     const { id } = req.params;
-    const { ProjectCode, ProjectName, Location, Amount, BusinessTripDate, ReimbursementDate, Remarks, ReimbursedBy } = req.body;
+    const { ProjectCode, ProjectName, Location, Amount, BusinessTripDate, ReimbursementDate, Remarks, ReimbursedBy, Whetherover } = req.body;
     try {
         let pool = await sql.connect(firstconfig);
         await pool.request()
@@ -133,7 +135,36 @@ app.put('/api/updateTravelExpense/:id', async (req, res) => {
             .input('ReimbursementDate', sql.Date, ReimbursementDate)
             .input('Remarks', sql.NVarChar, Remarks)
             .input('ReimbursedBy', sql.NVarChar, ReimbursedBy)
-            .query('UPDATE TravelExpenseReimbursement SET ProjectCode = @ProjectCode, ProjectName = @ProjectName, Location = @Location, Amount = @Amount, BusinessTripDate = @BusinessTripDate, ReimbursementDate = @ReimbursementDate, Remarks = @Remarks, ReimbursedBy = @ReimbursedBy WHERE ID = @ID');
+            .input('Whetherover', sql.Bit, Whetherover) // 新增
+            .query('UPDATE TravelExpenseReimbursement SET ProjectCode = @ProjectCode, ProjectName = @ProjectName, Location = @Location, Amount = @Amount, BusinessTripDate = @BusinessTripDate, ReimbursementDate = @ReimbursementDate, Remarks = @Remarks, ReimbursedBy = @ReimbursedBy, Whetherover = @Whetherover WHERE ID = @ID');
+        
+        res.sendStatus(204); // No content
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+
+// 更新差旅报销记录
+app.put('/api/updateTravelExpense/:id', async (req, res) => {
+    const { id } = req.params;
+    const { ProjectCode, ProjectName, Location, Amount, BusinessTripDate, ReimbursementDate, Remarks, ReimbursedBy, Whetherover } = req.body;
+    try {
+        let pool = await sql.connect(firstconfig);
+        await pool.request()
+            .input('ID', sql.Int, id)
+            .input('ProjectCode', sql.NVarChar, ProjectCode)
+            .input('ProjectName', sql.NVarChar, ProjectName)
+            .input('Location', sql.NVarChar, Location)
+            .input('Amount', sql.Decimal(18, 2), Amount)
+            .input('BusinessTripDate', sql.Date, BusinessTripDate)
+            .input('ReimbursementDate', sql.Date, ReimbursementDate)
+            .input('Remarks', sql.NVarChar, Remarks)
+            .input('ReimbursedBy', sql.NVarChar, ReimbursedBy)
+            .input('Whetherover', sql.Bit, Whetherover) // 新增
+            .query('UPDATE TravelExpenseReimbursement SET ProjectCode = @ProjectCode, ProjectName = @ProjectName, Location = @Location, Amount = @Amount, BusinessTripDate = @BusinessTripDate, ReimbursementDate = @ReimbursementDate, Remarks = @Remarks, ReimbursedBy = @ReimbursedBy, Whetherover = @Whetherover WHERE ID = @ID');
         
         res.sendStatus(204); // No content
         pool.close();
@@ -1025,6 +1056,83 @@ app.delete('/api/deleteEvaluateworklogTable/:id', async (req, res) => {
             .query('DELETE FROM EvaluateworklogTable WHERE id = @id');
         
         res.status(204).send(); // No Content
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+
+
+//机器设备
+// 获取所有设备
+app.get('/api/getMachineryEquipmentPricesTable', async (req, res) => {
+    try {
+        const pool = await sql.connect(firstconfig);
+        const result = await pool.request().query('SELECT * FROM MachineryEquipmentPricesTable');
+        res.json(result.recordset);
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// 添加设备
+app.post('/api/addMachineryEquipmentPricesTable', async (req, res) => {
+    const { name, model, manufacturer, unit, price } = req.body;
+    try {
+        const pool = await sql.connect(firstconfig);
+        const result = await pool.request()
+            .input('name', sql.NVarChar, name)
+            .input('model', sql.NVarChar, model)
+            .input('manufacturer', sql.NVarChar, manufacturer)
+            .input('unit', sql.NVarChar, unit)
+            .input('price', sql.Decimal(18, 2), price)
+            .query('INSERT INTO MachineryEquipmentPricesTable (name, model, manufacturer, unit, price) OUTPUT INSERTED.id VALUES (@name, @model, @manufacturer, @unit, @price)');
+        
+        res.status(201).json({ ID: result.recordset[0].id });
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// 更新设备
+app.put('/api/updateMachineryEquipmentPricesTable/:id', async (req, res) => {
+    const { id } = req.params;
+    const { name, model, manufacturer, unit, price } = req.body;
+    try {
+        const pool = await sql.connect(firstconfig);
+        await pool.request()
+            .input('id', sql.Int, id)
+            .input('name', sql.NVarChar, name)
+            .input('model', sql.NVarChar, model)
+            .input('manufacturer', sql.NVarChar, manufacturer)
+            .input('unit', sql.NVarChar, unit)
+            .input('price', sql.Decimal(18, 2), price)
+            .query('UPDATE MachineryEquipmentPricesTable SET name = @name, model = @model, manufacturer = @manufacturer, unit = @unit, price = @price WHERE id = @id');
+        
+        res.sendStatus(204); // No Content
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// 删除设备
+app.delete('/api/deleteMachineryEquipmentPricesTable/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const pool = await sql.connect(firstconfig);
+        await pool.request()
+            .input('id', sql.Int, id)
+            .query('DELETE FROM MachineryEquipmentPricesTable WHERE id = @id');
+        
+        res.sendStatus(204); // No Content
         pool.close();
     } catch (err) {
         console.error(err);
