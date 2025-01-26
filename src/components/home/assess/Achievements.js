@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from '../../../context/AuthContext';
 import "./Achievements.css";
-
+import { Link } from 'react-router-dom';
 // 日期格式化函数
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -275,6 +275,12 @@ function Achievements() {
 
   return (
     <div className="achievements-container">
+                   <Link to="/home/personalhome" className="tree-link">
+                <svg className="lside-container-icon" aria-hidden="true">
+                    <use xlinkHref="#icon-fanhui2">
+                    </use>
+                </svg>
+            </Link>
       <h2 className="icon-container">
         <svg className="icon-address" aria-hidden="true">
           <use xlinkHref="#icon-address"></use>

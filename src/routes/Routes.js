@@ -20,6 +20,10 @@ import FeeCalculation from '../components/home/feecalculation/FeeCalculation';
 import Carousel from '../components/home/amusement/Carousel';
 import Music from '../components/home/amusement/Music';
 import Personalhome from '../components/project/Personalhome';
+import Projectdispatchform from '../components/project/Projectdispatchform';
+import ReportNumberTable from '../components/project/ReportNumberTable';
+import Assessprojectfees from '../components/project/Assessprojectfees';
+import Worklog from '../components/project/Worklog';
 const AppRoutes = () => {
     return (
         <Routes>
@@ -64,7 +68,10 @@ const AppRoutes = () => {
 
                 {/* 项目个人首页 */}
                 <Route path="personalhome" element={<Personalhome />} />
-
+                <Route path="projectdispatchform" element={<Projectdispatchform />} />
+                <Route path="reportnumbertable" element={<ReportNumberTable />} />
+                <Route path="assessprojectfees" element={<Assessprojectfees />} />
+                <Route path="worklog" element={<Worklog />} />
             </Route>
             {/* 默认路由 */}
             {/* <Route path="/" element={<Home />} />  */}

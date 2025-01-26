@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../../context/AuthContext'; 
 import './TravelExpense.css';
-
+import { Link } from 'react-router-dom';
 // 日期格式化函数
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -250,6 +250,12 @@ const TravelExpense = () => {
 
   return (
     <div className="travel-expense-container">
+      <Link to="/home/personalhome" className="tree-link">
+                <svg className="lside-container-icon" aria-hidden="true">
+                    <use xlinkHref="#icon-fanhui2">
+                    </use>
+                </svg>
+            </Link>
       <h2>&#32;当前位置：首页&#32;&gt;&#32;报销</h2>
       <div className="travel-expense-searchsection">
         <input

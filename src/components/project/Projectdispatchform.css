@@ -1,0 +1,54 @@
+.projectdispatchform-container {
+    padding: 20px;
+}
+
+.projectdispatchform-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.projectdispatchform-table th,
+.projectdispatchform-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.projectdispatchform-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.projectdispatchform-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 400px;
+}
+
+.projectdispatchform-close-button {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    float: right;
+}
+
+.projectdispatchform-container-label {
+    display: block;
+    margin-top: 10px;
+}
+
+.projectdispatchform-container-input[type="text"],
+.projectdispatchform-container-input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}

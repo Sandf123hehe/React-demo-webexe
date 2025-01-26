@@ -633,8 +633,404 @@ app.get('/api/getUsedWebsitesData', async (req, res) => {
 });
 
 
+//项目派单表
+// 获取所有派单记录
+app.get('/api/getProjectDispatchData', async (req, res) => {
+    try {
+        let pool = await sql.connect(firstconfig);
+        const result = await pool.request().query('SELECT * FROM ProjectDispatchForm');
+        res.status(200).json({ ProjectDispatchForm: result.recordset });
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// 添加派单记录
+app.post('/api/addProjectDispatch', async (req, res) => {
+    const {
+        ProjectName, Branch, OrderNumber, ProjectSource,
+        ProjectSourceContact, ProjectSourcePhone, Client,
+        ClientContact, ClientPhone, Applicant, ApplicantContact,
+        ApplicantPhone, Defendant, DefendantContact, DefendantPhone,
+        ProjectType, EvaluationPurpose, PersonInCharge, EntrustDate, DispatchDate
+    } = req.body;
+
+    try {
+        let pool = await sql.connect(firstconfig);
+        const result = await pool.request()
+            .input('ProjectName', sql.NVarChar, ProjectName)
+            .input('Branch', sql.NVarChar, Branch)
+            .input('OrderNumber', sql.NVarChar, OrderNumber)
+            .input('ProjectSource', sql.NVarChar, ProjectSource)
+            .input('ProjectSourceContact', sql.NVarChar, ProjectSourceContact)
+            .input('ProjectSourcePhone', sql.NVarChar, ProjectSourcePhone)
+            .input('Client', sql.NVarChar, Client)
+            .input('ClientContact', sql.NVarChar, ClientContact)
+            .input('ClientPhone', sql.NVarChar, ClientPhone)
+            .input('Applicant', sql.NVarChar, Applicant)
+            .input('ApplicantContact', sql.NVarChar, ApplicantContact)
+            .input('ApplicantPhone', sql.NVarChar, ApplicantPhone)
+            .input('Defendant', sql.NVarChar, Defendant)
+            .input('DefendantContact', sql.NVarChar, DefendantContact)
+            .input('DefendantPhone', sql.NVarChar, DefendantPhone)
+            .input('ProjectType', sql.NVarChar, ProjectType)
+            .input('EvaluationPurpose', sql.NVarChar, EvaluationPurpose)
+            .input('PersonInCharge', sql.NVarChar, PersonInCharge)
+            .input('EntrustDate', sql.Date, EntrustDate)
+            .input('DispatchDate', sql.Date, DispatchDate)
+            .query(`
+                INSERT INTO ProjectDispatchForm (
+                    ProjectName, Branch, OrderNumber, ProjectSource,
+                    ProjectSourceContact, ProjectSourcePhone, Client,
+                    ClientContact, ClientPhone, Applicant,
+                    ApplicantContact, ApplicantPhone, Defendant,
+                    DefendantContact, DefendantPhone, ProjectType,
+                    EvaluationPurpose, PersonInCharge, EntrustDate, DispatchDate
+                ) VALUES (
+                    @ProjectName, @Branch, @OrderNumber, @ProjectSource,
+                    @ProjectSourceContact, @ProjectSourcePhone, @Client,
+                    @ClientContact, @ClientPhone, @Applicant,
+                    @ApplicantContact, @ApplicantPhone, @Defendant,
+                    @DefendantContact, @DefendantPhone, @ProjectType,
+                    @EvaluationPurpose, @PersonInCharge, @EntrustDate, @DispatchDate
+                );
+            `);
+        res.status(201).json({ ID: result.rowsAffected[0] });
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// 更新派单记录
+app.put('/api/updateProjectDispatch/:id', async (req, res) => {
+    const { id } = req.params;
+    const {
+        ProjectName, Branch, OrderNumber, ProjectSource,
+        ProjectSourceContact, ProjectSourcePhone, Client,
+        ClientContact, ClientPhone, Applicant, ApplicantContact,
+        ApplicantPhone, Defendant, DefendantContact, DefendantPhone,
+        ProjectType, EvaluationPurpose, PersonInCharge, EntrustDate, DispatchDate
+    } = req.body;
+
+    try {
+        let pool = await sql.connect(firstconfig);
+        const result = await pool.request()
+            .input('id', sql.Int, id)
+            .input('ProjectName', sql.NVarChar, ProjectName)
+            .input('Branch', sql.NVarChar, Branch)
+            .input('OrderNumber', sql.NVarChar, OrderNumber)
+            .input('ProjectSource', sql.NVarChar, ProjectSource)
+            .input('ProjectSourceContact', sql.NVarChar, ProjectSourceContact)
+            .input('ProjectSourcePhone', sql.NVarChar, ProjectSourcePhone)
+            .input('Client', sql.NVarChar, Client)
+            .input('ClientContact', sql.NVarChar, ClientContact)
+            .input('ClientPhone', sql.NVarChar, ClientPhone)
+            .input('Applicant', sql.NVarChar, Applicant)
+            .input('ApplicantContact', sql.NVarChar, ApplicantContact)
+            .input('ApplicantPhone', sql.NVarChar, ApplicantPhone)
+            .input('Defendant', sql.NVarChar, Defendant)
+            .input('DefendantContact', sql.NVarChar, DefendantContact)
+            .input('DefendantPhone', sql.NVarChar, DefendantPhone)
+            .input('ProjectType', sql.NVarChar, ProjectType)
+            .input('EvaluationPurpose', sql.NVarChar, EvaluationPurpose)
+            .input('PersonInCharge', sql.NVarChar, PersonInCharge)
+            .input('EntrustDate', sql.Date, EntrustDate)
+            .input('DispatchDate', sql.Date, DispatchDate)
+            .query(`
+                UPDATE ProjectDispatchForm SET
+                ProjectName = @ProjectName,
+                Branch = @Branch,
+                OrderNumber = @OrderNumber,
+                ProjectSource = @ProjectSource,
+                ProjectSourceContact = @ProjectSourceContact,
+                ProjectSourcePhone = @ProjectSourcePhone,
+                Client = @Client,
+                ClientContact = @ClientContact,
+                ClientPhone = @ClientPhone,
+                Applicant = @Applicant,
+                ApplicantContact = @ApplicantContact,
+                ApplicantPhone = @ApplicantPhone,
+                Defendant = @Defendant,
+                DefendantContact = @DefendantContact,
+                DefendantPhone = @DefendantPhone,
+                ProjectType = @ProjectType,
+                EvaluationPurpose = @EvaluationPurpose,
+                PersonInCharge = @PersonInCharge,
+                EntrustDate = @EntrustDate,
+                DispatchDate = @DispatchDate
+                WHERE id = @id;
+            `);
+        
+        if (result.rowsAffected[0] === 0) {
+            return res.status(404).send('派单记录未找到');
+        }
+
+        res.status(200).send('派单记录更新成功');
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// 删除派单记录
+app.delete('/api/deleteProjectDispatch/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        let pool = await sql.connect(firstconfig);
+        const result = await pool.request()
+            .input('id', sql.Int, id)
+            .query('DELETE FROM ProjectDispatchForm WHERE id = @id');
+        
+        if (result.rowsAffected[0] === 0) {
+            return res.status(404).send('派单记录未找到');
+        }
+
+        res.status(204).send(); // No Content
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
 
 
+
+
+//报告编号
+// 获取所有报告
+app.get('/api/getReportNumbers', async (req, res) => {
+    try {
+        let pool = await sql.connect(firstconfig);
+        let result = await pool.request().query('SELECT * FROM ReportNumberTable');
+        res.json(result.recordset);
+    } catch (error) {
+        console.error('获取报告失败:', error);
+        res.status(500).send('服务器错误');
+    }
+});
+
+// 添加新报告
+app.post('/api/addReportNumbers', async (req, res) => {
+    const { asset_region, report_type, total_assessment_value, asset_usage, unit_assessment_price, assessment_area, report_count, issue_date, report_number, remarks } = req.body;
+    try {
+        let pool = await sql.connect(firstconfig);
+        await pool.request()
+            .input('asset_region', sql.NVarChar, asset_region)
+            .input('report_type', sql.NVarChar, report_type)
+            .input('total_assessment_value', sql.Decimal(18, 2), total_assessment_value)
+            .input('asset_usage', sql.NVarChar, asset_usage)
+            .input('unit_assessment_price', sql.Decimal(18, 2), unit_assessment_price)
+            .input('assessment_area', sql.Decimal(18, 2), assessment_area)
+            .input('report_count', sql.Int, report_count)
+            .input('issue_date', sql.Date, issue_date)
+            .input('report_number', sql.NVarChar, report_number)
+            .input('remarks', sql.NVarChar, remarks)
+            .query('INSERT INTO ReportNumberTable (asset_region, report_type, total_assessment_value, asset_usage, unit_assessment_price, assessment_area, report_count, issue_date, report_number, remarks) VALUES (@asset_region, @report_type, @total_assessment_value, @asset_usage, @unit_assessment_price, @assessment_area, @report_count, @issue_date, @report_number, @remarks)');
+        res.status(201).send('报告添加成功');
+    } catch (error) {
+        console.error('添加报告失败:', error);
+        res.status(500).send('服务器错误');
+    }
+});
+
+// 更新报告
+// 更新报告
+app.put('/api/updateReportNumbers/:id', async (req, res) => {
+    const { id } = req.params;
+    const { asset_region, report_type, total_assessment_value, asset_usage, unit_assessment_price, assessment_area, report_count, issue_date, report_number, remarks } = req.body;
+    try {
+        //console.log('Issue Date:', issue_date); // 检查 issue_date 的值
+        let pool = await sql.connect(firstconfig);
+        await pool.request()
+            .input('id', sql.Int, id)
+            .input('asset_region', sql.NVarChar, asset_region)
+            .input('report_type', sql.NVarChar, report_type)
+            .input('total_assessment_value', sql.Decimal(18, 2), total_assessment_value)
+            .input('asset_usage', sql.NVarChar, asset_usage)
+            .input('unit_assessment_price', sql.Decimal(18, 2), unit_assessment_price)
+            .input('assessment_area', sql.Decimal(18, 2), assessment_area)
+            .input('report_count', sql.Int, report_count)
+            .input('issue_date', sql.Date, issue_date) // 确保传递的是有效的日期
+            .input('report_number', sql.NVarChar, report_number)
+            .input('remarks', sql.NVarChar, remarks)
+            .query('UPDATE ReportNumberTable SET asset_region = @asset_region, report_type = @report_type, total_assessment_value = @total_assessment_value, asset_usage = @asset_usage, unit_assessment_price = @unit_assessment_price, assessment_area = @assessment_area, report_count = @report_count, issue_date = @issue_date, report_number = @report_number, remarks = @remarks WHERE id = @id');
+        res.send('报告更新成功');
+    } catch (error) {
+        console.error('更新报告失败:', error);
+        res.status(500).send('服务器错误');
+    }
+});
+
+
+// 删除报告
+app.delete('/api/deleteReportNumbers/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        let pool = await sql.connect(firstconfig);
+        await pool.request()
+            .input('id', sql.Int, id)
+            .query('DELETE FROM ReportNumberTable WHERE id = @id');
+        res.send('报告删除成功');
+    } catch (error) {
+        console.error('删除报告失败:', error);
+        res.status(500).send('服务器错误');
+    }
+});
+
+
+
+//评估收费统计
+// 获取所有费用记录
+app.get('/api/getAssessProjectFees', async (req, res) => {
+    try {
+        let pool = await sql.connect(firstconfig);
+        const result = await pool.request().query('SELECT * FROM AssessprojectfeesTable');
+        res.json(result.recordset);
+    } catch (error) {
+        console.error('获取费用记录失败:', error);
+        res.status(500).send('服务器错误');
+    }
+});
+
+// 添加费用记录
+app.post('/api/addAssessProjectFees', async (req, res) => {
+    const { project_id, fee_amount, fee_date, fee_type, remarks } = req.body;
+    try {
+        let pool = await sql.connect(firstconfig);
+        await pool.request()
+            .input('project_id', sql.NVarChar, project_id)
+            .input('fee_amount', sql.Decimal(18, 2), fee_amount)
+            .input('fee_date', sql.DateTime, fee_date)
+            .input('fee_type', sql.NVarChar, fee_type)
+            .input('remarks', sql.NVarChar, remarks)
+            .query('INSERT INTO AssessprojectfeesTable (project_id, fee_amount, fee_date, fee_type, remarks) VALUES (@project_id, @fee_amount, @fee_date, @fee_type, @remarks)');
+        res.status(201).send('费用记录添加成功');
+    } catch (error) {
+        console.error('添加费用记录失败:', error);
+        res.status(500).send('服务器错误');
+    }
+});
+
+// 更新费用记录
+app.put('/api/updateAssessProjectFees/:id', async (req, res) => {
+    const { id } = req.params;
+    const { project_id, fee_amount, fee_date, fee_type, remarks } = req.body;
+    try {
+        let pool = await sql.connect(firstconfig);
+        await pool.request()
+            .input('id', sql.Int, id)
+            .input('project_id', sql.NVarChar, project_id)
+            .input('fee_amount', sql.Decimal(18, 2), fee_amount)
+            .input('fee_date', sql.DateTime, fee_date)
+            .input('fee_type', sql.NVarChar, fee_type)
+            .input('remarks', sql.NVarChar, remarks)
+            .query('UPDATE AssessprojectfeesTable SET project_id = @project_id, fee_amount = @fee_amount, fee_date = @fee_date, fee_type = @fee_type, remarks = @remarks WHERE id = @id');
+        res.send('费用记录更新成功');
+    } catch (error) {
+        console.error('更新费用记录失败:', error);
+        res.status(500).send('服务器错误');
+    }
+});
+
+// 删除费用记录
+app.delete('/api/deleteAssessProjectFees/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        let pool = await sql.connect(firstconfig);
+        await pool.request()
+            .input('id', sql.Int, id)
+            .query('DELETE FROM AssessprojectfeesTable WHERE id = @id');
+        res.send('费用记录删除成功');
+    } catch (error) {
+        console.error('删除费用记录失败:', error);
+        res.status(500).send('服务器错误');
+    }
+});
+
+
+//工作日志
+// 获取所有工作日志
+app.get('/api/getEvaluateworklogTable', async (req, res) => {
+    const { project_id } = req.query; // 从查询参数获取项目编号
+    try {
+        const pool = await sql.connect(firstconfig);
+        const result = await pool.request()
+            .query(`SELECT * FROM EvaluateworklogTable ${project_id ? `WHERE project_id = @project_id` : ''}`);
+        
+        if (project_id) {
+            pool.request().input('project_id', sql.NVarChar, project_id);
+        }
+        
+        res.json(result.recordset);
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// 添加工作日志
+app.post('/api/addEvaluateworklogTable', async (req, res) => {
+    const { project_id, communication_record, contact_time } = req.body;
+    try {
+        const pool = await sql.connect(firstconfig);
+        const result = await pool.request()
+            .input('project_id', sql.NVarChar, project_id)
+            .input('communication_record', sql.NVarChar, communication_record)
+            .input('contact_time', sql.Date, contact_time)
+            .query('INSERT INTO EvaluateworklogTable (project_id, communication_record, contact_time) VALUES (@project_id, @communication_record, @contact_time)');
+        
+        res.status(201).json({ ID: result.rowsAffected[0] });
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// 更新工作日志
+app.put('/api/updateEvaluateworklogTable/:id', async (req, res) => {
+    const { id } = req.params;
+    const { project_id, communication_record, contact_time } = req.body;
+    try {
+        const pool = await sql.connect(firstconfig);
+        await pool.request()
+            .input('id', sql.Int, id)
+            .input('project_id', sql.NVarChar, project_id)
+            .input('communication_record', sql.NVarChar, communication_record)
+            .input('contact_time', sql.Date, contact_time)
+            .query('UPDATE EvaluateworklogTable SET project_id = @project_id, communication_record = @communication_record, contact_time = @contact_time WHERE id = @id');
+        
+        res.send('工作日志更新成功');
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// 删除工作日志
+app.delete('/api/deleteEvaluateworklogTable/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const pool = await sql.connect(firstconfig);
+        await pool.request()
+            .input('id', sql.Int, id)
+            .query('DELETE FROM EvaluateworklogTable WHERE id = @id');
+        
+        res.status(204).send(); // No Content
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
 // 启动服务器
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

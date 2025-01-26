@@ -15,9 +15,10 @@ const Header = () => {
                     <Link to="/login">{username ? username : '登录'}</Link> 
                 </li> */}
                 <div>
-                    <svg className="header-container-icon-logo" aria-hidden="true">
+                <img src="/favicon.ico" alt="Logo" className="header-container-icon-logo" />
+                    {/* <svg className="header-container-icon-logo" aria-hidden="true">
                         <use xlinkHref="#icon-xueyepinggu"></use>
-                    </svg>
+                    </svg> */}
                 </div>
                 <div>
                     <h2 className="header-container-iconname">翰林学堂</h2>
