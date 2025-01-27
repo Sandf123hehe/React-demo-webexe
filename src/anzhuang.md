@@ -163,7 +163,23 @@ CREATE TABLE BillingApp.dbo.MachineryEquipmentPricesTable (
     price DECIMAL(18, 2) NOT NULL        -- 价格，数值类型，保留两位小数
 );
 
-
+//运动记录表
+CREATE TABLE BillingApp.dbo.SportsRecordingTable (
+    id INT IDENTITY(1,1) PRIMARY KEY,   -- 自动递增的唯一标识符（主键）
+    sport_type VARCHAR(50), --运动类型（跑步、深蹲、跳绳、引体向上 、平板撑、羽毛球、俯卧撑、瑜伽）
+    unit VARCHAR(20), --计量单位（个，组，米）
+    quantity INT, --数量
+    date DATE, --日期比如（2025-05-06）
+    duration TIME, --（时间运动消耗时间，格式为：时：分：秒）
+    participant VARCHAR(100), --（运动人员，李中敬、陈彦羽）
+    remark NVARCHAR(500) 
+);
+sport_type：运动类型字段，存储例如 "跑步"、"深蹲" 等运动名称。
+unit：计量单位字段，存储单位，如 "个"、"组" 或 "米"。
+quantity：数量字段，存储运动的数量，比如跑步的距离，深蹲的次数等。
+date：日期字段，存储运动记录的日期。
+duration：时间字段，存储运动时长，格式为时：分：秒。
+participant：运动人员字段，存储参与运动的人员名字。
 
 
 http://111.231.79.183:5201/api/getUsedWebsitesData

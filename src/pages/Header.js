@@ -44,9 +44,9 @@ const Header = () => {
                     </Link>
                     </li>
                     <li className="header-container-ul-li">
-                        <Link to="/about">
+                        <Link to="/sportsrecording">
                             <svg className="header-container-icon" aria-hidden="true">
-                                <use xlinkHref="#icon-about"></use>
+                                <use xlinkHref="#icon-paobu9"></use>
                             </svg>
                         </Link>
                     </li>
@@ -62,7 +62,9 @@ const Header = () => {
                         <Link to="/login">{username ?
                             <svg className="header-container-icon" aria-hidden="true">
                                 <use xlinkHref="#icon-my_light"></use>
-                            </svg> : '登录'}
+                            </svg> : <svg className="header-container-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-hollowow1"></use>
+                            </svg>}
                         </Link> {/* 显示用户名或“用户” */}
                     </li>
 

@@ -1139,6 +1139,106 @@ app.delete('/api/deleteMachineryEquipmentPricesTable/:id', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+
+
+//运动记录
+// 获取所有记录
+app.get('/api/getSportsRecordingTable', async (req, res) => {
+    try {
+        const pool = await sql.connect(firstconfig);
+        const result = await pool.request().query('SELECT * FROM SportsRecordingTable');
+        res.json(result.recordset);
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// 添加运动记录
+app.post('/api/addSportsRecordingTable', async (req, res) => {
+    const { sport_type, unit, quantity, date, duration, participant, remark } = req.body;
+
+    // 验证时间格式
+    const isValidTime = (time) => /^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/.test(time);
+    if (!isValidTime(duration)) {
+        return res.status(400).send('Invalid time format for duration');
+    }
+
+    try {
+        const pool = await sql.connect(firstconfig);
+        const result = await pool.request()
+            .input('sport_type', sql.VarChar, sport_type)
+            .input('unit', sql.VarChar, unit)
+            .input('quantity', sql.Int, quantity)
+            .input('date', sql.Date, date)
+            .input('duration', sql.Time, duration)
+            .input('participant', sql.VarChar, participant)
+            .input('remark', sql.NVarChar, remark)
+            .query('INSERT INTO SportsRecordingTable (sport_type, unit, quantity, date, duration, participant, remark) VALUES (@sport_type, @unit, @quantity, @date, @duration, @participant, @remark)');
+        
+        res.status(201).json({ ID: result.rowsAffected[0] });
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// 更新运动记录
+app.put('/api/updateSportsRecordingTable/:id', async (req, res) => {
+    const { id } = req.params;
+    const { sport_type, unit, quantity, date, duration, participant, remark } = req.body;
+
+    // 验证时间格式
+    const isValidTime = (time) => /^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/.test(time);
+    if (!isValidTime(duration)) {
+        return res.status(400).send('Invalid time format for duration');
+    }
+
+    try {
+        const pool = await sql.connect(firstconfig);
+        await pool.request()
+            .input('id', sql.Int, id)
+            .input('sport_type', sql.VarChar, sport_type)
+            .input('unit', sql.VarChar, unit)
+            .input('quantity', sql.Int, quantity)
+            .input('date', sql.Date, date)
+            .input('duration', sql.Time, duration)
+            .input('participant', sql.VarChar, participant)
+            .input('remark', sql.NVarChar, remark)
+            .query('UPDATE SportsRecordingTable SET sport_type = @sport_type, unit = @unit, quantity = @quantity, date = @date, duration = @duration, participant = @participant, remark = @remark WHERE id = @id');
+        
+        res.status(204).send(); // No Content
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+// 删除运动记录
+app.delete('/api/deleteSportsRecordingTable/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const pool = await sql.connect(firstconfig);
+        await pool.request()
+            .input('id', sql.Int, id)
+            .query('DELETE FROM SportsRecordingTable WHERE id = @id');
+        
+        res.status(204).send(); // No Content
+        pool.close();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+
+
+
+
 // 启动服务器
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

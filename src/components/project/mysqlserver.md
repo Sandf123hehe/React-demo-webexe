@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 });
 
 // 获取所有 
-app.get('/api/getMachineryEquipmentPricesTable', async (req, res) => {
+app.get('/api/getSportsRecordingTable', async (req, res) => {
  
         pool.close();
     } catch (err) {
@@ -35,7 +35,7 @@ app.get('/api/getMachineryEquipmentPricesTable', async (req, res) => {
 });
 
 // 添加 
-app.post('/api/addMachineryEquipmentPricesTable', async (req, res) => {
+app.post('/api/addSportsRecordingTable', async (req, res) => {
  
         res.status(201).json({ ID: result.rowsAffected[0] });
         pool.close();
@@ -46,7 +46,7 @@ app.post('/api/addMachineryEquipmentPricesTable', async (req, res) => {
 });
 
 // 更新 
-app.put('/api/updateMachineryEquipmentPricesTable/:id', async (req, res) => {
+app.put('/api/updateSportsRecordingTable/:id', async (req, res) => {
     const { id } = req.params;
    
              
@@ -58,7 +58,7 @@ app.put('/api/updateMachineryEquipmentPricesTable/:id', async (req, res) => {
 });
 
 // 删除 
-app.delete('/api/deleteMachineryEquipmentPricesTable/:id', async (req, res) => {
+app.delete('/api/deleteSportsRecordingTable/:id', async (req, res) => {
      
 
         res.status(204).send(); // No Content

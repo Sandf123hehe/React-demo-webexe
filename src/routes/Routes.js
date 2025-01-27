@@ -24,13 +24,14 @@ import Projectdispatchform from '../components/project/Projectdispatchform';
 import ReportNumberTable from '../components/project/ReportNumberTable';
 import Assessprojectfees from '../components/project/Assessprojectfees';
 import Worklog from '../components/project/Worklog';
+import Sportsrecording from '../components/sports/Sportsrecording';
 const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/billingpage" element={<Billingpage />} />
-
+            <Route path="/sportsrecording" element={<Sportsrecording />} />
             <Route path="/home" element={<Home />}>
                 {/* 设置 'first' 为默认子路由 */}
                 {/* <Route index element={<Navigate to="/home/personalhome" />} />  */}

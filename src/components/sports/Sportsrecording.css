@@ -1,0 +1,151 @@
+.sportsrecord-container {
+    padding: 20px;
+}
+
+.sportsrecord-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+
+
+.sportsrecord-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sportsrecord-table th, .sportsrecord-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.sportsrecord-table th {
+    background-color: #f2f2f2;
+}
+
+.sportsrecord-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sportsrecord-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 400px;
+}
+
+.sportsrecord-modal-title {
+    margin-bottom: 20px;
+}
+
+.sportsrecord-modal-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sportsrecord-edit-button, .sportsrecord-delete-button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.sportsrecord-edit-button {
+    background-color: #2196F3;
+    color: white;
+}
+
+.sportsrecord-delete-button {
+    background-color: #f44336;
+    color: white;
+}
+.sportsrecord-form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.sportsrecord-form-group label {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.sportsrecord-form-group select,
+.sportsrecord-form-group input {
+    flex: 2;
+}
+.date-filter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.date-filter label {
+    margin-right: 10px;
+}
+ 
+/* 展开折叠按钮 */
+.sportsrecord-open-itembutton {
+    background: none; /* 去掉背景色 */
+    border: none; /* 去掉边框 */
+    padding: 0; /* 可选：去掉按钮内的间距 */
+    cursor: pointer; /* 可选：鼠标悬停时显示为指针 */
+}
+/* #region start */
+/* 查询日期样式 */
+.sportsrecord-querydate {
+    background: none;  /* 去掉背景色 */
+    border: 1px solid #ccc;  /* 边框颜色轻微，保持简洁 */
+    padding: 8px 12px;  /* 适当的内边距 */
+    font-size: 14px;  /* 设置适合的字体大小 */
+    border-radius: 4px;  /* 圆角，给输入框一个柔和的边缘 */
+    outline: none;  /* 去掉输入框的默认聚焦边框 */
+    width: 130px;  /* 可根据需要调整宽度 */
+    transition: border-color 0.3s ease; /* 提供平滑的过渡效果 */
+}
+
+.sportsrecord-querydate:focus {
+    border-color: #007bff;  /* 聚焦时，边框变成蓝色 */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);  /* 添加聚焦时的阴影效果 */
+}
+/* 人员选择样式 */
+.sportsrecord-queryname {
+    background: none; /* 去掉背景色 */
+    border: 1px solid #ccc; /* 轻微的边框 */
+    padding: 8px 12px; /* 合适的内边距 */
+    font-size: 14px; /* 设置字体大小 */
+    border-radius: 4px; /* 圆角，增加柔和感 */
+    outline: none; /* 去掉默认聚焦边框 */
+    width: 120px; /* 可根据需要调整宽度 */
+    cursor: pointer; /* 鼠标悬停时变成手指形状 */
+    transition: border-color 0.3s ease; /* 添加边框颜色过渡效果 */
+}
+
+.sportsrecord-queryname:focus {
+    border-color: #007bff; /* 聚焦时，边框变为蓝色 */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 聚焦时的阴影效果 */
+}
+
+.sportsrecord-queryname option {
+    padding: 8px; /* 可选：为选项提供内边距 */
+}
+/* 添加记录按钮样式 */
+.sportsrecord-add-button {
+    
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+/*  #endregion end */
