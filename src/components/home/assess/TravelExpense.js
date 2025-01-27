@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../../../context/AuthContext'; 
+import { AuthContext } from '../../../context/AuthContext';
 import './TravelExpense.css';
 import { Link } from 'react-router-dom';
 // 日期格式化函数
@@ -181,12 +181,18 @@ const TravelExpense = () => {
         expense.ReimbursedBy === username
       );
 
-      setExpenses(filteredExpenses);
-      setFilteredExpenses(filteredExpenses);
+      // 根据 BusinessTripDate 从近到远排序
+      const sortedExpenses = filteredExpenses.sort((a, b) => {
+        return new Date(b.BusinessTripDate) - new Date(a.BusinessTripDate);  // 降序排序
+      });
+
+      setExpenses(sortedExpenses);
+      setFilteredExpenses(sortedExpenses);
     } catch (error) {
       console.error('获取报销记录失败:', error);
     }
   };
+
 
   useEffect(() => {
     fetchExpenses();
@@ -263,27 +269,55 @@ const TravelExpense = () => {
 
   return (
     <div className="travel-expense-container">
-      <Link to="/home/personalhome" className="tree-link">
-                <svg className="lside-container-icon" aria-hidden="true">
-                    <use xlinkHref="#icon-fanhui2">
-                    </use>
-                </svg>
-            </Link>
-      <h2>&#32;当前位置：首页&#32;&gt;&#32;报销</h2>
+      <div className="travel-return-container">
+        <div>
+          <svg className="lside-container-icon" aria-hidden="true">
+            <use xlinkHref="#icon-quyu">
+            </use>
+          </svg>：
+          <Link to="/home/personalhome" className="travel-tree-link">
+            <svg className="lside-container-icon" aria-hidden="true">
+              <use xlinkHref="#icon-RectangleCopy13">
+              </use>
+            </svg>
+          </Link>→
+          <Link to="/home/personalhome" className="travel-tree-link">
+            <svg className="lside-container-icon" aria-hidden="true">
+              <use xlinkHref="#icon-jidongcheshenbaoxitong">
+              </use>
+            </svg>
+          </Link>
+        </div>
+        <div>
+          <Link to="/home/personalhome" className="travel-tree-link">
+            <svg className="lside-container-icon" aria-hidden="true">
+              <use xlinkHref="#icon-fanhui2"></use>
+            </svg>
+            <span className="travel-return-tooltip">返回首页</span>
+          </Link>
+
+        </div>
+
+
+      </div>
+      {/* <h2>&#32;当前位置：首页&#32;&gt;&#32;报销</h2> */}
       <div className="travel-expense-searchsection">
+      <input
+          className="travel-expense-monthsearchsection"
+          type="month"
+          value={selectedMonth}
+          onChange={(e) => setSelectedMonth(e.target.value)}
+        />
         <input
+
           type="text"
           placeholder="搜索项目名称"
           value={searchTerm}
           className="travel-expense-searchInput"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <input
-          type="month"
-          value={selectedMonth}
-          onChange={(e) => setSelectedMonth(e.target.value)}
-        />
-        <button className="travel-expense-addButton" onClick={() => setIsFormVisible(true)}>添加报销</button>
+       
+        <button className="travel-expense-addButton" onClick={() => setIsFormVisible(true)}>添加</button>
       </div>
 
       <table className="travel-expense-table">
@@ -315,7 +349,7 @@ const TravelExpense = () => {
                 <td>{expense.Location}</td>
                 <td>{expense.Whetherover ? '已报销' : '未报销'}</td> {/* 新增 */}
                 <td>
-                  <button onClick={(e) => { e.stopPropagation(); handleEditExpense(expense); }}>编辑</button>
+                  <button className="travel-td-editbutton" onClick={(e) => { e.stopPropagation(); handleEditExpense(expense); }}>编辑</button>
                 </td>
               </tr>
               {expandedRows[expense.ID] && (
