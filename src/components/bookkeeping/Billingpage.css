@@ -1,24 +1,66 @@
 /* 整体容器样式 */
 .billingpage-container {
   min-width: 300px;
-   
-   height: calc(100vh - 90px);
+   width: 100%;
+   height:  100vh;
+   /* height: calc(100vh - 90px); */
   margin: 0 auto;
-  padding: 20px;
+ 
   font-family: 'Arial', sans-serif;
-  background-color: #ffffff; /* 使用白色背景 */
+  /* background-color: #ffffff;  */
+  /* 使用白色背景 */
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* 更轻的阴影 */
+  display: flex;
+  flex-direction: column;
+   overflow: hidden;
 }
 
 /* 头部样式 */
 .header-outer {
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  height: 80px;
+  position: fixed;
+  overflow-x: auto;  
+  top: 0px;
+  display: flex;
+
+  align-items: center;
+  text-align: center;
+  background-color: rgb(248, 245, 245);
+}
+.date-summary {
+  position: fixed;
+  height: 100%;
+
+  max-height: calc(100vh - 140px);
+  
+  margin-top: 5px;
+  width: 100%;
+ 
+  overflow: auto;
+}
+.billingpage-container-footercontainer {
+     
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    overflow: hidden;
+    left: 0;
+    bottom: 0;
+     
+    background-color: rgb(240, 239, 239); 
+}
+.isHeaderExpanded-container {
+  display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  
 }
-
 /* 头部容器 */
 .billingpage-header-container {
   display: flex;
@@ -30,7 +72,9 @@
 /* 月份选择容器 */
 .month-select-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
+   
 }
 
 /* 月份输入框 */
@@ -39,8 +83,29 @@
   border: 1px solid #ddd; /* 更淡的边框 */
   border-radius: 4px;
   margin-left: 10px;
+  
 }
-
+.billingpage-modal-month-select {
+  padding: 8px;
+  border: 1px solid #ddd; /* 更淡的边框 */
+  border-radius: 4px;
+   
+  width: 120px; /* 使选择框宽度自适应 */
+}
+.person-summary-peopleselect-option {
+  width: 130px; /* 使选择框宽度自适应 */
+  padding: 8px; /* 内边距 */
+  font-size: 16px; /* 字体大小 */
+  color: #333; /* 字体颜色 */
+  background-color: #f7f7f7; /* 背景颜色 */
+  border: 1px solid #ccc; /* 边框颜色 */
+  border-radius: 8px; /* 圆角边框 */
+  outline: none; /* 去掉默认的聚焦边框 */
+  transition: border-color 0.3s ease, background-color 0.3s ease; /* 过渡效果 */
+}
+ .person-summary-peopleselect-label {
+  width: 60px;
+ }
 /* 分类和人员汇总样式 */
 .category-summary,
 .person-summary {
@@ -49,19 +114,36 @@
   width: 100%;
   margin-bottom: 10px;
 }
-
+.person-summary {
+  flex-direction: column;
+}
+.person-summary-peopleselect {
+  display: flex;
+  flex-direction: row;
+}
+.month-select-container-time {
+  display: flex;
+  flex-direction: row;
+}
+ 
 .category-item,
 .person-item {
-  background-color: #f0f8ff; /* 更淡的背景 */
+  
   border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* 轻微阴影 */
+  
+ 
 }
+.category-item {
+  display: flex;
+  flex-direction: column; /* 垂直方向排列 */
+  margin: 0 auto;
+  justify-content: center; /* 垂直方向居中 */
+  align-items: center; /* 水平方向居中 */
+  height: 100%; /* 确保父元素有高度，如果需要 */
 
-/* 记录列表样式 */
-.date-summary {
-  margin-top: 20px;
 }
+/* 记录列表样式 */
+
 
 .date-total {
   margin-bottom: 20px;
@@ -78,7 +160,7 @@
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s; /* 添加阴影变化 */
 }
-
+ 
 .record-item:hover {
   background-color: #f7f7f7; /* 悬停时的背景色 */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* 悬停时的阴影 */
@@ -103,6 +185,8 @@
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 更轻的阴影 */
   width: 400px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 关闭按钮样式 */
@@ -151,15 +235,16 @@
   border-radius: 4px;
   color: #fff;
   cursor: pointer;
+  font-size: 25px;
   transition: background-color 0.3s;
 }
 
 .form-actions button[type="submit"] {
-  background-color: #28a745; /* 绿色 */
+  background-color: transparent; /* 绿色 */
 }
 
 .form-actions button[type="button"] {
-  background-color: #dc3545; /* 红色 */
+  background-color: transparent; /* 红色 */
 }
 
 .form-actions button:hover {
@@ -208,4 +293,102 @@
   justify-content: center;
   align-items: center;
   text-align: center; /* Ensure text is centered */
+}
+/* #region start */
+/* 鼠标悬浮在消费类别上显示可以点击 */
+.billingpage-container-icon:hover,
+.category-total:hover,
+.person-item {
+  cursor: pointer;
+}
+
+.billingpage-container-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  padding-right: 5px;
+}
+.billingpage-container-icon-DetailsModal {
+  width: 2em;
+  height: 2em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  padding-right: 5px;
+}
+.billingpage-container-icon-addbutton {
+  width: 2em;
+  height: 2em;
+  vertical-align: 0em;
+  fill: currentColor;
+  overflow: hidden;
+  padding-right: 5px;
+   
+}
+.billingpage-container-icon-saixuanbutton {
+  width: 1.3em;
+  height: 1.3em;
+  vertical-align: 0em;
+  fill: currentColor;
+  overflow: hidden;
+  padding-right: 5px;
+}
+
+.billingpage-footercontainer-li {
+  list-style-type: none;
+}
+/* 添加记录按钮 */
+.billingpage-addbutton {
+  background: transparent; /* 透明背景 */
+  border: none; /* 无边框 */
+  cursor: pointer; /* 保证鼠标悬浮时指针变成手形 */
+  font-size: 25px;
+}
+/*  #endregion end */
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-size: 30px;
+  align-items: center; /* 水平方向居中 */
+  margin: 0 auto;
+}
+.billingpage-modal-overlayclose-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  margin-right: 20px;
+}
+.billingpage-modal-overlayclose-buttoncontainer {
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+
+}
+.record-form-add-div {
+  display: flex;
+  flex-direction: row;
+}
+.record-form-add-div label {
+ width: 65px; 
+}
+/* 当天明细汇总 */
+.daydetailssummary-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100%; /* 确保父元素有高度，如果需要 */
+  margin: 0 auto;
+   
+  align-items: center; /* 水平方向居中 */
+}
+.daydetailssummary-container > *:last-child {
+  margin-right: 30px;  /* 设置右边距，可以根据需求调整 */
+}
+.daydetailssummary-container > *:first-child {
+  margin-left: 30px;  /* 设置右边距，可以根据需求调整 */
 }

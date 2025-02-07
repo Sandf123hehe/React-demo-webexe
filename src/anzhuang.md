@@ -170,7 +170,7 @@ CREATE TABLE BillingApp.dbo.SportsRecordingTable (
     unit VARCHAR(20), --计量单位（个，组，米）
     quantity INT, --数量
     date DATE, --日期比如（2025-05-06）
-    duration TIME, --（时间运动消耗时间，格式为：时：分：秒）
+    duration TIME(0), --（时间运动消耗时间，格式为：时：分：秒）
     participant VARCHAR(100), --（运动人员，李中敬、陈彦羽）
     remark NVARCHAR(500) 
 );

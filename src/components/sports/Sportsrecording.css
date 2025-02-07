@@ -12,16 +12,22 @@
 .sportsrecord-table {
     width: 100%;
     border-collapse: collapse;
+    text-align: center; /* 水平居中 */
+    vertical-align: middle; /* 垂直居中 */
 }
 
 .sportsrecord-table th, .sportsrecord-table td {
     border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
+    text-align: center; /* 水平居中 */
+    vertical-align: middle; /* 垂直居中 */
+
 }
 
 .sportsrecord-table th {
     background-color: #f2f2f2;
+    text-align: center; /* 水平居中 */
+    vertical-align: middle; /* 垂直居中 */
 }
 
 .sportsrecord-modal-overlay {
@@ -42,7 +48,12 @@
     border-radius: 5px;
     width: 400px;
 }
-
+.sportsrecord-table-remark,
+.sportsrecord-table-remark-buttondiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 .sportsrecord-modal-title {
     margin-bottom: 20px;
 }
@@ -83,10 +94,15 @@
 .sportsrecord-form-group input {
     flex: 2;
 }
-.date-filter {
+.sportsrecord-date-filter {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    flex-direction: column;
+    
+    align-items: flex-start; /* 垂直居中 */
+    justify-content: flex-start; /* 左对齐 */
+
 }
 
 .date-filter label {
@@ -109,7 +125,7 @@
     font-size: 14px;  /* 设置适合的字体大小 */
     border-radius: 4px;  /* 圆角，给输入框一个柔和的边缘 */
     outline: none;  /* 去掉输入框的默认聚焦边框 */
-    width: 130px;  /* 可根据需要调整宽度 */
+    width: 120px;  /* 可根据需要调整宽度 */
     transition: border-color 0.3s ease; /* 提供平滑的过渡效果 */
 }
 
@@ -125,7 +141,7 @@
     font-size: 14px; /* 设置字体大小 */
     border-radius: 4px; /* 圆角，增加柔和感 */
     outline: none; /* 去掉默认聚焦边框 */
-    width: 120px; /* 可根据需要调整宽度 */
+    width: 145px; /* 可根据需要调整宽度 */
     cursor: pointer; /* 鼠标悬停时变成手指形状 */
     transition: border-color 0.3s ease; /* 添加边框颜色过渡效果 */
 }

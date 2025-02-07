@@ -1173,7 +1173,7 @@ app.post('/api/addSportsRecordingTable', async (req, res) => {
             .input('unit', sql.VarChar, unit)
             .input('quantity', sql.Int, quantity)
             .input('date', sql.Date, date)
-            .input('duration', sql.Time, duration)
+            .input('duration', sql.NVarChar(8), duration) // 修改为 NVARCHAR(8)
             .input('participant', sql.VarChar, participant)
             .input('remark', sql.NVarChar, remark)
             .query('INSERT INTO SportsRecordingTable (sport_type, unit, quantity, date, duration, participant, remark) VALUES (@sport_type, @unit, @quantity, @date, @duration, @participant, @remark)');
@@ -1205,7 +1205,7 @@ app.put('/api/updateSportsRecordingTable/:id', async (req, res) => {
             .input('unit', sql.VarChar, unit)
             .input('quantity', sql.Int, quantity)
             .input('date', sql.Date, date)
-            .input('duration', sql.Time, duration)
+            .input('duration', sql.NVarChar(8), duration) // 修改为 NVARCHAR(8)
             .input('participant', sql.VarChar, participant)
             .input('remark', sql.NVarChar, remark)
             .query('UPDATE SportsRecordingTable SET sport_type = @sport_type, unit = @unit, quantity = @quantity, date = @date, duration = @duration, participant = @participant, remark = @remark WHERE id = @id');

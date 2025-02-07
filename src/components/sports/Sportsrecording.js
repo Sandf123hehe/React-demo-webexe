@@ -8,10 +8,20 @@ function SportsRecording() {
     const { username } = useContext(AuthContext); // 使用上下文获取用户名
     const navigate = useNavigate(); // 用于页面跳转的 hook
 
+    const currentDate = new Date().toISOString().split('T')[0]; // 获取当前日期的 YYYY-MM-DD 格式
+
     const [records, setRecords] = useState([]); // 存储运动记录
     const [modalVisible, setModalVisible] = useState(false); // 控制模态框显示
     const [selectedRecord, setSelectedRecord] = useState(null); // 当前选中的记录
-    const [newRecord, setNewRecord] = useState({ sport_type: '', unit: '', quantity: '', date: '', duration: '', participant: username || '', remark: '' }); // 新记录的数据
+    const [newRecord, setNewRecord] = useState({
+        sport_type: '',
+        unit: '',
+        quantity: '',
+        date: currentDate, // 默认日期为当前日期
+        duration: '', // 修改为文本输入
+        participant: username || '',
+        remark: ''
+    }); // 新记录的数据
     const [filterDate, setFilterDate] = useState(''); // 筛选日期
     const [selectedParticipant, setSelectedParticipant] = useState(''); // 选择的参与者
     const [filteredRecords, setFilteredRecords] = useState([]); // 筛选后的记录
@@ -50,6 +60,7 @@ function SportsRecording() {
         const sortedRecords = response.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // 按日期排序
         setRecords(sortedRecords);
     };
+    
 
     useEffect(() => {
         fetchRecords(); // 组件挂载时获取记录
@@ -65,34 +76,48 @@ function SportsRecording() {
         return date.toISOString().split('T')[0]; // 仅返回 YYYY-MM-DD
     };
 
-    // 格式化时间
-    const formatTime = (timeString) => {
-        const time = new Date(timeString);
-        return time.toISOString().substr(11, 8); // 返回 HH:MM:SS
-    };
-
     // 筛选记录
-    const filterRecords = () => {
-        let filtered = records;
-        if (filterDate) {
-            filtered = filtered.filter(record => formatDate(record.date) === filterDate);
-        }
-        if (selectedParticipant) {
-            filtered = filtered.filter(record => record.participant === selectedParticipant);
-        }
-        setFilteredRecords(filtered);
-    };
+// 筛选记录
+const filterRecords = () => {
+    let filtered = records;
+    if (filterDate) {
+        // 过滤出与选择的月份相同的记录
+        filtered = filtered.filter(record => {
+            const recordMonth = formatDate(record.date).substring(0, 7); // 获取 YYYY-MM 格式
+            return recordMonth === filterDate;
+        });
+    }
+    if (selectedParticipant) {
+        filtered = filtered.filter(record => record.participant === selectedParticipant);
+    }
+    setFilteredRecords(filtered);
+};
+
 
     // 打开模态框
-    const openModal = (record = null) => {
-        setSelectedRecord(record);
-        if (record) {
-            setNewRecord({ ...record, duration: formatTime(record.duration), participant: username }); // 编辑时填充数据
-        } else {
-            setNewRecord({ sport_type: '', unit: '', quantity: '', date: '', duration: '00:00:00', participant: username, remark: '' }); // 添加新记录时重置
-        }
-        setModalVisible(true);
-    };
+// 打开模态框
+const openModal = (record = null) => {
+    setSelectedRecord(record);
+    if (record) {
+        setNewRecord({
+            ...record,
+            participant: username,
+            date: formatDate(record.date) // 确保将日期格式化并传递
+        });
+    } else {
+        setNewRecord({
+            sport_type: '',
+            unit: '',
+            quantity: '',
+            date: currentDate, // 默认日期为当前日期
+            duration: '', // 重新初始化为文本输入
+            participant: username,
+            remark: ''
+        });
+    }
+    setModalVisible(true);
+};
+
 
     // 关闭模态框
     const closeModal = () => {
@@ -104,21 +129,55 @@ function SportsRecording() {
     // 提交表单
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (selectedRecord) {
-            // 更新记录
-            await axios.put(`http://111.231.79.183:5201/api/updateSportsRecordingTable/${selectedRecord.id}`, newRecord);
-        } else {
-            // 添加记录
-            await axios.post('http://111.231.79.183:5201/api/addSportsRecordingTable', newRecord);
-        }
-        fetchRecords(); // 刷新记录
-        closeModal(); // 关闭模态框
-    };
 
+        // 验证 duration 格式
+        if (!/^\d{1,2}:\d{2}:\d{2}$/.test(newRecord.duration)) {
+            alert('无效的时间格式，请使用 HH:MM:SS 格式。');
+            return;
+        }
+
+        const timeParts = newRecord.duration.split(':');
+        const [hours, minutes, seconds] = timeParts.map(part => parseInt(part, 10));
+
+        // 验证时间范围
+        if (
+            isNaN(hours) || hours < 0 || hours > 23 ||
+            isNaN(minutes) || minutes < 0 || minutes > 59 ||
+            isNaN(seconds) || seconds < 0 || seconds > 59
+        ) {
+            alert('无效的时间，请确保时间在 HH:MM:SS 格式内。');
+            return;
+        }
+
+        // 继续处理提交逻辑
+        try {
+            if (selectedRecord) {
+                // 更新记录
+                await axios.put(`http://111.231.79.183:5201/api/updateSportsRecordingTable/${selectedRecord.id}`, {
+                    ...newRecord,
+                    duration: newRecord.duration, // 确保传递的 duration 是正确的
+                });
+            } else {
+                // 添加记录
+                await axios.post('http://111.231.79.183:5201/api/addSportsRecordingTable', {
+                    ...newRecord,
+                    duration: newRecord.duration, // 确保传递的 duration 是正确的
+                });
+            }
+            fetchRecords(); // 刷新记录
+            closeModal(); // 关闭模态框
+        } catch (error) {
+            console.error('Error submitting data:', error);
+            alert('提交失败，请检查输入数据。');
+        }
+    };
+    
     // 删除记录
     const handleDelete = async (id) => {
-        await axios.delete(`http://111.231.79.183:5201/api/deleteSportsRecordingTable/${id}`);
-        fetchRecords(); // 刷新记录
+        if (window.confirm('确认删除该记录吗？')) {
+            await axios.delete(`http://111.231.79.183:5201/api/deleteSportsRecordingTable/${id}`);
+            fetchRecords(); // 刷新记录
+        }
     };
 
     // 按天汇总的记录
@@ -143,21 +202,32 @@ function SportsRecording() {
 
     return (
         <div className="sportsrecord-container">
-            <h1 className="sportsrecord-title">运动记录管理</h1>
+            {/* <h1 className="sportsrecord-title">运动记录管理</h1> */}
 
             {showAlert && <div className="alert">权限不足，正在跳转到首页...</div>}
 
             {/* 日期筛选和选择人员的下拉框 */}
-            <div className="date-filter">
-                <label>选择日期:</label>
-                <input type="date" value={filterDate} onChange={(e) => setFilterDate(e.target.value)} />
-                <label>选择参与者:</label>
-                <select value={selectedParticipant} onChange={(e) => setSelectedParticipant(e.target.value)}>
+            <div className="sportsrecord-date-filter">
+                <div>
+                <label>日期:</label>
+                <input
+                    className="sportsrecord-querydate"
+                    type="month"
+                    value={filterDate ? filterDate : currentDate.substring(0, 7)}
+                    onChange={(e) => setFilterDate(e.target.value)}
+                />
+                </div>
+               
+                <div>
+                <label>人员:</label>
+                <select className="sportsrecord-queryname" value={selectedParticipant} onChange={(e) => setSelectedParticipant(e.target.value)}>
                     <option value="">所有参与者</option>
                     {participants.map(participant => (
                         <option key={participant} value={participant}>{participant}</option>
                     ))}
                 </select>
+                    </div>
+               
                 <button className="sportsrecord-add-button" onClick={() => openModal()}>添加记录</button>
             </div>
 
@@ -166,19 +236,28 @@ function SportsRecording() {
                     <h2 style={{ display: 'inline-block', cursor: 'pointer' }} onClick={() => toggleCollapse(date)}>
                         {date}
                     </h2>
-                    <button onClick={() => toggleCollapse(date)} style={{ marginLeft: '10px' }}>
-                        {collapsedDates[date] ? '展开' : '折叠'}
+                    <button className="sportsrecord-open-itembutton" onClick={() => toggleCollapse(date)} style={{ marginLeft: '10px' }}>
+                        {collapsedDates[date] ?
+                            <svg className="header-container-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-jiantou_liebiaozhankai"></use>
+                            </svg>
+                            :
+                            <svg className="header-container-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-jiantou_liebiaoshouqi"></use>
+                            </svg>
+                        }
                     </button>
+
                     {!collapsedDates[date] && (
                         <div>
                             <table className="sportsrecord-table">
                                 <thead>
                                     <tr>
-                                        <th>运动类型</th>
-                                        <th>计量单位</th>
+                                        <th>类型</th>
+                                        <th>单位</th>
                                         <th>数量</th>
                                         <th>时间</th>
-                                        <th>参与者</th>
+                                        {/* <th>参与者</th> */}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -192,16 +271,22 @@ function SportsRecording() {
                                                 </td>
                                                 <td>{record.unit}</td>
                                                 <td>{record.quantity}</td>
-                                                <td>{formatTime(record.duration)}</td>
-                                                <td>{record.participant}</td>
+                                                <td>{record.duration}</td> {/* 直接显示 duration */}
+                                                {/* <td>{record.participant}</td> */}
                                             </tr>
                                             {collapsedRecords[record.id] && (
                                                 <tr>
                                                     <td colSpan="5">
-                                                        <div>
+                                                        <div className="sportsrecord-table-remark">
+                                                            <div>
                                                             备注: {record.remark}
+                                                            </div>
+                                                            
+                                                            <div className="sportsrecord-table-remark-buttondiv">
                                                             <button className="sportsrecord-edit-button" onClick={() => openModal(record)}>编辑</button>
-                                                            <button className="sportsrecord-delete-button" onClick={() => handleDelete(record.id)}>删除</button>
+                                                            <button className="sportsrecord-delete-button" onClick={() => handleDelete(record.id)}>删除</button>  
+                                                            </div>
+                                                           
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -240,11 +325,22 @@ function SportsRecording() {
                             </div>
                             <div className="sportsrecord-form-group">
                                 <label>日期:</label>
-                                <input type="date" value={newRecord.date} onChange={(e) => setNewRecord({ ...newRecord, date: e.target.value })} required />
+                                <input
+                                    type="date" // 使用 date 类型以确保完整日期输入
+                                    value={newRecord.date} // 使用完整的 YYYY-MM-DD 格式
+                                    onChange={(e) => setNewRecord({ ...newRecord, date: e.target.value })} // 更新为完整日期
+                                    required
+                                />
                             </div>
                             <div className="sportsrecord-form-group">
                                 <label>时间:</label>
-                                <input type="time" value={newRecord.duration} onChange={(e) => setNewRecord({ ...newRecord, duration: e.target.value })} required />
+                                <input
+                                    type="text" // 改为文本输入框
+                                    placeholder="HH:MM:SS" // 提示用户输入格式
+                                    value={newRecord.duration}
+                                    onChange={(e) => setNewRecord({ ...newRecord, duration: e.target.value })}
+                                    required
+                                />
                             </div>
                             <div className="sportsrecord-form-group">
                                 <label>参与者:</label>

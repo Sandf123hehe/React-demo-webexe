@@ -46,7 +46,9 @@ const Header = () => {
                     <li className="header-container-ul-li">
                         <Link to="/sportsrecording">
                             <svg className="header-container-icon" aria-hidden="true">
-                                <use xlinkHref="#icon-paobu9"></use>
+                                <use xlinkHref="#icon-paobu9">
+                                    
+                                </use>
                             </svg>
                         </Link>
                     </li>
