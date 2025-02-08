@@ -78,14 +78,21 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   width: 90%;
   min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;  /* 子项分散对齐 */
 }
-
+.travelExpense-modal-content > :first-child {
+  align-self: flex-end;  /* 第一个子元素右对齐 */
+   
+}
 .travel-expense-form {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin: 0 auto;
    
+  width: 100%;
 }
 
 .travel-expense-form div {
@@ -96,9 +103,11 @@
 }
 
 .travel-expense-form div label {
-  width: 100px;
-  text-align: right;
+  width: 80px;
+  text-align: justify;
   margin-right: 10px;
+  display: block;  /* 确保 label 为块级元素 */
+  align-items: center;  /* 垂直居中对齐 */
 }
 
 .travel-expense-form div input,
@@ -117,43 +126,42 @@
   outline: none;
 }
 
-.form-actions {
+.travelexpense-form-actions {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  
 }
 
 
 .travelexpense-btn-save {
-   
-  /* 绿色背景 */
-  color: rgb(209, 14, 14);
-  /* 白色文字 */
+   background-color: transparent;
   border: none;
-
-
   cursor: pointer;
-  width: 100px;
+  width: 33%;
 }
 
 .travelexpense-btn-cancel {
-  background-color: #f44336;
-  /* 红色背景 */
-  color: rgb(216, 12, 12);
-  /* 白色文字 */
+  background-color: transparent;
   border: none;
   padding: 10px 20px;
   margin: 5px;
   cursor: pointer;
-  width: 100px;
+  width: 33%;
 }
-
+.lside-container-icon-travelexpense {
+  width: 2em;
+  height: 2em;
+  vertical-align: 0em;
+  /* 将图标向上偏移 1.15em */
+}
 .travelexpense-btn-delete {
-  background-color: #e79211;
-  /* 橙色背景 */
-  color: rgb(219, 21, 21);
-  /* 白色文字 */
+   
+  background-color: transparent;
+  
+ 
   border: none;
-  width: 100px;
+  width: 33%;
   cursor: pointer;
 }
 
@@ -183,25 +191,24 @@
 
 /* #region start 编辑按钮样式 */
 .travel-td-editbutton {
-  
-  color: white;
-  /* 字体颜色 */
-  border: 2px solid #ffffff;
-  /* 边框颜色与背景色一致 */
-  padding: 10px 20px;
-  /* 上下左右内边距 */
-  font-size: 14px;
-  /* 字体大小 */
-  font-weight: 600;
-  /* 字体加粗 */
-  border-radius: 5px;
-  /* 圆角 */
-  transition: all 0.3s ease;
-  /* 平滑过渡效果 */
+  background-color: transparent;
+  border: none;
   cursor: pointer;
-  /* 鼠标悬浮时指针变为点击手型 */
+  position: relative;
+  padding: 5px;
+  transition: background-color 1s ease, transform 0.3s ease; /* 动画效果 */
+  display: none; /* 默认不显示 */
 }
 
+/* 悬浮时按钮的背景颜色变化 */
+.travel-td-editbutton:hover {
+  background-color: #f0f0f0;  /* 悬浮时的背景颜色 */
+  transform: scale(1.1); /* 悬浮时稍微放大按钮 */
+}
+/* 当鼠标悬浮在 <td> 上时，按钮显示 */
+.travel-td-editbuttondiv-Remarks:hover .travel-td-editbutton {
+  display: inline-block; /* 悬浮时显示按钮 */
+}
 .travel-td-editbutton:hover {
   background-color: #0056b3;
   /* 鼠标悬浮时背景色变暗 */

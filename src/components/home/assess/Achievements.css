@@ -191,13 +191,50 @@
 }
 
 
+.achievement-form div select {
+  appearance: none; /* 去除浏览器的默认样式 */
+  -webkit-appearance: none; /* 兼容Webkit浏览器 */
+  -moz-appearance: none; /* 兼容Firefox浏览器 */
+  width: 85%; /* 设置选择框的宽度 */
+  padding: 10px 15px; /* 内边距 */
+  border: 1px solid #ccc; /* 边框颜色 */
+  border-radius: 5px; /* 圆角 */
+  background-color: #fff; /* 背景色 */
+  font-size: 14px; /* 字体大小 */
+  color: #333; /* 字体颜色 */
+  outline: none; /* 去除选中后的轮廓 */
+  cursor: pointer; /* 鼠标悬浮时显示为点击样式 */
+  transition: border-color 0.3s ease; /* 平滑过渡 */
+}
+/* 聚焦状态时，边框颜色变化 */
+.achievement-form div select:focus {
+  border-color: #4CAF50; /* 聚焦时的边框颜色 */
+}
+
+/* 创建自定义箭头 */
+.achievement-form div select::after {
+  content: ' ▼'; /* 自定义箭头 */
+  font-size: 12px;
+  color: #777;
+  margin-left: 10px;
+}
+
+/* 去掉默认下拉箭头 */
+.achievement-form div select::-ms-expand {
+  display: none;
+}
+
+/* 悬浮状态 */
+.achievement-form div select:hover {
+  border-color: #888; /* 悬浮时边框颜色 */
+}
+
 .achievement-form div {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   margin-bottom: 15px;
 }
-
 .achievement-form div label {
   width: 80px;
   /* 设置宽度 */
@@ -233,7 +270,7 @@
   resize: vertical;           /* 允许垂直方向调整大小 */
   min-height: 100px;           /* 最小高度，避免 textarea 太小 */
 }
-.achievement-form .form-actions {
+.achievement-form .achievements-form-actions {
   display: flex;
   justify-content: space-between;
 }

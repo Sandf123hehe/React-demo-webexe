@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Personalhome = () => {
     const { username } = useContext(AuthContext); // 使用上下文获取用户名
     const [hoveredIndex, setHoveredIndex] = useState(null);
-
+    const lastcurrentDate = new Date().toLocaleString();  // 获取当前时间，并格式化为字符串
 
 
     const handleMouseEnter = (index) => {
@@ -65,6 +65,7 @@ const Personalhome = () => {
 
     const [travelExpenseData, setTravelExpenseData] = useState([]); // 用来存储报销数据
     const [travelExpenseCount, setTravelExpenseCount] = useState(0); // 用来存储待报销记录的总数
+    const [notReimbursedData, setNotReimbursedData] = useState([]); // 用来存储符合条件的数据
 
     useEffect(() => {
         const fetchTravelExpenseData = async () => {
@@ -76,16 +77,30 @@ const Personalhome = () => {
                 // 假设返回的数据是 { TravelExpenseReimbursement: [...] }
                 const expenseData = data.TravelExpenseReimbursement;
 
+                // 过滤出由当前用户报销的数据
+                const filteredDataByUser = expenseData.filter(expense =>
+                    expense.ReimbursedBy === username
+                );
+
                 // 更新报销数据和总数
-                setTravelExpenseData(expenseData);
-                setTravelExpenseCount(expenseData.length); // 直接计算数组长度
+                setTravelExpenseData(filteredDataByUser);
+                setTravelExpenseCount(filteredDataByUser.length); // 只计算由当前用户报销的记录
+
+                // 过滤出未报销且由当前用户报销的数据
+                const filteredData = filteredDataByUser.filter(expense =>
+                    expense.Whetherover === false
+                );
+
+                // 更新符合条件的数据
+                setNotReimbursedData(filteredData);
+
             } catch (error) {
                 console.error('获取报销数据失败:', error);
             }
         };
 
         fetchTravelExpenseData(); // 发起 API 请求
-    }, []); // 空依赖数组表示只在组件挂载时调用一次
+    }, [username]); // 依赖项加入 username，当用户名发生变化时会重新触发 空依赖数组表示只在组件挂载时调用一次
 
     const [assessprojectfeescount, setAssessProjectFeesCount] = useState(0); // 用于存储记录条数
 
@@ -96,50 +111,58 @@ const Personalhome = () => {
                 // 使用原生 fetch
                 const response = await fetch('http://111.231.79.183:5201/api/getAssessProjectFees');
                 const data = await response.json(); // 获取并解析 JSON 数据
-                 
+
                 const totalCount = data.length; // 获取数据的总条数
                 setAssessProjectFeesCount(totalCount); // 更新记录总数
             } catch (error) {
                 console.error('获取数据失败:', error);
             }
         };
-    
+
         fetchData();
     }, []);
-    
 
-    const [achievementsdatacount, setAchievementsDataCount] = useState(0); // 用于存储记录条数
+
+    const [achievementsdatacount, setAchievementsDataCount] = useState(0); // 存储所有记录的总数
+    const [notticheng, setNotticheng] = useState(0); // 存储符合条件的记录数
 
     useEffect(() => {
-        // 调用 API 获取数据
         const fetchData = async () => {
             try {
-                // 使用原生 fetch
                 const response = await fetch('http://111.231.79.183:5201/api/getAchievementsData');
-                const data = await response.json(); // 获取并解析 JSON 数据
-                
-                // 由于返回数据是 { Achievements: [...] }
-                const totalCount = data.Achievements ? data.Achievements.length : 0; // 获取 Achievements 数组的长度
-                setAchievementsDataCount(totalCount); // 更新记录总数
+                const data = await response.json();
+
+                // 过滤出 PerformancePerson 为 username 的所有记录
+                const userAchievements = data.Achievements
+                    ? data.Achievements.filter(item => item.PerformancePerson === username)
+                    : [];
+
+                // 获取所有符合 PerformancePerson 为 username 的记录数
+                const totalCount = userAchievements.length;
+                setAchievementsDataCount(totalCount);
+
+                // 过滤出 Whetherticheng 为 false 或 null 且 PerformancePerson 为 username 的记录
+                const notTichengCount = userAchievements.filter(item => item.Whetherticheng === false || item.Whetherticheng === null).length;
+                setNotticheng(notTichengCount); // 更新符合条件的记录数
+
             } catch (error) {
                 console.error('获取数据失败:', error);
             }
         };
-    
-        fetchData(); // 调用 fetchData 函数
-    
-    }, []); // 只在组件挂载时运行一次
+
+        fetchData();
+    }, [username]);  // 依赖 username，username 变化时重新执行 effect // 只在组件挂载时运行一次
 
     // 在每个 section 添加对应的路由链接
     const sections = [
         { title: "项目个数", icon: "#icon-a-paidandaipaidan", count: projectDispatchCount, unfinished: 0, link: "/home/projectdispatchform" },
         { title: "日志", icon: "#icon-contact_phone", count: 0, unfinished: 0, link: "/home/worklog" },
         { title: "待看现场", icon: "#icon-mti-xianchangjilu", count: 0, unfinished: 0, link: "/home/onsite" },
-        { title: "报销", icon: "#icon-jidongcheshenbaoxitong", count: travelExpenseCount, unfinished: 0, link: "/home/travelexpense" },
+        { title: "报销", icon: "#icon-jidongcheshenbaoxitong", count: travelExpenseCount, unfinished: notReimbursedData.length, link: "/home/travelexpense" },
         { title: "报告", icon: "#icon-shuben", count: reportNumberCount, unfinished: 0, link: "/home/reportnumbertable" },
         { title: "收费", icon: "#icon-icon_shenghuobutieshenqing", count: assessprojectfeescount, unfinished: 0, link: "/home/assessprojectfees" },
         { title: "待盖章", icon: "#icon-shenhe", count: 0, unfinished: 0, link: "/home/stamp" },
-        { title: "提成", icon: "#icon-a-ziyuan111", count: achievementsdatacount, unfinished: 0, link: "/home/achievements" },
+        { title: "提成", icon: "#icon-a-ziyuan111", count: achievementsdatacount, unfinished: notticheng, link: "/home/achievements" },
         { title: "待归档", icon: "#icon-shichangjia", count: 0, unfinished: 0, link: "/home/archive" }
     ];
 
@@ -154,7 +177,7 @@ const Personalhome = () => {
                     <h2 className="personalhome-greeting-user">{username ? username : '请登录'}</h2>
                 </div>
                 <div className="personalhome-container-header-center">
-                    <h2>上次登录时间：2025-05-06</h2>
+                    <h2>上次登录时间：{lastcurrentDate}</h2>
                 </div>
             </div>
             <div className="personalhome-container-body">
@@ -178,7 +201,12 @@ const Personalhome = () => {
                             </div>
                             {/* 显示字段内容 */}
                             {section.count !== undefined && <div>{`${section.title}：${section.count}`}</div>}
-                            {section.unfinished !== undefined && <div>{`未完成：${section.unfinished}`}</div>}
+                            {section.unfinished !== undefined && (
+                                <div style={{ color: section.unfinished !== 0 ? 'red' : 'black' }}>
+                                    {`未完成：${section.unfinished}`}
+                                </div>
+                            )}
+
                         </div>
                     ))}
                 </div>

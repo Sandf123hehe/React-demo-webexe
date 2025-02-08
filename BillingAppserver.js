@@ -212,7 +212,7 @@ app.get('/api/getAchievementsData', async (req, res) => {
 
 // 添加绩效记录
 app.post('/api/addAchievement', async (req, res) => {
-    const { ProjectCode, ReportNumber, ProjectName, ChargeAmount, ChargeDate, AchievementAmount, SignedAmount, CommissionDate, Notes, PerformancePerson } = req.body;
+    const { ProjectCode, ReportNumber, ProjectName, ChargeAmount, ChargeDate, AchievementAmount, SignedAmount, CommissionDate, Notes, PerformancePerson, Whetherticheng } = req.body;
     try {
         let pool = await sql.connect(firstconfig);
         const result = await pool.request()
@@ -226,7 +226,8 @@ app.post('/api/addAchievement', async (req, res) => {
             .input('CommissionDate', sql.Date, CommissionDate)
             .input('Notes', sql.Text, Notes)
             .input('PerformancePerson', sql.VarChar, PerformancePerson) // 添加 PerformancePerson
-            .query('INSERT INTO Achievements (ProjectCode, ReportNumber, ProjectName, ChargeAmount, ChargeDate, AchievementAmount, SignedAmount, CommissionDate, Notes, PerformancePerson) OUTPUT INSERTED.ID VALUES (@ProjectCode, @ReportNumber, @ProjectName, @ChargeAmount, @ChargeDate, @AchievementAmount, @SignedAmount, @CommissionDate, @Notes, @PerformancePerson)');
+            .input('Whetherticheng', sql.Bit, Whetherticheng) // 新增
+            .query('INSERT INTO Achievements (ProjectCode, ReportNumber, ProjectName, ChargeAmount, ChargeDate, AchievementAmount, SignedAmount, CommissionDate, Notes, PerformancePerson, Whetherticheng) OUTPUT INSERTED.ID VALUES (@ProjectCode, @ReportNumber, @ProjectName, @ChargeAmount, @ChargeDate, @AchievementAmount, @SignedAmount, @CommissionDate, @Notes, @PerformancePerson, @Whetherticheng)');
         
         res.json({ ID: result.recordset[0].ID });
         pool.close();
@@ -239,7 +240,7 @@ app.post('/api/addAchievement', async (req, res) => {
 // 更新绩效记录
 app.put('/api/updateAchievement/:id', async (req, res) => {
     const { id } = req.params;
-    const { ProjectCode, ReportNumber, ProjectName, ChargeAmount, ChargeDate, AchievementAmount, SignedAmount, CommissionDate, Notes, PerformancePerson } = req.body;
+    const { ProjectCode, ReportNumber, ProjectName, ChargeAmount, ChargeDate, AchievementAmount, SignedAmount, CommissionDate, Notes, PerformancePerson, Whetherticheng } = req.body;
     try {
         let pool = await sql.connect(firstconfig);
         await pool.request()
@@ -254,7 +255,8 @@ app.put('/api/updateAchievement/:id', async (req, res) => {
             .input('CommissionDate', sql.Date, CommissionDate)
             .input('Notes', sql.Text, Notes)
             .input('PerformancePerson', sql.VarChar, PerformancePerson) // 添加 PerformancePerson
-            .query('UPDATE Achievements SET ProjectCode = @ProjectCode, ReportNumber = @ReportNumber, ProjectName = @ProjectName, ChargeAmount = @ChargeAmount, ChargeDate = @ChargeDate, AchievementAmount = @AchievementAmount, SignedAmount = @SignedAmount, CommissionDate = @CommissionDate, Notes = @Notes, PerformancePerson = @PerformancePerson WHERE ID = @ID');
+            .input('Whetherticheng', sql.Bit, Whetherticheng) // 新增
+            .query('UPDATE Achievements SET ProjectCode = @ProjectCode, ReportNumber = @ReportNumber, ProjectName = @ProjectName, ChargeAmount = @ChargeAmount, ChargeDate = @ChargeDate, AchievementAmount = @AchievementAmount, SignedAmount = @SignedAmount, CommissionDate = @CommissionDate, Notes = @Notes, PerformancePerson = @PerformancePerson, Whetherticheng = @Whetherticheng WHERE ID = @ID');
         
         res.sendStatus(204); // No content
         pool.close();

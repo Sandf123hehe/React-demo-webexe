@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AuthContext } from '../../../context/AuthContext';
 import './TravelExpense.css';
 import { Link } from 'react-router-dom';
+
 // 日期格式化函数
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -45,6 +46,7 @@ const TravelExpenseForm = ({ expense, onSave, onCancel, onDelete }) => {
       setRemarks(expense.Remarks);
       setWhetherOver(expense.Whetherover); // 新增
     } else {
+      // 清空表单
       setProjectCode('');
       setProjectName('');
       setLocation('');
@@ -83,7 +85,7 @@ const TravelExpenseForm = ({ expense, onSave, onCancel, onDelete }) => {
   return (
     <form className="travel-expense-form" onSubmit={handleSubmit}>
       <div>
-        <label>地点：</label>
+        <label>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点：</label>
         <input
           type="text"
           value={location}
@@ -109,7 +111,7 @@ const TravelExpenseForm = ({ expense, onSave, onCancel, onDelete }) => {
       </div>
 
       <div>
-        <label>金额：</label>
+        <label>金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额：</label>
         <input
           type="number"
           value={amount}
@@ -135,7 +137,7 @@ const TravelExpenseForm = ({ expense, onSave, onCancel, onDelete }) => {
         />
       </div>
       <div>
-        <label>备注：</label>
+        <label>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
         <textarea
           value={remarks}
           onChange={(e) => setRemarks(e.target.value)}
@@ -151,30 +153,23 @@ const TravelExpenseForm = ({ expense, onSave, onCancel, onDelete }) => {
           <option value="1">已报销</option>
         </select>
       </div>
-      <div className="form-actions">
-
-        {/* 保存 */}
-        <button type="submit" className="travelexpense-btn-save" title="保存"  >
-          <svg className="lside-container-icon" aria-hidden="true">
-            <use xlinkHref="#icon-yishenhe1">
-            </use>
+      <div className="travelexpense-form-actions">
+        <button type="submit" className="travelexpense-btn-save" title="保存">
+          <svg className="lside-container-icon-travelexpense" aria-hidden="true">
+            <use xlinkHref="#icon-yishenhe1"></use>
           </svg>
         </button>
-        {/* 取消 */}
-        <button type="button" className="travelexpense-btn-cancel" onClick={onCancel} title="取消"   >
-          <svg className="lside-container-icon" aria-hidden="true">
-            <use xlinkHref="#icon-back">
-            </use>
+        <button type="button" className="travelexpense-btn-cancel" onClick={onCancel} title="取消">
+          <svg className="lside-container-icon-travelexpense" aria-hidden="true">
+            <use xlinkHref="#icon-back"></use>
           </svg>
         </button>
-        {/* 删除 */}
         {expense && <button type="button" className="travelexpense-btn-delete" title="删除" onClick={handleDelete}>
-          <svg className="lside-container-icon" aria-hidden="true">
-            <use xlinkHref="#icon-shanchu7">
-            </use>
-          </svg></button>}
+          <svg className="lside-container-icon-travelexpense" aria-hidden="true">
+            <use xlinkHref="#icon-shanchu7"></use>
+          </svg>
+        </button>}
       </div>
-
     </form>
   );
 };
@@ -211,7 +206,6 @@ const TravelExpense = () => {
       console.error('获取报销记录失败:', error);
     }
   };
-
 
   useEffect(() => {
     fetchExpenses();
@@ -291,19 +285,16 @@ const TravelExpense = () => {
       <div className="travel-return-container">
         <div>
           <svg className="lside-container-icon" aria-hidden="true">
-            <use xlinkHref="#icon-quyu">
-            </use>
+            <use xlinkHref="#icon-quyu"></use>
           </svg>：
           <Link to="/home/personalhome" className="travel-tree-link">
             <svg className="lside-container-icon" aria-hidden="true">
-              <use xlinkHref="#icon-RectangleCopy13">
-              </use>
+              <use xlinkHref="#icon-RectangleCopy13"></use>
             </svg>
           </Link>→
           <Link to="/home/personalhome" className="travel-tree-link">
             <svg className="lside-container-icon" aria-hidden="true">
-              <use xlinkHref="#icon-jidongcheshenbaoxitong">
-              </use>
+              <use xlinkHref="#icon-jidongcheshenbaoxitong"></use>
             </svg>
           </Link>
         </div>
@@ -314,12 +305,9 @@ const TravelExpense = () => {
             </svg>
             <span className="travel-return-tooltip">返回首页</span>
           </Link>
-
         </div>
-
-
       </div>
-      {/* <h2>&#32;当前位置：首页&#32;&gt;&#32;报销</h2> */}
+
       <div className="travel-expense-searchsection">
         <input
           className="travel-expense-monthsearchsection"
@@ -328,15 +316,13 @@ const TravelExpense = () => {
           onChange={(e) => setSelectedMonth(e.target.value)}
         />
         <input
-
           type="text"
           placeholder="搜索项目名称"
           value={searchTerm}
           className="travel-expense-searchInput"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-
-        <button className="travel-expense-addButton" onClick={() => setIsFormVisible(true)}>添加</button>
+        <button className="travel-expense-addButton" onClick={() => { setEditingExpense(null); setIsFormVisible(true); }}>添加</button>
       </div>
 
       <table className="travel-expense-table">
@@ -349,7 +335,6 @@ const TravelExpense = () => {
             <th>出差时间</th>
             <th>地点</th>
             <th>状态</th>
-            {/* <th>操作</th> */}
           </tr>
         </thead>
         <tbody>
@@ -366,24 +351,20 @@ const TravelExpense = () => {
                 <td>¥{expense.Amount.toFixed(2)}</td>
                 <td>{formatDate(expense.BusinessTripDate)}</td>
                 <td>{expense.Location}</td>
-                <td>{expense.Whetherover ? '已报销' : '未报销'}</td> {/* 新增 */}
-                {/* <td>
-                  <button className="travel-td-editbutton" onClick={(e) => { e.stopPropagation(); handleEditExpense(expense); }}>编辑</button>
-                </td> */}
+                <td style={{ color: expense.Whetherover ? 'black' : 'red' }}>
+                  {expense.Whetherover ? '已报销' : '未报销'}
+                </td>
               </tr>
               {expandedRows[expense.ID] && (
                 <tr>
                   <td colSpan="8">
-                    {/* <div>地点: {expense.Location}</div> */}
-                    <div>备注: {expense.Remarks}
+                    <div className="travel-td-editbuttondiv-Remarks">备注: {expense.Remarks}
                       <button className="travel-td-editbutton" title="编辑" onClick={(e) => { e.stopPropagation(); handleEditExpense(expense); }}>
                         <svg className="lside-container-icon" aria-hidden="true">
                           <use xlinkHref="#icon-xiugaidingdan" />
                         </svg>
                       </button>
-
                     </div>
-
                   </td>
                 </tr>
               )}

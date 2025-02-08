@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from '../../../context/AuthContext';
 import "./Achievements.css";
 import { Link } from 'react-router-dom';
+
 // 日期格式化函数
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -34,6 +35,7 @@ const AchievementForm = ({ achievement, onSave, onCancel, onDelete }) => {
   const [signedAmount, setSignedAmount] = useState("");
   const [commissionDate, setCommissionDate] = useState("");
   const [notes, setNotes] = useState("");
+  const [whetherticheng, setWhetherticheng] = useState(false); // 新增状态
 
   useEffect(() => {
     if (achievement) {
@@ -46,6 +48,7 @@ const AchievementForm = ({ achievement, onSave, onCancel, onDelete }) => {
       setSignedAmount(achievement.SignedAmount);
       setCommissionDate(formatDate(achievement.CommissionDate)); // 格式化日期
       setNotes(achievement.Notes);
+      setWhetherticheng(achievement.Whetherticheng || false); // 新增
     } else {
       setProjectCode("");
       setReportNumber("");
@@ -56,6 +59,7 @@ const AchievementForm = ({ achievement, onSave, onCancel, onDelete }) => {
       setSignedAmount("");
       setCommissionDate("");
       setNotes("");
+      setWhetherticheng(false); // 新增
     }
   }, [achievement]);
 
@@ -75,6 +79,7 @@ const AchievementForm = ({ achievement, onSave, onCancel, onDelete }) => {
       SignedAmount: parseFloat(signedAmount),
       CommissionDate: commissionDate,
       Notes: notes,
+      Whetherticheng: whetherticheng, // 新增
     });
   };
 
@@ -154,13 +159,23 @@ const AchievementForm = ({ achievement, onSave, onCancel, onDelete }) => {
         />
       </div>
       <div>
+        <label>提成状态：</label>
+        <select
+          value={whetherticheng ? '1' : '0'}
+          onChange={(e) => setWhetherticheng(e.target.value === '1')}
+        >
+          <option value="0">未提成</option>
+          <option value="1">已提成</option>
+        </select>
+      </div>
+      <div>
         <label>备注：</label>
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
         />
       </div>
-      <div className="form-actions">
+      <div className="achievements-form-actions">
         <button type="submit">保存</button>
         <button type="button" onClick={onCancel}>取消</button>
         {achievement && <button type="button" onClick={handleDelete}>删除</button>}
@@ -275,12 +290,12 @@ function Achievements() {
 
   return (
     <div className="achievements-container">
-                   <Link to="/home/personalhome" className="tree-link">
-                <svg className="lside-container-icon" aria-hidden="true">
-                    <use xlinkHref="#icon-fanhui2">
-                    </use>
-                </svg>
-            </Link>
+      <Link to="/home/personalhome" className="tree-link">
+        <svg className="lside-container-icon" aria-hidden="true">
+          <use xlinkHref="#icon-fanhui2">
+          </use>
+        </svg>
+      </Link>
       <h2 className="icon-container">
         <svg className="icon-address" aria-hidden="true">
           <use xlinkHref="#icon-address"></use>
@@ -318,7 +333,8 @@ function Achievements() {
             <th>项目名称</th>
             <th>收费金额</th>
             <th>收费时间</th>
-            <th>操作</th>
+            <th>提成状态</th>
+            {/* <th>操作</th> */}
           </tr>
         </thead>
         <tbody>
@@ -338,26 +354,33 @@ function Achievements() {
                 <td>{achievement.ProjectName}</td>
                 <td>¥{achievement.ChargeAmount.toFixed(2)}</td>
                 <td>{formatDate(achievement.ChargeDate)}</td>
-                <td>
+                <td style={{ color: achievement.Whetherticheng ? 'black' : 'red' }}>
+                  {achievement.Whetherticheng ? '已提成' : '未提成'}
+                </td>
+
+                {/* <td>
                   <button onClick={() => handleEditAchievement(achievement)}>编辑</button>
                   <button onClick={() => handleDeleteAchievement(achievement.ID)}>删除</button>
-                </td>
+                </td> */}
               </tr>
               {expandedRows[achievement.ID] && (
                 <tr className="achievement-detail-row">
                   <td colSpan="6">
                     <div>
+
                       <strong>绩效金额:</strong> ¥{achievement.AchievementAmount ? achievement.AchievementAmount.toFixed(2) : '未提供'}<br />
                       <strong>签字金额:</strong> ¥{achievement.SignedAmount ? achievement.SignedAmount.toFixed(2) : '未提供'}<br />
                       <strong>提成时间:</strong> {formatDate(achievement.CommissionDate)}<br />
                       <strong>备注:</strong> {achievement.Notes}
+                      <button onClick={() => handleEditAchievement(achievement)}>编辑</button>
+                      <button onClick={() => handleDeleteAchievement(achievement.ID)}>删除</button>
+
                     </div>
                   </td>
                 </tr>
               )}
             </React.Fragment>
           ))}
-
         </tbody>
       </table>
 
