@@ -127,49 +127,51 @@ const ProjectDispatchForm = () => {
 
             {/* 模态框 */}
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <form onSubmit={handleSubmit}>
+                <form className="projectdispatchform-modal-form" onSubmit={handleSubmit}>
                     <h3>{editingId ? '编辑派单' : '添加派单'}</h3>
                     {/* 表单输入 */}
-                    <label>项目名称：</label>
-                    <input type="text" name="ProjectName" value={formData.ProjectName || ''} onChange={handleChange} required />
-                    <label>支行/分院：</label>
-                    <input type="text" name="Branch" value={formData.Branch || ''} onChange={handleChange} />
-                    <label>委托号：</label>
-                    <input type="text" name="OrderNumber" value={formData.OrderNumber || ''} onChange={handleChange} />
-                    <label>项目来源：</label>
-                    <input type="text" name="ProjectSource" value={formData.ProjectSource || ''} onChange={handleChange} />
-                    <label>项目来源联系人：</label>
-                    <input type="text" name="ProjectSourceContact" value={formData.ProjectSourceContact || ''} onChange={handleChange} />
-                    <label>项目来源电话：</label>
-                    <input type="text" name="ProjectSourcePhone" value={formData.ProjectSourcePhone || ''} onChange={handleChange} />
-                    <label>客户：</label>
-                    <input type="text" name="Client" value={formData.Client || ''} onChange={handleChange} />
-                    <label>客户联系人：</label>
-                    <input type="text" name="ClientContact" value={formData.ClientContact || ''} onChange={handleChange} />
-                    <label>客户电话：</label>
-                    <input type="text" name="ClientPhone" value={formData.ClientPhone || ''} onChange={handleChange} />
-                    <label>申请人：</label>
-                    <input type="text" name="Applicant" value={formData.Applicant || ''} onChange={handleChange} />
-                    <label>申请人联系人：</label>
-                    <input type="text" name="ApplicantContact" value={formData.ApplicantContact || ''} onChange={handleChange} />
-                    <label>申请人电话：</label>
-                    <input type="text" name="ApplicantPhone" value={formData.ApplicantPhone || ''} onChange={handleChange} />
-                    <label>被告：</label>
-                    <input type="text" name="Defendant" value={formData.Defendant || ''} onChange={handleChange} />
-                    <label>被告联系人：</label>
-                    <input type="text" name="DefendantContact" value={formData.DefendantContact || ''} onChange={handleChange} />
-                    <label>被告电话：</label>
-                    <input type="text" name="DefendantPhone" value={formData.DefendantPhone || ''} onChange={handleChange} />
-                    <label>项目类型：</label>
-                    <input type="text" name="ProjectType" value={formData.ProjectType || ''} onChange={handleChange} />
-                    <label>评估目的：</label>
-                    <input type="text" name="EvaluationPurpose" value={formData.EvaluationPurpose || ''} onChange={handleChange} />
-                    <label>负责人：</label>
-                    <input type="text" name="PersonInCharge" value={formData.PersonInCharge || ''} onChange={handleChange} />
-                    <label>委托日期：</label>
-                    <input type="date" name="EntrustDate" value={formData.EntrustDate || ''} onChange={handleChange} />
-                    <label>派单日期：</label>
-                    <input type="date" name="DispatchDate" value={formData.DispatchDate || ''} onChange={handleChange} />
+                    <div className="projectdispatchform-modal-div">
+                        <label>项目名称：</label>
+                        <input type="text" name="ProjectName" value={formData.ProjectName || ''} onChange={handleChange} required />
+                    </div>
+                    <div className="projectdispatchform-modal-div"> <label>支行/分院：</label>
+                        <input type="text" name="Branch" value={formData.Branch || ''} onChange={handleChange} /> </div>
+                    <div className="projectdispatchform-modal-div"> <label>委托号：</label>
+                        <input type="text" name="OrderNumber" value={formData.OrderNumber || ''} onChange={handleChange} /> </div>
+                    <div className="projectdispatchform-modal-div"> <label>项目来源：</label>
+                        <input type="text" name="ProjectSource" value={formData.ProjectSource || ''} onChange={handleChange} /> </div>
+                    <div className="projectdispatchform-modal-div"><label>项目来源联系人：</label>
+                        <input type="text" name="ProjectSourceContact" value={formData.ProjectSourceContact || ''} onChange={handleChange} /> </div>
+                    <div className="projectdispatchform-modal-div"><label>项目来源电话：</label>
+                        <input type="text" name="ProjectSourcePhone" value={formData.ProjectSourcePhone || ''} onChange={handleChange} />  </div>
+                    <div className="projectdispatchform-modal-div"> <label>客户：</label>
+                        <input type="text" name="Client" value={formData.Client || ''} onChange={handleChange} /> </div>
+                    <div className="projectdispatchform-modal-div"> <label>客户联系人：</label>
+                        <input type="text" name="ClientContact" value={formData.ClientContact || ''} onChange={handleChange} /> </div>
+                    <div className="projectdispatchform-modal-div"> <label>客户电话：</label>
+                        <input type="text" name="ClientPhone" value={formData.ClientPhone || ''} onChange={handleChange} />  </div>
+                    <div className="projectdispatchform-modal-div"> <label>申请人：</label>
+                        <input type="text" name="Applicant" value={formData.Applicant || ''} onChange={handleChange} /> </div>
+                    <div className="projectdispatchform-modal-div"><label>申请人联系人：</label>
+                        <input type="text" name="ApplicantContact" value={formData.ApplicantContact || ''} onChange={handleChange} />  </div>
+                    <div className="projectdispatchform-modal-div"><label>申请人电话：</label>
+                        <input type="text" name="ApplicantPhone" value={formData.ApplicantPhone || ''} onChange={handleChange} />  </div>
+                    <div className="projectdispatchform-modal-div"><label>被告：</label>
+                        <input type="text" name="Defendant" value={formData.Defendant || ''} onChange={handleChange} />  </div>
+                    <div className="projectdispatchform-modal-div"> <label>被告联系人：</label>
+                        <input type="text" name="DefendantContact" value={formData.DefendantContact || ''} onChange={handleChange} /> </div>
+                    <div className="projectdispatchform-modal-div"> <label>被告电话：</label>
+                        <input type="text" name="DefendantPhone" value={formData.DefendantPhone || ''} onChange={handleChange} /> </div>
+                    <div className="projectdispatchform-modal-div"> <label>项目类型：</label>
+                        <input type="text" name="ProjectType" value={formData.ProjectType || ''} onChange={handleChange} /> </div>
+                    <div className="projectdispatchform-modal-div"> <label>评估目的：</label>
+                        <input type="text" name="EvaluationPurpose" value={formData.EvaluationPurpose || ''} onChange={handleChange} /> </div>
+                    <div className="projectdispatchform-modal-div"> <label>负责人：</label>
+                        <input type="text" name="PersonInCharge" value={formData.PersonInCharge || ''} onChange={handleChange} /> </div>
+                    <div className="projectdispatchform-modal-div"> <label>委托日期：</label>
+                        <input type="date" name="EntrustDate" value={formData.EntrustDate || ''} onChange={handleChange} /> </div>
+                    <div className="projectdispatchform-modal-div"> <label>派单日期：</label>
+                        <input type="date" name="DispatchDate" value={formData.DispatchDate || ''} onChange={handleChange} /> </div>
                     <button type="submit">{editingId ? '保存' : '添加'}</button>
                     {editingId && ( // 仅在编辑模式下显示删除按钮
                         <button type="button" onClick={() => handleDelete(editingId)}>删除</button>

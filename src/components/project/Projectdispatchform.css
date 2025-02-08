@@ -52,3 +52,15 @@
     padding: 8px;
     margin-top: 5px;
 }
+.projectdispatchform-modal-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.projectdispatchform-modal-div {
+    display: flex;
+    flex-direction: row; 
+}
+.projectdispatchform-modal-div label {
+   width: 130px;
+}

@@ -6,6 +6,7 @@
     justify-content: flex-start; /* 更改为 flex-start 以避免按键与内容对齐 */
     height: 100%;
     position: relative; /* 使子元素的绝对定位相对于这个容器 */
+    border-right: 2px solid #ccc; /* 添加右边框，2px 宽，颜色为浅灰色 */
 }
 
 .lside-container.expanded {
@@ -67,11 +68,21 @@
 
 .lside-expanded-container {
     position: absolute; /* 绝对定位 */
+
     top: 50%; /* 垂直居中 */
-    right: -30px; /* 调整为右侧浮动，负值使其超出边界 */
+    right: -20px; /* 调整为右侧浮动，负值使其超出边界 */
     transform: translateY(-50%); /* 使其完全垂直居中 */
-    background-color: transparent;
+    background-color: rgb(255, 255, 255);
     z-index: 1; /* 确保按钮在其他内容之上 */
+
+    width: 30px; /* 设置宽度 */
+    height: 30px; /* 设置高度，与宽度相等形成圆形 */
+    border-radius: 50%; /* 使其变为圆形 */
+    border: 1px solid #ccc; /* 可选：添加边框 */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* 使内容居中 */
+     
 }
 
 .lside-expanded-toggle-btn {
@@ -92,9 +103,19 @@
   .tree-sub-li-div {
     display: flex;
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
   }
  
+  .lside-container-icon-open {
+    width: 0.8em;
+    height: 0.8em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+    padding-right: 5px;
+}
+
+
   .lside-container-icon {
     width: 1.2em;
     height: 1.2em;

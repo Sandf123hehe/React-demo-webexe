@@ -43,15 +43,17 @@ const Lside = () => {
           {/* 评估系统 */}
           <li className="tree-sub-li">
             <div className="tree-sub-li-div">
-              <Link to="/home/realestate" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
+              <Link to="/home/personalhome" className="tree-link"><svg className="lside-container-icon" aria-hidden="true">
                 <use xlinkHref="#icon-banxuepinggu"></use>
-              </svg>评估系统</Link>
+              </svg>
+                评估系统
+              </Link>
               <button onClick={() => toggleSubmenu('second')} className="submenu-toggle-btn">
                 {activeSubmenus.second ?
-                  <svg className="lside-container-icon" aria-hidden="true">
+                  <svg className="lside-container-icon-open" aria-hidden="true">
                     <use xlinkHref="#icon-arrow-up-bold"></use>
                   </svg> :
-                  <svg className="lside-container-icon" aria-hidden="true">
+                  <svg className="lside-container-icon-open" aria-hidden="true">
                     <use xlinkHref="#icon-arrow-down-bold"></use>
                   </svg>}
               </button>
@@ -102,10 +104,10 @@ const Lside = () => {
             </svg>娱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;乐</Link>
             <button onClick={() => toggleSubmenu('entertainment')} className="submenu-toggle-btn">
               {activeSubmenus.entertainment ?
-                <svg className="lside-container-icon" aria-hidden="true">
+                <svg className="lside-container-icon-open" aria-hidden="true">
                   <use xlinkHref="#icon-arrow-up-bold"></use>
                 </svg> :
-                <svg className="lside-container-icon" aria-hidden="true">
+                <svg className="lside-container-icon-open" aria-hidden="true">
                   <use xlinkHref="#icon-arrow-down-bold"></use>
                 </svg>}
             </button>
