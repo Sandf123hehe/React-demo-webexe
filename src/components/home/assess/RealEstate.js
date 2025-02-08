@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./RealEstate.css"; // 引入外部样式
+import { AuthContext } from '../../../context/AuthContext'; // 导入身份验证上下文
 
 function RealEstate() {
+  const { username } = useContext(AuthContext); // 使用上下文获取用户名
   const [realEstateData, setRealEstateData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [message, setMessage] = useState("");
@@ -146,8 +148,14 @@ function RealEstate() {
     });
   };
 
+  const handlePropertyClick = (item) => {
+    if (username === "李中敬") {
+      handleEditProperty(item);
+    }
+  };
+
   return (
-    <div className="realEstate-container" >
+    <div className="realEstate-container">
       {message && <div className="alert">{message}</div>} {/* 提示信息 */}
       <div className="div-RealEstate">
         <ul>
@@ -212,23 +220,24 @@ function RealEstate() {
             onChange={(e) => setRentMax(e.target.value)}
           />
         </label>
-
-        <button className="RealEstate-search-container" onClick={handleSearch}>
+ {/* 搜索 */}
+        {/* <button className="RealEstate-search-container" onClick={handleSearch}>
           <svg aria-hidden="true">
             <use xlinkHref="#icon-search"></use>
           </svg>
-          {/* 搜索 */}
-        </button>
+         
+        </button> */}
       </div>
 
       <div className="search-h">
+        {/* <h3>{username ? username : '登录'}</h3> */}
         <h3 className="search-jg">{propertyUsage ? `${propertyUsage}搜索结果:` : "搜索结果:"}</h3>
       </div>
       <div className="list-search-div">
         {filteredData.length > 0 ? (
           <ul>
             {filteredData.map((item) => (
-              <li key={item.id}>
+              <li key={item.id} onClick={() => handlePropertyClick(item)}> {/* 点击搜索结果 */}
                 <div className="list-search">
                   <div className="list-search-left">
                     <div className="list-search-location">
@@ -238,64 +247,70 @@ function RealEstate() {
                         </svg>
                         {item.location}
                       </div>
-
                     </div>
                     <div className="first-column">
                       <div className="first-column-child">
                         <div>
                           <svg className="realEstate-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-zaixianxuanfang">
-                            </use>
+                            <use xlinkHref="#icon-zaixianxuanfang"></use>
                           </svg>
                           {item.community_name}</div>
                         <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                        <div><svg className="realEstate-icon" aria-hidden="true">
-                          <use xlinkHref="#icon-quyu">
-                          </use>
-                        </svg>{item.area}</div>&nbsp;&nbsp;
-                        <strong><svg className="realEstate-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-building">
-                            </use>
-                          </svg>{item.house_type}</strong>
+                        <div>
+                          <svg className="realEstate-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-quyu"></use>
+                          </svg>{item.area}
+                        </div>&nbsp;&nbsp;
+                        <strong>
+                          <svg className="realEstate-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-building"></use>
+                          </svg>{item.house_type}
+                        </strong>
                       </div>
                       <div>
-                        <strong><svg className="realEstate-icon" aria-hidden="true">
-                          <use xlinkHref="#icon-jianzhumianji">
-                          </use>
-                        </svg>{item.building_area}㎡</strong>&nbsp;&nbsp;
-                        <strong><svg className="realEstate-icon" aria-hidden="true">
-                          <use xlinkHref="#icon-taoneimianji">
-                          </use>
-                        </svg>{item.interior_area}㎡</strong>
+                        <strong>
+                          <svg className="realEstate-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-jianzhumianji"></use>
+                          </svg>{item.building_area}㎡
+                        </strong>&nbsp;&nbsp;
+                        <strong>
+                          <svg className="realEstate-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-taoneimianji"></use>
+                          </svg>{item.interior_area}㎡
+                        </strong>
                       </div>
                     </div>
                   </div>
 
                   <div className="list-search-center">
-                    <div><svg className="realEstate-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-nav3-2">
-                            </use>
-                          </svg>{item.market_price}元/㎡</div>
-                    <div><svg className="realEstate-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-fangwuzujin">
-                            </use>
-                          </svg>{item.market_rent}元/㎡.月</div>
+                    <div>
+                      <svg className="realEstate-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-nav3-2"></use>
+                      </svg>{item.market_price}元/㎡
+                    </div>
+                    <div>
+                      <svg className="realEstate-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-fangwuzujin"></use>
+                      </svg>{item.market_rent}元/㎡.月
+                    </div>
                   </div>
-
-                  <div className="list-search-right">
-                    <button className="RealEstate-edit-container" onClick={() => handleEditProperty(item)}>
-                      <svg aria-hidden="true">
-                        <use xlinkHref="#icon-icon-test"></use>
-                      </svg>
-                      {/* 编辑 */}
-                    </button>
-                    <button className="RealEstate-edit-container" onClick={() => handleDeleteProperty(item.id)}>
-                      <svg aria-hidden="true">
-                        <use xlinkHref="#icon-delete"></use>
-                      </svg>
-                      {/* 删除 */}
-                    </button>
-                  </div>
+                  {/* 只有李中敬可以看到编辑和删除按钮 */}
+                  {/* {username === "李中敬" && ( 
+                    <div className="list-search-right">
+                      <button className="RealEstate-edit-container" onClick={() => handleEditProperty(item)}>
+                        <svg aria-hidden="true">
+                          <use xlinkHref="#icon-icon-test"></use>
+                        </svg>
+                        
+                      </button>
+                      <button className="RealEstate-edit-container" onClick={() => handleDeleteProperty(item.id)}>
+                        <svg aria-hidden="true">
+                          <use xlinkHref="#icon-delete"></use>
+                        </svg>
+                       
+                      </button>
+                    </div>
+                  )} */}
                 </div>
               </li>
             ))}
@@ -305,12 +320,15 @@ function RealEstate() {
         )}
       </div>
 
-      <div className="button-RealEstatecontainer">
-        <button onClick={() => {
-          resetNewProperty();
-          setShowAddModal(true);
-        }}>+</button>
-      </div>
+      {/* 只有李中敬可以点击的新增按钮 */}
+      {username === "李中敬" && (
+        <div className="button-RealEstatecontainer">
+          <button onClick={() => {
+            resetNewProperty();
+            setShowAddModal(true);
+          }}>+</button>
+        </div>
+      )}
 
       {/* 添加或编辑房产的模态框 */}
       {showAddModal && (
@@ -497,6 +515,7 @@ function RealEstate() {
               ))}
             </select>
           </div>
+
           <div className="realestate-modal-inputcontainer">
             <label>楼层：</label>
             <input
@@ -543,20 +562,29 @@ function RealEstate() {
             />
           </div>
           <div className="realestate-modal-inputcontainer">
-            <
-              button onClick={editingProperty ? handleUpdateProperty : handleAddProperty}>
+            <button onClick={editingProperty ? handleUpdateProperty : handleAddProperty}>
               {editingProperty ? "更新" : "添加"}
             </button>
+            {editingProperty && ( // 仅在编辑状态下显示删除按钮
+              <button onClick={() => {
+                handleDeleteProperty(editingProperty.id);
+                setShowAddModal(false); // 关闭模态框
+                setEditingProperty(null); // 重置编辑状态
+              }}>
+                删除
+              </button>
+            )}
             <button onClick={() => {
               setShowAddModal(false);
               setEditingProperty(null); // 关闭模态框时重置编辑状态
-            }}>
-              取消
-            </button>
+            }}>取消</button>
           </div>
+
         </div>
-      )}
-    </div>
+         
+  )
+}
+    </div >
   );
 }
 
