@@ -1,11 +1,13 @@
 .travel-expense-container {
   padding: 20px;
 }
+
 .travel-return-container {
   display: flex;
   justify-content: space-between;
-  height: 40px; 
+  height: 40px;
 }
+
 .travel-expense-searchsection {
   display: flex;
   align-items: center;
@@ -30,21 +32,27 @@
 
 .travel-expense-table {
   width: 100%;
-  border-collapse: collapse;/* 使表格边框合并 */
-  
+  border-collapse: collapse;
+  /* 使表格边框合并 */
+
 }
 
-.travel-expense-table th, .travel-expense-table td {
+.travel-expense-table th,
+.travel-expense-table td {
   border: 1px solid #ddd;
   padding: 8px;
-  text-align: center; /* 使文字水平居中 */
-  padding: 10px; /* 添加一些内边距，使单元格内容不紧凑 */
-  border: 1px solid #ddd; /* 表格单元格的边框 */
+  text-align: center;
+  /* 使文字水平居中 */
+  padding: 10px;
+  /* 添加一些内边距，使单元格内容不紧凑 */
+  border: 1px solid #ddd;
+  /* 表格单元格的边框 */
 }
 
 .travel-expense-table th {
   background-color: #f2f2f2;
-  font-weight: bold; /* 表头文字加粗 */
+  font-weight: bold;
+  /* 表头文字加粗 */
 }
 
 .travel-expense-table tr:hover {
@@ -77,6 +85,7 @@
   flex-direction: column;
   justify-content: flex-start;
   margin: 0 auto;
+   
 }
 
 .travel-expense-form div {
@@ -112,65 +121,135 @@
   display: flex;
   justify-content: space-between;
 }
-.travel-expanded-icon { 
-   width: 1em;
+
+
+.travelexpense-btn-save {
+   
+  /* 绿色背景 */
+  color: rgb(209, 14, 14);
+  /* 白色文字 */
+  border: none;
+
+
+  cursor: pointer;
+  width: 100px;
+}
+
+.travelexpense-btn-cancel {
+  background-color: #f44336;
+  /* 红色背景 */
+  color: rgb(216, 12, 12);
+  /* 白色文字 */
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  width: 100px;
+}
+
+.travelexpense-btn-delete {
+  background-color: #e79211;
+  /* 橙色背景 */
+  color: rgb(219, 21, 21);
+  /* 白色文字 */
+  border: none;
+  width: 100px;
+  cursor: pointer;
+}
+
+.travelexpense-btn-save:hover,
+.travelexpense-btn-cancel:hover,
+.travelexpense-btn-delete:hover {
+  opacity: 0.8;
+  /* 鼠标悬停时按钮变透明 */
+}
+
+.travel-expanded-icon {
+  width: 1em;
   height: 1em;
   vertical-align: -0.15em;
   fill: currentColor;
-  overflow: hidden;}
-  .travel-expense-form div select {
-    width: calc(100% - 120px);
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-  }
-  /* #region start 编辑按钮样式 */
-  .travel-td-editbutton {
-    background-color: #007BFF; /* 背景色 */
-    color: white; /* 字体颜色 */
-    border: 2px solid #007BFF; /* 边框颜色与背景色一致 */
-    padding: 10px 20px; /* 上下左右内边距 */
-    font-size: 14px; /* 字体大小 */
-    font-weight: 600; /* 字体加粗 */
-    border-radius: 5px; /* 圆角 */
-    transition: all 0.3s ease; /* 平滑过渡效果 */
-    cursor: pointer; /* 鼠标悬浮时指针变为点击手型 */
-  }
+  overflow: hidden;
+}
+
+.travel-expense-form div select {
+  width: calc(100% - 120px);
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+/* #region start 编辑按钮样式 */
+.travel-td-editbutton {
   
-  .travel-td-editbutton:hover {
-    background-color: #0056b3; /* 鼠标悬浮时背景色变暗 */
-    border-color: #0056b3; /* 边框颜色也变暗 */
-    transform: scale(1.05); /* 鼠标悬浮时按钮稍微放大 */
-  }
-  
-  .travel-td-editbutton:focus {
-    outline: none; /* 取消焦点时的默认边框 */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 聚焦时添加蓝色阴影 */
-  }
-  
-  .travel-td-editbutton:active {
-    transform: scale(1); /* 点击时按钮恢复原状 */
-  }
-  
+  color: white;
+  /* 字体颜色 */
+  border: 2px solid #ffffff;
+  /* 边框颜色与背景色一致 */
+  padding: 10px 20px;
+  /* 上下左右内边距 */
+  font-size: 14px;
+  /* 字体大小 */
+  font-weight: 600;
+  /* 字体加粗 */
+  border-radius: 5px;
+  /* 圆角 */
+  transition: all 0.3s ease;
+  /* 平滑过渡效果 */
+  cursor: pointer;
+  /* 鼠标悬浮时指针变为点击手型 */
+}
+
+.travel-td-editbutton:hover {
+  background-color: #0056b3;
+  /* 鼠标悬浮时背景色变暗 */
+  border-color: #0056b3;
+  /* 边框颜色也变暗 */
+  transform: scale(1.05);
+  /* 鼠标悬浮时按钮稍微放大 */
+}
+
+.travel-td-editbutton:focus {
+  outline: none;
+  /* 取消焦点时的默认边框 */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  /* 聚焦时添加蓝色阴影 */
+}
+
+.travel-td-editbutton:active {
+  transform: scale(1);
+  /* 点击时按钮恢复原状 */
+}
+
 /*  #endregion end */
 /* #region start 添加项目按钮样式 */
 .travel-expense-addButton {
   min-width: 80px;
-  background-color: #007BFF; /* 背景色 */
-  color: white; /* 白色文字 */
-  border: none; /* 去掉边框 */
-  padding: 10px 20px; /* 上下10px，左右20px的内边距 */
-  font-size: 16px; /* 文字大小 */
-  font-weight: bold; /* 字体加粗 */
-  border-radius: 5px; /* 圆角按钮 */
-  cursor: pointer; /* 鼠标悬停时显示手指 */
-  transition: background-color 0.3s ease; /* 背景色渐变效果 */
+  background-color: #007BFF;
+  /* 背景色 */
+  color: white;
+  /* 白色文字 */
+  border: none;
+  /* 去掉边框 */
+  padding: 10px 20px;
+  /* 上下10px，左右20px的内边距 */
+  font-size: 16px;
+  /* 文字大小 */
+  font-weight: bold;
+  /* 字体加粗 */
+  border-radius: 5px;
+  /* 圆角按钮 */
+  cursor: pointer;
+  /* 鼠标悬停时显示手指 */
+  transition: background-color 0.3s ease;
+  /* 背景色渐变效果 */
 }
 
 .travel-expense-addButton:hover {
-  background-color: #0056b3; /* 鼠标悬停时改变背景色 */
+  background-color: #0056b3;
+  /* 鼠标悬停时改变背景色 */
 }
 
 /*  #endregion end */
@@ -178,65 +257,95 @@
 .travel-expense-searchsection {
   display: flex;
   align-items: center;
-  gap: 15px; /* 让文本框和日期框之间有适当的间距 */
+  gap: 15px;
+  /* 让文本框和日期框之间有适当的间距 */
 }
 
 .travel-expense-searchInput,
 .travel-expense-monthsearchsection {
-  background-color: #f5f5f5; /* 背景色为浅灰色 */
-  color: #333; /* 文字颜色 */
-  border: 2px solid #ccc; /* 边框颜色 */
-  border-radius: 8px; /* 圆角效果 */
-  padding: 10px 15px; /* 上下10px，左右15px的内边距 */
-  font-size: 16px; /* 文字大小 */
-  transition: all 0.3s ease; /* 平滑的过渡效果 */
-  
+  background-color: #f5f5f5;
+  /* 背景色为浅灰色 */
+  color: #333;
+  /* 文字颜色 */
+  border: 2px solid #ccc;
+  /* 边框颜色 */
+  border-radius: 8px;
+  /* 圆角效果 */
+  padding: 10px 15px;
+  /* 上下10px，左右15px的内边距 */
+  font-size: 16px;
+  /* 文字大小 */
+  transition: all 0.3s ease;
+  /* 平滑的过渡效果 */
+
 }
+
 .travel-expense-monthsearchsection {
-  width: 130px; /* 固定宽度，适配内容 */
+  width: 130px;
+  /* 固定宽度，适配内容 */
 }
+
 .travel-expense-searchInput:focus,
 .travel-expense-monthsearchsection:focus {
-  outline: none; /* 去掉浏览器默认的焦点边框 */
-  border-color: #4CAF50; /* 聚焦时边框颜色变为绿色 */
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* 添加绿色的阴影效果 */
+  outline: none;
+  /* 去掉浏览器默认的焦点边框 */
+  border-color: #4CAF50;
+  /* 聚焦时边框颜色变为绿色 */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  /* 添加绿色的阴影效果 */
 }
 
 .travel-expense-searchInput::placeholder,
 .travel-expense-monthsearchsection::placeholder {
-  color: #888; /* 设置占位符颜色为灰色 */
+  color: #888;
+  /* 设置占位符颜色为灰色 */
 }
 
 .travel-expense-searchInput:hover,
 .travel-expense-monthsearchsection:hover {
-  border-color: #80e27e; /* 鼠标悬停时边框颜色变浅 */
+  border-color: #80e27e;
+  /* 鼠标悬停时边框颜色变浅 */
 }
 
 /*  #endregion end */
 /* #region start 返回首页tooltip样式 */
 .travel-tree-link {
-  position: relative; /* 为了定位tooltip */
-  display: inline-block; /* 使其成为行内块元素 */
-  color: inherit; /* 使文本继承父元素的颜色 */
+  position: relative;
+  /* 为了定位tooltip */
+  display: inline-block;
+  /* 使其成为行内块元素 */
+  color: inherit;
+  /* 使文本继承父元素的颜色 */
 }
 
 .travel-return-tooltip {
-  visibility: hidden; /* 初始时隐藏提示框 */
+  visibility: hidden;
+  /* 初始时隐藏提示框 */
   position: absolute;
-  bottom: -100%; /* 将提示框放在链接的上方 */
+  bottom: -100%;
+  /* 将提示框放在链接的上方 */
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.7); /* 设置提示框背景色 */
-  color: #fff; /* 设置文字颜色 */
-   
-  border-radius: 5px; /* 设置圆角 */
-  white-space: nowrap; /* 不换行 */
-  opacity: 0; /* 初始时设置透明度为0 */
-  transition: opacity 0.3s ease-in-out; /* 添加渐变效果 */
+  background-color: rgba(0, 0, 0, 0.7);
+  /* 设置提示框背景色 */
+  color: #fff;
+  /* 设置文字颜色 */
+
+  border-radius: 5px;
+  /* 设置圆角 */
+  white-space: nowrap;
+  /* 不换行 */
+  opacity: 0;
+  /* 初始时设置透明度为0 */
+  transition: opacity 0.3s ease-in-out;
+  /* 添加渐变效果 */
 }
 
 .travel-tree-link:hover .travel-return-tooltip {
-  visibility: visible; /* 鼠标悬停时显示提示框 */
-  opacity: 1; /* 让提示框变为可见 */
+  visibility: visible;
+  /* 鼠标悬停时显示提示框 */
+  opacity: 1;
+  /* 让提示框变为可见 */
 }
+
 /*  #endregion end */

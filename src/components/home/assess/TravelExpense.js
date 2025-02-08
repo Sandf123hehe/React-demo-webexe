@@ -152,10 +152,29 @@ const TravelExpenseForm = ({ expense, onSave, onCancel, onDelete }) => {
         </select>
       </div>
       <div className="form-actions">
-        <button type="submit">保存</button>
-        <button type="button" onClick={onCancel}>取消</button>
-        {expense && <button type="button" onClick={handleDelete}>删除</button>}
+
+        {/* 保存 */}
+        <button type="submit" className="travelexpense-btn-save" title="保存"  >
+          <svg className="lside-container-icon" aria-hidden="true">
+            <use xlinkHref="#icon-yishenhe1">
+            </use>
+          </svg>
+        </button>
+        {/* 取消 */}
+        <button type="button" className="travelexpense-btn-cancel" onClick={onCancel} title="取消"   >
+          <svg className="lside-container-icon" aria-hidden="true">
+            <use xlinkHref="#icon-back">
+            </use>
+          </svg>
+        </button>
+        {/* 删除 */}
+        {expense && <button type="button" className="travelexpense-btn-delete" title="删除" onClick={handleDelete}>
+          <svg className="lside-container-icon" aria-hidden="true">
+            <use xlinkHref="#icon-shanchu7">
+            </use>
+          </svg></button>}
       </div>
+
     </form>
   );
 };
@@ -302,7 +321,7 @@ const TravelExpense = () => {
       </div>
       {/* <h2>&#32;当前位置：首页&#32;&gt;&#32;报销</h2> */}
       <div className="travel-expense-searchsection">
-      <input
+        <input
           className="travel-expense-monthsearchsection"
           type="month"
           value={selectedMonth}
@@ -316,7 +335,7 @@ const TravelExpense = () => {
           className="travel-expense-searchInput"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-       
+
         <button className="travel-expense-addButton" onClick={() => setIsFormVisible(true)}>添加</button>
       </div>
 
@@ -330,7 +349,7 @@ const TravelExpense = () => {
             <th>出差时间</th>
             <th>地点</th>
             <th>状态</th>
-            <th>操作</th>
+            {/* <th>操作</th> */}
           </tr>
         </thead>
         <tbody>
@@ -348,15 +367,23 @@ const TravelExpense = () => {
                 <td>{formatDate(expense.BusinessTripDate)}</td>
                 <td>{expense.Location}</td>
                 <td>{expense.Whetherover ? '已报销' : '未报销'}</td> {/* 新增 */}
-                <td>
+                {/* <td>
                   <button className="travel-td-editbutton" onClick={(e) => { e.stopPropagation(); handleEditExpense(expense); }}>编辑</button>
-                </td>
+                </td> */}
               </tr>
               {expandedRows[expense.ID] && (
                 <tr>
                   <td colSpan="8">
                     {/* <div>地点: {expense.Location}</div> */}
-                    <div>备注: {expense.Remarks}</div>
+                    <div>备注: {expense.Remarks}
+                      <button className="travel-td-editbutton" title="编辑" onClick={(e) => { e.stopPropagation(); handleEditExpense(expense); }}>
+                        <svg className="lside-container-icon" aria-hidden="true">
+                          <use xlinkHref="#icon-xiugaidingdan" />
+                        </svg>
+                      </button>
+
+                    </div>
+
                   </td>
                 </tr>
               )}
