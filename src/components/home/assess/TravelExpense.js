@@ -338,9 +338,12 @@ const TravelExpense = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredExpenses.map((expense) => (
+        {filteredExpenses.map((expense) => (
             <React.Fragment key={expense.ID}>
-              <tr onClick={() => toggleExpand(expense.ID)} style={{ cursor: 'pointer' }}>
+              <tr
+                onClick={() => toggleExpand(expense.ID)}
+                style={{ cursor: 'pointer', color: expense.Whetherover ? 'black' : 'red' }} // 设置行的颜色
+              >
                 <td>
                   <svg className="travel-expanded-icon" aria-hidden="true">
                     <use xlinkHref={expandedRows[expense.ID] ? "#icon-arrow-up-bold" : "#icon-arrow-down-bold"}></use>
@@ -351,7 +354,7 @@ const TravelExpense = () => {
                 <td>¥{expense.Amount.toFixed(2)}</td>
                 <td>{formatDate(expense.BusinessTripDate)}</td>
                 <td>{expense.Location}</td>
-                <td style={{ color: expense.Whetherover ? 'black' : 'red' }}>
+                <td>
                   {expense.Whetherover ? '已报销' : '未报销'}
                 </td>
               </tr>

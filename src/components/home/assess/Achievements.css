@@ -338,13 +338,15 @@
 .achievements-table th, .achievements-table td {
   border: 1px solid #ddd;
   padding: 8px;
-  text-align: left;
+  text-align: center;
 }
 
 .achievements-table th {
   background-color: #f2f2f2;
 }
-
+.achievements-table-tctime {
+  width: 90px;
+}
 .achievement-detail-row {
   background-color: #f9f9f9;
 }
@@ -382,3 +384,44 @@
   fill: currentColor;
   overflow: hidden;
 }
+
+
+/* #region start 饼状图*/
+.achievements-piechart-container {
+  display: flex;
+  align-items: center;
+}
+
+.achievements-piechart-text-container {
+  margin-right: 20px;
+}
+
+.achievements-piechart-text-container h3 {
+  margin: 0; /* Optional: to remove default margin */
+  color: rgb(88, 85, 85);
+  font-size: 16px;
+}
+
+.achievements-piechart-piechart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/*  #endregion end */
+
+
+
+/* #region start 编辑修改按钮 */
+.achievement-button-container {
+  display: none;
+}
+/* 鼠标悬浮时显示按钮容器 */
+.achievement-detail-cell:hover .achievement-button-container {
+  display: block;
+}
+
+/* 你也可以设置按钮的样式 */
+.achievement-button-container button {
+  margin-right: 10px;
+}
+/*  #endregion end */

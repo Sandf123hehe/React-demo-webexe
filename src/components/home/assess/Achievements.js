@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { AuthContext } from '../../../context/AuthContext';
+import { AuthContext } from '../../../context/AuthContext'
+import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts'; // 导入 Recharts;
 import "./Achievements.css";
 import { Link } from 'react-router-dom';
 
@@ -288,6 +289,19 @@ function Achievements() {
     }));
   };
 
+  //饼状图
+  // 计算提成金额和收费金额的总和
+  const totalChargeAmount = filteredAchievements.reduce((acc, achievement) => acc + (achievement.ChargeAmount || 0), 0);
+  const totalAchievementAmount = filteredAchievements.reduce((acc, achievement) => acc + (achievement.AchievementAmount || 0), 0);
+
+  // 数据格式化为饼状图使用
+  const pieData = [
+    { name: '收费金额', value: totalChargeAmount },
+    { name: '提成金额', value: totalAchievementAmount },
+  ];
+
+  const COLORS = ['#0088FE', '#FFBB28'];
+
   return (
     <div className="achievements-container">
       <Link to="/home/personalhome" className="tree-link">
@@ -321,9 +335,39 @@ function Achievements() {
           className="achievements-addButton"
           onClick={() => setIsFormVisible(true)}
         >
-          添加绩效
+          添加
         </button>
       </div>
+
+      <div className="achievements-piechart-container">
+
+        <PieChart width={300} height={300}>
+          <Pie
+            data={pieData}
+            cx={150}
+            cy={150}
+            innerRadius={60}
+            outerRadius={80}
+            fill="#8884d8"
+            paddingAngle={5}
+            dataKey="value"
+            label
+          // 添加此属性以显示数据标签
+          >
+            {pieData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+        {/* <div className="achievements-piechart-text-container">
+          <h3>收费: ¥{totalChargeAmount.toFixed(2)}</h3>
+          <h3>提成: ¥{totalAchievementAmount.toFixed(2)}</h3>
+        </div> */}
+      </div>
+
+
 
       <table className="achievements-table">
         <thead>
@@ -332,8 +376,9 @@ function Achievements() {
             <th>项目号</th>
             <th>项目名称</th>
             <th>收费金额</th>
-            <th>收费时间</th>
-            <th>提成状态</th>
+            <th className="achievements-table-tctime">收费时间</th>
+            <th>提成金额</th>
+            <th className="achievements-table-tctime">提成状态</th>
             {/* <th>操作</th> */}
           </tr>
         </thead>
@@ -354,6 +399,7 @@ function Achievements() {
                 <td>{achievement.ProjectName}</td>
                 <td>¥{achievement.ChargeAmount.toFixed(2)}</td>
                 <td>{formatDate(achievement.ChargeDate)}</td>
+                <td>¥{achievement.AchievementAmount ? achievement.AchievementAmount.toFixed(2) : '未提供'}</td>
                 <td style={{ color: achievement.Whetherticheng ? 'black' : 'red' }}>
                   {achievement.Whetherticheng ? '已提成' : '未提成'}
                 </td>
@@ -363,22 +409,24 @@ function Achievements() {
                   <button onClick={() => handleDeleteAchievement(achievement.ID)}>删除</button>
                 </td> */}
               </tr>
+              {/* <strong>绩效金额:</strong> ¥{achievement.AchievementAmount ? achievement.AchievementAmount.toFixed(2) : '未提供'}<br /> */}
+
               {expandedRows[achievement.ID] && (
                 <tr className="achievement-detail-row">
-                  <td colSpan="6">
+                  <td colSpan="7" className="achievement-detail-cell">
                     <div>
-
-                      <strong>绩效金额:</strong> ¥{achievement.AchievementAmount ? achievement.AchievementAmount.toFixed(2) : '未提供'}<br />
                       <strong>签字金额:</strong> ¥{achievement.SignedAmount ? achievement.SignedAmount.toFixed(2) : '未提供'}<br />
                       <strong>提成时间:</strong> {formatDate(achievement.CommissionDate)}<br />
-                      <strong>备注:</strong> {achievement.Notes}
-                      <button onClick={() => handleEditAchievement(achievement)}>编辑</button>
-                      <button onClick={() => handleDeleteAchievement(achievement.ID)}>删除</button>
-
+                      <strong  >备注:</strong> {achievement.Notes}
+                      <div className="achievement-button-container">
+                        <button onClick={() => handleEditAchievement(achievement)}>编辑</button>
+                        <button onClick={() => handleDeleteAchievement(achievement.ID)}>删除</button>
+                      </div>
                     </div>
                   </td>
                 </tr>
               )}
+
             </React.Fragment>
           ))}
         </tbody>

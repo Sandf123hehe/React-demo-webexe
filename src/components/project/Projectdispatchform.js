@@ -89,6 +89,15 @@ const ProjectDispatchForm = () => {
         }
     };
 
+     // 检查日期是否超过25天
+     const isOverdue = (dateString) => {
+        const entrustDate = new Date(dateString);
+        const currentDate = new Date();
+        const timeDiff = currentDate - entrustDate; // 计算时间差
+        const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)); // 转换为天数
+        return dayDiff > 25; // 如果超过25天，返回 true
+    };
+    
     return (
         <div className="projectdispatchform-container">
             <Link to="/home/personalhome" className="tree-link">
@@ -115,7 +124,11 @@ const ProjectDispatchForm = () => {
                 </thead>
                 <tbody>
                     {dispatches.map((dispatch) => (
-                        <tr key={dispatch.id} onClick={() => handleRowClick(dispatch)}> {/* 点击行展开模态框 */}
+                        <tr 
+                            key={dispatch.id} 
+                            onClick={() => handleRowClick(dispatch)}
+                            style={{ color: isOverdue(dispatch.EntrustDate) ? 'red' : 'black' }} // 根据日期设置行颜色
+                        >
                             <td>{dispatch.ProjectName}</td>
                             <td>{dispatch.Branch}</td>
                             <td>{dispatch.OrderNumber}</td>
