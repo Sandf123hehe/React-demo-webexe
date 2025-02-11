@@ -97,6 +97,7 @@ CREATE TABLE BillingApp.dbo.UsedWebsites (
 //项目派单表
 CREATE TABLE BillingApp.dbo.ProjectDispatchForm (
     id INT IDENTITY(1,1) PRIMARY KEY,  -- Auto-increment unique identifier (Primary Key)
+    Projectnumber NVARCHAR(255),  -- 项目编号 (Projectnumber)
     ProjectName NVARCHAR(255),  -- 项目名称 (Project Name)
     Branch NVARCHAR(255),  -- 支行/分院 (Branch/Division)
     OrderNumber NVARCHAR(50),  -- 委托号 (Order Number)
@@ -116,7 +117,8 @@ CREATE TABLE BillingApp.dbo.ProjectDispatchForm (
     EvaluationPurpose NVARCHAR(255),  -- 评估目的 (Evaluation Purpose)
     PersonInCharge NVARCHAR(100),  -- 负责人 (Person in Charge)
     EntrustDate DATE,  -- 委托日期 (Entrustment Date)
-    DispatchDate DATE  -- 派单日期 (Dispatch Date)
+    DispatchDate DATE,  -- 派单日期 (Dispatch Date)
+    Completeprogress BIT,  -- 完成进度 (Completeprogress)
 );
 //报告编号管理表
 CREATE TABLE BillingApp.dbo.ReportNumberTable (

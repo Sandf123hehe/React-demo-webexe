@@ -687,7 +687,8 @@ app.post('/api/addProjectDispatch', async (req, res) => {
         ProjectSourceContact, ProjectSourcePhone, Client,
         ClientContact, ClientPhone, Applicant, ApplicantContact,
         ApplicantPhone, Defendant, DefendantContact, DefendantPhone,
-        ProjectType, EvaluationPurpose, PersonInCharge, EntrustDate, DispatchDate
+        ProjectType, EvaluationPurpose, PersonInCharge, EntrustDate, DispatchDate,
+        ProjectNumber, CompleteProgress
     } = req.body;
 
     try {
@@ -713,6 +714,8 @@ app.post('/api/addProjectDispatch', async (req, res) => {
             .input('PersonInCharge', sql.NVarChar, PersonInCharge)
             .input('EntrustDate', sql.Date, EntrustDate)
             .input('DispatchDate', sql.Date, DispatchDate)
+            .input('ProjectNumber', sql.NVarChar, ProjectNumber)
+            .input('CompleteProgress', sql.Bit, CompleteProgress) // 新增字段
             .query(`
                 INSERT INTO ProjectDispatchForm (
                     ProjectName, Branch, OrderNumber, ProjectSource,
@@ -720,14 +723,16 @@ app.post('/api/addProjectDispatch', async (req, res) => {
                     ClientContact, ClientPhone, Applicant,
                     ApplicantContact, ApplicantPhone, Defendant,
                     DefendantContact, DefendantPhone, ProjectType,
-                    EvaluationPurpose, PersonInCharge, EntrustDate, DispatchDate
+                    EvaluationPurpose, PersonInCharge, EntrustDate, DispatchDate,
+                    ProjectNumber, CompleteProgress
                 ) VALUES (
                     @ProjectName, @Branch, @OrderNumber, @ProjectSource,
                     @ProjectSourceContact, @ProjectSourcePhone, @Client,
                     @ClientContact, @ClientPhone, @Applicant,
                     @ApplicantContact, @ApplicantPhone, @Defendant,
                     @DefendantContact, @DefendantPhone, @ProjectType,
-                    @EvaluationPurpose, @PersonInCharge, @EntrustDate, @DispatchDate
+                    @EvaluationPurpose, @PersonInCharge, @EntrustDate, @DispatchDate,
+                    @ProjectNumber, @CompleteProgress
                 );
             `);
         res.status(201).json({ ID: result.rowsAffected[0] });
@@ -746,7 +751,8 @@ app.put('/api/updateProjectDispatch/:id', async (req, res) => {
         ProjectSourceContact, ProjectSourcePhone, Client,
         ClientContact, ClientPhone, Applicant, ApplicantContact,
         ApplicantPhone, Defendant, DefendantContact, DefendantPhone,
-        ProjectType, EvaluationPurpose, PersonInCharge, EntrustDate, DispatchDate
+        ProjectType, EvaluationPurpose, PersonInCharge, EntrustDate, DispatchDate,
+        ProjectNumber, CompleteProgress
     } = req.body;
 
     try {
@@ -773,6 +779,8 @@ app.put('/api/updateProjectDispatch/:id', async (req, res) => {
             .input('PersonInCharge', sql.NVarChar, PersonInCharge)
             .input('EntrustDate', sql.Date, EntrustDate)
             .input('DispatchDate', sql.Date, DispatchDate)
+            .input('ProjectNumber', sql.NVarChar, ProjectNumber)
+            .input('CompleteProgress', sql.Bit, CompleteProgress) // 新增字段
             .query(`
                 UPDATE ProjectDispatchForm SET
                 ProjectName = @ProjectName,
@@ -794,15 +802,17 @@ app.put('/api/updateProjectDispatch/:id', async (req, res) => {
                 EvaluationPurpose = @EvaluationPurpose,
                 PersonInCharge = @PersonInCharge,
                 EntrustDate = @EntrustDate,
-                DispatchDate = @DispatchDate
+                DispatchDate = @DispatchDate,
+                ProjectNumber = @ProjectNumber,
+                CompleteProgress = @CompleteProgress
                 WHERE id = @id;
             `);
-        
+
         if (result.rowsAffected[0] === 0) {
             return res.status(404).send('派单记录未找到');
         }
 
-        res.status(200).send('派单记录更新成功');
+        res.status(200).json({ message: '派单记录更新成功' });
         pool.close();
     } catch (err) {
         console.error(err);
@@ -819,12 +829,12 @@ app.delete('/api/deleteProjectDispatch/:id', async (req, res) => {
         const result = await pool.request()
             .input('id', sql.Int, id)
             .query('DELETE FROM ProjectDispatchForm WHERE id = @id');
-        
+
         if (result.rowsAffected[0] === 0) {
             return res.status(404).send('派单记录未找到');
         }
 
-        res.status(204).send(); // No Content
+        res.status(200).json({ message: '派单记录删除成功' });
         pool.close();
     } catch (err) {
         console.error(err);
