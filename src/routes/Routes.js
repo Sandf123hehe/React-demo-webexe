@@ -20,7 +20,9 @@ import FeeCalculation from '../components/home/feecalculation/FeeCalculation';
 import Carousel from '../components/home/amusement/Carousel';
 import Music from '../components/home/amusement/Music';
 import Personalhome from '../components/project/Personalhome';
-import Asinglesitelog from '../components/project/Asinglesitelog';
+import Asinglesitelog from '../components/project/Asinglesitelog';//单个工作日志
+import AsingleTravelExpense from '../components/project/AsingleTravelExpense';//单个报销
+import AsingleAchievements from '../components/project/AsingleAchievements';//单个绩效
 import Projectdispatchform from '../components/project/Projectdispatchform';
 import ReportNumberTable from '../components/project/ReportNumberTable';
 import Assessprojectfees from '../components/project/Assessprojectfees';
@@ -77,7 +79,8 @@ const AppRoutes = () => {
                 <Route path="asinglesitelog" element={<Asinglesitelog />} />
                 <Route path="reportnumbertable" element={<ReportNumberTable />} />
                 <Route path="asinglesitelog/:projectNumber" element={<Asinglesitelog />} />
-
+                <Route path="asingletravelexpense/:projectNumber" element={<AsingleTravelExpense />} />
+                <Route path="asingleachievements/:projectNumber" element={<AsingleAchievements />} />
                 <Route path="worklog" element={<Worklog />} />
                 
             </Route>

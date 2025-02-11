@@ -158,8 +158,19 @@ const ProjectDispatchForm = () => {
                                 <Link to={`/home/asinglesitelog/${dispatch.ProjectNumber}`} className="tree-link" title="工作日志">
                                     <svg className="lside-container-icon" aria-hidden="true">
                                         <use xlinkHref="#icon-kaifangqishiriqi"></use>
-                                    </svg>
-                                    
+                                    </svg>                                  
+                                </Link>
+                                {/* 报销                         */}
+                                <Link to={`/home/asingletravelexpense/${dispatch.ProjectNumber}`} className="tree-link" title="报销">
+                                    <svg className="lside-container-icon" aria-hidden="true">
+                                        <use xlinkHref="#icon-jiaoche-qiche-jiaotong-chuzuche-chuhang"></use>
+                                    </svg>                                  
+                                </Link>
+                                 {/* 报告提成                         */}
+                                 <Link to={`/home/asingleachievements/${dispatch.ProjectNumber}`} className="tree-link" title="绩效">
+                                    <svg className="lside-container-icon" aria-hidden="true">
+                                        <use xlinkHref="#icon-beixuanzhongx"></use>
+                                    </svg>                                  
                                 </Link>
                             </td>
 

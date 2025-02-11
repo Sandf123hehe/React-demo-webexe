@@ -1,0 +1,257 @@
+ 
+
+
+
+  /* #region 弹出编辑界面start */
+   /* 模态框样式 */
+  .asingleachievement-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* 更淡的模态背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .asingleachievement-modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 更轻的阴影 */
+     
+    width:90%;
+    min-width: 800px;
+    max-width: 1200px; 
+  }
+   
+  .asingleachievement-modal-content .close-button {
+    margin-right: 10px;
+    margin-bottom: 10px; 
+     
+    
+  }
+  
+  .asingleachievement-form {
+  
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0 auto;
+  }
+  
+  
+  .asingleachievement-form div select {
+    appearance: none; /* 去除浏览器的默认样式 */
+    -webkit-appearance: none; /* 兼容Webkit浏览器 */
+    -moz-appearance: none; /* 兼容Firefox浏览器 */
+    width: 85%; /* 设置选择框的宽度 */
+    padding: 10px 15px; /* 内边距 */
+    border: 1px solid #ccc; /* 边框颜色 */
+    border-radius: 5px; /* 圆角 */
+    background-color: #fff; /* 背景色 */
+    font-size: 14px; /* 字体大小 */
+    color: #333; /* 字体颜色 */
+    outline: none; /* 去除选中后的轮廓 */
+    cursor: pointer; /* 鼠标悬浮时显示为点击样式 */
+    transition: border-color 0.3s ease; /* 平滑过渡 */
+  }
+  /* 聚焦状态时，边框颜色变化 */
+  .asingleachievement-form div select:focus {
+    border-color: #4CAF50; /* 聚焦时的边框颜色 */
+  }
+  
+  /* 创建自定义箭头 */
+  .asingleachievement-form div select::after {
+    content: ' ▼'; /* 自定义箭头 */
+    font-size: 12px;
+    color: #777;
+    margin-left: 10px;
+  }
+  
+  /* 去掉默认下拉箭头 */
+  .asingleachievement-form div select::-ms-expand {
+    display: none;
+  }
+  
+  /* 悬浮状态 */
+  .asingleachievement-form div select:hover {
+    border-color: #888; /* 悬浮时边框颜色 */
+  }
+  
+  .asingleachievement-form div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+  }
+  .asingleachievement-form div label {
+    width: 80px;
+    /* 设置宽度 */
+    text-align: justify;
+    /* 使文本两端对齐 */
+  }
+  
+  .asingleachievement-form div input,
+  .asingleachievement-form div textarea {
+    width: calc(100% - 120px);   /* 宽度为 100% 减去 80px */
+    padding: 10px;              /* 内边距，增加内容和边框之间的距离 */
+    font-size: 16px;            /* 设置字体大小，增加可读性 */
+    font-family: Arial, sans-serif; /* 设置字体 */
+    border: 1px solid #ccc;     /* 边框颜色 */
+    border-radius: 8px;         /* 圆角边框，增加柔和感 */
+    background-color: #f9f9f9;  /* 背景色，略浅的灰色 */
+    color: #333;                /* 字体颜色，深灰色 */
+    box-sizing: border-box;     /* 包括内边距和边框在内的宽度计算方式 */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* 添加过渡效果 */
+    word-wrap: break-word;      /* 自动换行，防止长单词或链接超出容器 */
+    overflow-wrap: break-word;  /* 同样实现自动换行 */
+    
+  }
+  
+  .asingleachievement-form div input:focus,
+  .asingleachievement-form div textarea:focus {
+    border-color: #66afe9;      /* 聚焦时边框颜色变为蓝色 */
+    outline: none;              /* 去除默认的聚焦时外部轮廓 */
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6); /* 聚焦时添加阴影效果 */
+  }
+  
+  .asingleachievement-form div textarea {
+    resize: vertical;           /* 允许垂直方向调整大小 */
+    min-height: 100px;           /* 最小高度，避免 textarea 太小 */
+  }
+  .asingleachievement-form .achievements-form-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+   
+  /*  #endregion 弹出编辑界面 end */
+  
+  
+  /* #region 字体图标start */
+  
+   
+  
+  .asingleachievements-container-icon {
+    width: 3em;
+    height: 3em;
+    vertical-align: -1em;/* 将图标向上偏移 1.15em */
+    fill: red; /* 设置图标颜色为红色 */
+    overflow: hidden;
+     
+     
+  }
+  /*  #endregion end */
+  
+  
+  .asingleachievements-container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .asingleachievements-searchsection {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .asingleachievements-searchInput {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  .asingleachievements-monthSelect {
+    margin-left: 10px;
+  }
+  
+  .asingleachievements-addButton {
+    padding: 10px 20px;
+    background-color: #3c80ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .asingleachievements-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .asingleachievements-table th, .achievements-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .asingleachievements-table th {
+    background-color: #f2f2f2;
+  }
+  .asingleachievements-table-tctime {
+    width: 90px;
+  }
+  .asingleachievement-detail-row {
+    background-color: #f9f9f9;
+  }
+  
+  .asingleachievement-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .asingleachievement-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+  }
+  
+  .asingleclose-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    float: right;
+  }
+  .asingleachievement-expanded-icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+  
+  
+  
+  /* #region start 编辑修改按钮 */
+  .asingleachievement-button-container {
+    display: none;
+  }
+  /* 鼠标悬浮时显示按钮容器 */
+  .asingleachievement-detail-cell:hover .asingleachievement-button-container {
+    display: block;
+  }
+  
+  /* 你也可以设置按钮的样式 */
+  .asingleachievement-button-container button {
+    margin-right: 10px;
+  }
+  /*  #endregion end */
+  
