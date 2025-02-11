@@ -131,12 +131,13 @@ const ProjectDispatchForm = () => {
             <table className="projectdispatchform-table">
                 <thead>
                     <tr>
+                        <th>项目编号</th>
                         <th>项目名称</th>
                         <th>支行/分院</th>
                         <th>委托号</th>
-                        <th>项目编号</th>
                         <th>项目来源</th>
                         <th>完成进度</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -146,12 +147,22 @@ const ProjectDispatchForm = () => {
                             onClick={() => handleRowClick(dispatch)}
                             style={{ color: isOverdue(dispatch.EntrustDate) ? 'red' : 'black' }} // 根据日期设置行颜色
                         >
+                            <td>{dispatch.ProjectNumber}</td>
                             <td>{dispatch.ProjectName}</td>
                             <td>{dispatch.Branch}</td>
                             <td>{dispatch.OrderNumber}</td>
-                            <td>{dispatch.ProjectNumber}</td>
                             <td>{dispatch.ProjectSource}</td>
                             <td>{dispatch.CompleteProgress ? '已完成' : '未完成'}</td>
+                            <td>   
+                            {/* 工作日志                         */}
+                                <Link to={`/home/asinglesitelog/${dispatch.ProjectNumber}`} className="tree-link" title="工作日志">
+                                    <svg className="lside-container-icon" aria-hidden="true">
+                                        <use xlinkHref="#icon-kaifangqishiriqi"></use>
+                                    </svg>
+                                    
+                                </Link>
+                            </td>
+
                         </tr>
                     ))}
                 </tbody>
@@ -182,12 +193,12 @@ const ProjectDispatchForm = () => {
                         <label>项目来源：</label>
                         <input type="text" name="ProjectSource" value={formData.ProjectSource || ''} onChange={handleChange} />
                     </div>
-                     {/* 完成进度选择框 */}
+                    {/* 完成进度选择框 */}
                     <div className="projectdispatchform-modal-div">
                         <label>完成进度：</label>
                         <select
                             name="CompleteProgress"
-                            value={formData.CompleteProgress === true ? 'true' : 'false'}  
+                            value={formData.CompleteProgress === true ? 'true' : 'false'}
                             onChange={handleChange}
                         >
                             <option value="false">未完成</option>
