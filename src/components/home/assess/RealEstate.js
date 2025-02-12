@@ -16,6 +16,15 @@ function RealEstate() {
   const [area, setArea] = useState("");
   const [propertyUsage, setPropertyUsage] = useState("");
 
+  // 定义区域列表
+  const regions = [
+    "渝中区", "大渡口区", "江北区", "沙坪坝区", "九龙坡区", "南岸区", "北碚区", "綦江区", "大足区", "渝北区",
+    "巴南区", "黔江区", "长寿区", "高新区", "合川区", "荣昌区", "璧山区", "梁平县", "城口县", "丰都县",
+    "垫江县", "武隆区", "奉节县", "云阳县", "石柱土家族自治县", "秀山土家族苗族自治县", "酉阳土家族苗族自治县",
+    "彭水苗族土家族自治县", "铜梁区", "江津区", "开州区", "沙坪区", "大足区", "两江新区", "其他区"
+  ];
+  // 对区域列表按首字母排序
+  const sortedRegions = regions.sort((a, b) => a.localeCompare(b, 'zh-Hans-CN'));
   const [newProperty, setNewProperty] = useState({
     location: "",
     area: "",
@@ -220,7 +229,7 @@ function RealEstate() {
             onChange={(e) => setRentMax(e.target.value)}
           />
         </label>
- {/* 搜索 */}
+        {/* 搜索 */}
         {/* <button className="RealEstate-search-container" onClick={handleSearch}>
           <svg aria-hidden="true">
             <use xlinkHref="#icon-search"></use>
@@ -241,7 +250,7 @@ function RealEstate() {
                 <div className="list-search">
                   <div className="list-search-left">
                     <div className="list-search-location">
-                      <div>
+                      <div  title="坐落"> 
                         <svg className="realEstate-icon" aria-hidden="true">
                           <use xlinkHref="#icon-fangwuzuola"></use>
                         </svg>
@@ -249,36 +258,39 @@ function RealEstate() {
                       </div>
                     </div>
                     <div className="first-column">
+                      <div className="list-search-area">
+                        <strong title="建面面积">
+                          <svg className="realEstate-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-jianzhumianji"></use>
+                          </svg>{item.building_area}㎡
+                        </strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong title="套内面积">
+                          <svg className="realEstate-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-jianzhumianji"></use>
+                          </svg>{item.interior_area}㎡
+                        </strong>
+                      </div>
                       <div className="first-column-child">
-                        <div>
+                        <div  title="小区名称">
                           <svg className="realEstate-icon" aria-hidden="true">
                             <use xlinkHref="#icon-zaixianxuanfang"></use>
                           </svg>
                           {item.community_name}</div>
                         <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                        <div>
+                        <div  title="所属区域">
                           <svg className="realEstate-icon" aria-hidden="true">
                             <use xlinkHref="#icon-quyu"></use>
                           </svg>{item.area}
                         </div>&nbsp;&nbsp;
-                        <strong>
+                        <div  title="建筑类型">
+                        
                           <svg className="realEstate-icon" aria-hidden="true">
                             <use xlinkHref="#icon-building"></use>
                           </svg>{item.house_type}
-                        </strong>
+                        
+                        </div>
                       </div>
-                      <div>
-                        <strong>
-                          <svg className="realEstate-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-jianzhumianji"></use>
-                          </svg>{item.building_area}㎡
-                        </strong>&nbsp;&nbsp;
-                        <strong>
-                          <svg className="realEstate-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-taoneimianji"></use>
-                          </svg>{item.interior_area}㎡
-                        </strong>
-                      </div>
+
                     </div>
                   </div>
 
@@ -351,8 +363,7 @@ function RealEstate() {
           </div>
           <div className="realestate-modal-inputcontainer">
             <label>区域：</label>
-            <input
-              type="text"
+            <select
               value={editingProperty ? editingProperty.area : newProperty.area}
               onChange={(e) => {
                 const value = e.target.value;
@@ -362,7 +373,12 @@ function RealEstate() {
                   setNewProperty({ ...newProperty, area: value });
                 }
               }}
-            />
+            >
+              <option value="">请选择区域</option>
+              {sortedRegions.map((region) => (
+                <option key={region} value={region}>{region}</option>
+              ))}
+            </select>
           </div>
           <div className="realestate-modal-inputcontainer">
             <label>建筑面积：</label>
@@ -581,9 +597,9 @@ function RealEstate() {
           </div>
 
         </div>
-         
-  )
-}
+
+      )
+      }
     </div >
   );
 }

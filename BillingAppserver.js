@@ -688,7 +688,7 @@ app.post('/api/addProjectDispatch', async (req, res) => {
         ClientContact, ClientPhone, Applicant, ApplicantContact,
         ApplicantPhone, Defendant, DefendantContact, DefendantPhone,
         ProjectType, EvaluationPurpose, PersonInCharge, EntrustDate, DispatchDate,
-        ProjectNumber, CompleteProgress
+        ProjectNumber, CompleteProgress, Principal // 新增 Principal 字段
     } = req.body;
 
     try {
@@ -715,7 +715,8 @@ app.post('/api/addProjectDispatch', async (req, res) => {
             .input('EntrustDate', sql.Date, EntrustDate)
             .input('DispatchDate', sql.Date, DispatchDate)
             .input('ProjectNumber', sql.NVarChar, ProjectNumber)
-            .input('CompleteProgress', sql.Bit, CompleteProgress) // 新增字段
+            .input('CompleteProgress', sql.Bit, CompleteProgress)
+            .input('Principal', sql.NVarChar, Principal) // 新增 Principal 字段
             .query(`
                 INSERT INTO ProjectDispatchForm (
                     ProjectName, Branch, OrderNumber, ProjectSource,
@@ -724,7 +725,7 @@ app.post('/api/addProjectDispatch', async (req, res) => {
                     ApplicantContact, ApplicantPhone, Defendant,
                     DefendantContact, DefendantPhone, ProjectType,
                     EvaluationPurpose, PersonInCharge, EntrustDate, DispatchDate,
-                    ProjectNumber, CompleteProgress
+                    ProjectNumber, CompleteProgress, Principal
                 ) VALUES (
                     @ProjectName, @Branch, @OrderNumber, @ProjectSource,
                     @ProjectSourceContact, @ProjectSourcePhone, @Client,
@@ -732,7 +733,7 @@ app.post('/api/addProjectDispatch', async (req, res) => {
                     @ApplicantContact, @ApplicantPhone, @Defendant,
                     @DefendantContact, @DefendantPhone, @ProjectType,
                     @EvaluationPurpose, @PersonInCharge, @EntrustDate, @DispatchDate,
-                    @ProjectNumber, @CompleteProgress
+                    @ProjectNumber, @CompleteProgress, @Principal
                 );
             `);
         res.status(201).json({ ID: result.rowsAffected[0] });
@@ -752,7 +753,7 @@ app.put('/api/updateProjectDispatch/:id', async (req, res) => {
         ClientContact, ClientPhone, Applicant, ApplicantContact,
         ApplicantPhone, Defendant, DefendantContact, DefendantPhone,
         ProjectType, EvaluationPurpose, PersonInCharge, EntrustDate, DispatchDate,
-        ProjectNumber, CompleteProgress
+        ProjectNumber, CompleteProgress, Principal // 新增 Principal 字段
     } = req.body;
 
     try {
@@ -780,7 +781,8 @@ app.put('/api/updateProjectDispatch/:id', async (req, res) => {
             .input('EntrustDate', sql.Date, EntrustDate)
             .input('DispatchDate', sql.Date, DispatchDate)
             .input('ProjectNumber', sql.NVarChar, ProjectNumber)
-            .input('CompleteProgress', sql.Bit, CompleteProgress) // 新增字段
+            .input('CompleteProgress', sql.Bit, CompleteProgress)
+            .input('Principal', sql.NVarChar, Principal) // 新增 Principal 字段
             .query(`
                 UPDATE ProjectDispatchForm SET
                 ProjectName = @ProjectName,
@@ -804,7 +806,8 @@ app.put('/api/updateProjectDispatch/:id', async (req, res) => {
                 EntrustDate = @EntrustDate,
                 DispatchDate = @DispatchDate,
                 ProjectNumber = @ProjectNumber,
-                CompleteProgress = @CompleteProgress
+                CompleteProgress = @CompleteProgress,
+                Principal = @Principal
                 WHERE id = @id;
             `);
 

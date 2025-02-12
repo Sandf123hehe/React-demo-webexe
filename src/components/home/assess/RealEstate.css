@@ -257,8 +257,11 @@
 
 .list-search-center {
   width: 20%;
-  color: #f80808;
+  color: #000000;
   font-size: 20px;
+}
+.list-search-center div {
+ margin-top: 5px;
 }
 
 .list-search-right {
@@ -266,10 +269,15 @@
 }
 
 .list-search-location {
-  font-size: 30px;
+  font-size: 25px;
   color: rgb(34, 33, 33);
+  margin-bottom: 5px;
 }
-
+.list-search-area {
+  font-size: 15px;
+  color: rgb(34, 33, 33);
+  margin-bottom: 5px;
+}
 .first-column {
   display: flex;
   flex-direction: column;
@@ -277,6 +285,7 @@
 
 .first-column-child {
   display: flex;
+  color: rgb(34, 33, 33);
   flex-direction: row;
 }
 

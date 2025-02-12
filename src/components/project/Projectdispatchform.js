@@ -29,7 +29,15 @@ const ProjectDispatchForm = () => {
     const [formData, setFormData] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingId, setEditingId] = useState(null);
+    // 定义评估目的选项
+    const evaluationPurposes = [
+        "司法", "抵押", "征收", "课税", "咨询", "入账", "收购", "其他"
+    ];
 
+    // 定义项目类型选项
+    const projectTypes = [
+        "房地产", "资产", "土地"
+    ];
     // 获取派单记录的函数
     const fetchDispatches = async () => {
         try {
@@ -89,7 +97,8 @@ const ProjectDispatchForm = () => {
             EntrustDate: formatDate(dispatch.EntrustDate),
             DispatchDate: formatDate(dispatch.DispatchDate),
             ProjectNumber: dispatch.ProjectNumber || '', // 确保是字符串
-            CompleteProgress: dispatch.CompleteProgress === true // 确保是布尔值
+            CompleteProgress: dispatch.CompleteProgress === true, // 确保是布尔值
+            Principal: dispatch.Principal || '' // 新增 Principal 字段
         });
         setEditingId(dispatch.id);
         setIsModalOpen(true);
@@ -121,7 +130,7 @@ const ProjectDispatchForm = () => {
                     <use xlinkHref="#icon-fanhui2"></use>
                 </svg>
             </Link>
-            <h2>项目派单管理</h2>
+            {/* <h2>项目派单管理</h2> */}
             <button onClick={() => {
                 setIsModalOpen(true);
                 setFormData({});
@@ -133,6 +142,9 @@ const ProjectDispatchForm = () => {
                     <tr>
                         <th>项目编号</th>
                         <th>项目名称</th>
+                        <th>委托方</th>
+                        <th>项目类型</th>
+                        <th>评估目的</th>
                         <th>支行/分院</th>
                         <th>委托号</th>
                         <th>项目来源</th>
@@ -149,28 +161,31 @@ const ProjectDispatchForm = () => {
                         >
                             <td>{dispatch.ProjectNumber}</td>
                             <td>{dispatch.ProjectName}</td>
+                            <td>{dispatch.Principal}</td>
+                            <td>{dispatch.ProjectType}</td>
+                            <td>{dispatch.EvaluationPurpose}</td>
                             <td>{dispatch.Branch}</td>
                             <td>{dispatch.OrderNumber}</td>
                             <td>{dispatch.ProjectSource}</td>
                             <td>{dispatch.CompleteProgress ? '已完成' : '未完成'}</td>
-                            <td>   
-                            {/* 工作日志                         */}
+                            <td>
+                                {/* 工作日志                         */}
                                 <Link to={`/home/asinglesitelog/${dispatch.ProjectNumber}`} className="tree-link" title="工作日志">
                                     <svg className="lside-container-icon" aria-hidden="true">
                                         <use xlinkHref="#icon-kaifangqishiriqi"></use>
-                                    </svg>                                  
+                                    </svg>
                                 </Link>
                                 {/* 报销                         */}
                                 <Link to={`/home/asingletravelexpense/${dispatch.ProjectNumber}`} className="tree-link" title="报销">
                                     <svg className="lside-container-icon" aria-hidden="true">
                                         <use xlinkHref="#icon-jiaoche-qiche-jiaotong-chuzuche-chuhang"></use>
-                                    </svg>                                  
+                                    </svg>
                                 </Link>
-                                 {/* 报告提成                         */}
-                                 <Link to={`/home/asingleachievements/${dispatch.ProjectNumber}`} className="tree-link" title="绩效">
+                                {/* 报告提成                         */}
+                                <Link to={`/home/asingleachievements/${dispatch.ProjectNumber}`} className="tree-link" title="绩效">
                                     <svg className="lside-container-icon" aria-hidden="true">
                                         <use xlinkHref="#icon-beixuanzhongx"></use>
-                                    </svg>                                  
+                                    </svg>
                                 </Link>
                             </td>
 
@@ -184,9 +199,57 @@ const ProjectDispatchForm = () => {
                 <form className="projectdispatchform-modal-form" onSubmit={handleSubmit}>
                     <h3>{editingId ? '编辑派单' : '添加派单'}</h3>
                     {/* 表单输入 */}
+                   
                     <div className="projectdispatchform-modal-div">
+                        <label>项目编号：</label>
+                        &#42;<input type="text" name="ProjectNumber" value={formData.ProjectNumber || ''} onChange={handleChange} />
+                    </div>
+                     <div className="projectdispatchform-modal-div">
                         <label>项目名称：</label>
-                        <input type="text" name="ProjectName" value={formData.ProjectName || ''} onChange={handleChange} required />
+                        &#42;<input type="text" name="ProjectName" value={formData.ProjectName || ''} onChange={handleChange} required />
+                    </div>
+                    <div className="projectdispatchform-modal-div">
+                        <label>委托方：</label>
+                        <input
+                            type="text"
+                            name="Principal"
+                            value={formData.Principal || ''}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="projectdispatchform-modal-div">
+                        <label>项目类型：</label>
+                        &#42;
+                        <select
+                            name="ProjectType"
+                            value={formData.ProjectType || ''}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">请选择项目类型</option>
+                            {projectTypes.map((type) => (
+                                <option key={type} value={type}>{type}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="projectdispatchform-modal-div">
+                        <label>评估目的：</label>
+                        &#42;
+                        <select
+                            name="EvaluationPurpose"
+                            value={formData.EvaluationPurpose || ''}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">请选择评估目的</option>
+                            {evaluationPurposes.map((purpose) => (
+                                <option key={purpose} value={purpose}>{purpose}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="projectdispatchform-modal-div">
+                        <label>负责人：</label>
+                        &#42;<input type="text" placeholder='必填项' name="PersonInCharge" value={formData.PersonInCharge || ''} onChange={handleChange} />
                     </div>
                     <div className="projectdispatchform-modal-div">
                         <label>支行/分院：</label>
@@ -196,26 +259,15 @@ const ProjectDispatchForm = () => {
                         <label>委托号：</label>
                         <input type="text" name="OrderNumber" value={formData.OrderNumber || ''} onChange={handleChange} />
                     </div>
-                    <div className="projectdispatchform-modal-div">
-                        <label>项目编号：</label>
-                        <input type="text" name="ProjectNumber" value={formData.ProjectNumber || ''} onChange={handleChange} />
-                    </div>
+                    
+                    
+
                     <div className="projectdispatchform-modal-div">
                         <label>项目来源：</label>
                         <input type="text" name="ProjectSource" value={formData.ProjectSource || ''} onChange={handleChange} />
                     </div>
-                    {/* 完成进度选择框 */}
-                    <div className="projectdispatchform-modal-div">
-                        <label>完成进度：</label>
-                        <select
-                            name="CompleteProgress"
-                            value={formData.CompleteProgress === true ? 'true' : 'false'}
-                            onChange={handleChange}
-                        >
-                            <option value="false">未完成</option>
-                            <option value="true">已完成</option>
-                        </select>
-                    </div>
+                   
+                   
                     {/* 其他字段 */}
                     <div className="projectdispatchform-modal-div">
                         <label>项目来源联系人：</label>
@@ -261,30 +313,32 @@ const ProjectDispatchForm = () => {
                         <label>被告电话：</label>
                         <input type="text" name="DefendantPhone" value={formData.DefendantPhone || ''} onChange={handleChange} />
                     </div>
-                    <div className="projectdispatchform-modal-div">
-                        <label>项目类型：</label>
-                        <input type="text" name="ProjectType" value={formData.ProjectType || ''} onChange={handleChange} />
-                    </div>
-                    <div className="projectdispatchform-modal-div">
-                        <label>评估目的：</label>
-                        <input type="text" name="EvaluationPurpose" value={formData.EvaluationPurpose || ''} onChange={handleChange} />
-                    </div>
-                    <div className="projectdispatchform-modal-div">
-                        <label>负责人：</label>
-                        <input type="text" name="PersonInCharge" value={formData.PersonInCharge || ''} onChange={handleChange} />
-                    </div>
+
                     <div className="projectdispatchform-modal-div">
                         <label>委托日期：</label>
-                        <input type="date" name="EntrustDate" value={formData.EntrustDate || ''} onChange={handleChange} />
+                        &#42;<input type="date" name="EntrustDate" value={formData.EntrustDate || ''} onChange={handleChange} />
                     </div>
                     <div className="projectdispatchform-modal-div">
                         <label>派单日期：</label>
-                        <input type="date" name="DispatchDate" value={formData.DispatchDate || ''} onChange={handleChange} />
+                        &#42;<input type="date" name="DispatchDate" value={formData.DispatchDate || ''} onChange={handleChange} />
                     </div>
-                    <button type="submit">{editingId ? '保存' : '添加'}</button>
-                    {editingId && (
-                        <button type="button" onClick={() => handleDelete(editingId)}>删除</button>
-                    )}
+                    <div className="projectdispatchform-modal-div">
+                        <label>完成进度：</label>
+                        <select
+                            name="CompleteProgress"
+                            value={formData.CompleteProgress === true ? 'true' : 'false'}
+                            onChange={handleChange}
+                        >
+                            <option value="false">未完成</option>
+                            <option value="true">已完成</option>
+                        </select>
+                    </div>
+                    <div className="projectdispatchform-modal-div">
+                        <button type="submit">{editingId ? '保存' : '添加'}</button>
+                        {editingId && (
+                            <button type="button" onClick={() => handleDelete(editingId)}>删除</button>
+                        )}
+                    </div>
                 </form>
             </Modal>
         </div>

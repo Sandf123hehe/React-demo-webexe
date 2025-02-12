@@ -8,6 +8,21 @@ const Personalhome = () => {
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const lastcurrentDate = new Date().toLocaleString();  // 获取当前时间，并格式化为字符串
 
+ // 根据当前时间获取问候语
+ const getGreeting = () => {
+    const hour = new Date().getHours(); // 获取当前小时数
+    if (hour >= 6 && hour < 12) {
+        return "上午好";
+    } else if (hour >= 12 && hour < 14) {
+        return "中午好";
+    } else if (hour >= 14 && hour < 19) {
+        return "下午好";
+    } else {
+        return "晚上好";
+    }
+};
+
+const greeting = getGreeting(); // 获取当前问候语
 
     const handleMouseEnter = (index) => {
         setHoveredIndex(index);
@@ -173,7 +188,7 @@ const Personalhome = () => {
                     <svg className="personalhome-header-container-icon" aria-hidden="true">
                         <use xlinkHref="#icon-a-bailingnanshinanrenrenwuxiaoxiang"></use>
                     </svg>
-                    <h2 className="personalhome-greeting-time">上午好</h2>
+                    <h2 className="personalhome-greeting-time">{greeting}</h2> {/* 动态显示问候语 */}
                     <h2 className="personalhome-greeting-user">{username ? username : '请登录'}</h2>
                 </div>
                 <div className="personalhome-container-header-center">

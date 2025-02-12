@@ -119,6 +119,7 @@ CREATE TABLE BillingApp.dbo.ProjectDispatchForm (
     EntrustDate DATE,  -- 委托日期 (Entrustment Date)
     DispatchDate DATE,  -- 派单日期 (Dispatch Date)
     Completeprogress BIT,  -- 完成进度 (Completeprogress)
+    Principal NVARCHAR(100),  -- 委托方 (Principal)
 );
 //报告编号管理表
 CREATE TABLE BillingApp.dbo.ReportNumberTable (
