@@ -16,6 +16,7 @@ import Equipment from '../components/home/assess/Equipment';
 import Download from '../components/home/assess/Download';
 import Achievements from '../components/home/assess/Achievements';
 import TravelExpense from '../components/home/assess/TravelExpense';
+import Imageupload from '../components/home/assess/Imageupload';
 import FeeCalculation from '../components/home/feecalculation/FeeCalculation';
 import Carousel from '../components/home/amusement/Carousel';
 import Music from '../components/home/amusement/Music';
@@ -55,9 +56,10 @@ const AppRoutes = () => {
                 <Route path="messageDetail/:messageId" element={<MessageDetail />} />
                 {/* 房地产价格查询 */}
                 <Route path="realestate" element={<RealEstate />} />
+                {/* 图片上传 */}
+                <Route path="imageupload" element={<Imageupload />} />
                 {/* 构筑物价格查询 */}
                 <Route path="buildings" element={<Buildings />} />
-
                 {/* 机器设备价格查询 */}
                 <Route path="equipment" element={<Equipment />} />
                 {/* 报告下载 */}
@@ -72,7 +74,6 @@ const AppRoutes = () => {
                 <Route path="music" element={<Music />} />
                 {/* 图片 */}
                 <Route path="carousel" element={<Carousel />} />
-
                 {/* 项目个人首页 */}
                 <Route path="personalhome" element={<Personalhome />} />
                 <Route path="projectdispatchform" element={<Projectdispatchform />} />
@@ -82,13 +83,11 @@ const AppRoutes = () => {
                 <Route path="asingletravelexpense/:projectNumber" element={<AsingleTravelExpense />} />
                 <Route path="asingleachievements/:projectNumber" element={<AsingleAchievements />} />
                 <Route path="worklog" element={<Worklog />} />
-                
             </Route>
             {/* 默认路由 */}
             {/* <Route path="/" element={<Home />} />  */}
             {/* <Route path="/home/personalhome" element={<Home />} /> */}
             <Route path="/" element={<Navigate to="/home/personalhome" />} />
-             
         </Routes>
     );
 };

@@ -1,0 +1,35 @@
+.realEstate-imageupload-container {
+    width: 400px;
+    margin: 0 auto;
+  }
+  
+  .realEstate-imageupload-preview {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  
+  .realEstate-imageupload-preview-item {
+    position: relative;
+    margin: 5px;
+  }
+  
+  .realEstate-imageupload-preview-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .realEstate-imageupload-preview-item button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  

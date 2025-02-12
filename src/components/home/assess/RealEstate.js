@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./RealEstate.css"; // 引入外部样式
 import { AuthContext } from '../../../context/AuthContext'; // 导入身份验证上下文
+import { Link } from 'react-router-dom';
 
 function RealEstate() {
   const { username } = useContext(AuthContext); // 使用上下文获取用户名
@@ -229,6 +230,7 @@ function RealEstate() {
             onChange={(e) => setRentMax(e.target.value)}
           />
         </label>
+
         {/* 搜索 */}
         {/* <button className="RealEstate-search-container" onClick={handleSearch}>
           <svg aria-hidden="true">
@@ -250,7 +252,7 @@ function RealEstate() {
                 <div className="list-search">
                   <div className="list-search-left">
                     <div className="list-search-location">
-                      <div  title="坐落"> 
+                      <div title="坐落">
                         <svg className="realEstate-icon" aria-hidden="true">
                           <use xlinkHref="#icon-fangwuzuola"></use>
                         </svg>
@@ -271,26 +273,31 @@ function RealEstate() {
                         </strong>
                       </div>
                       <div className="first-column-child">
-                        <div  title="小区名称">
+                        <div title="小区名称">
                           <svg className="realEstate-icon" aria-hidden="true">
                             <use xlinkHref="#icon-zaixianxuanfang"></use>
                           </svg>
                           {item.community_name}</div>
                         <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                        <div  title="所属区域">
+                        <div title="所属区域">
                           <svg className="realEstate-icon" aria-hidden="true">
                             <use xlinkHref="#icon-quyu"></use>
                           </svg>{item.area}
                         </div>&nbsp;&nbsp;
-                        <div  title="建筑类型">
-                        
+                        <div title="建筑类型">
+
                           <svg className="realEstate-icon" aria-hidden="true">
                             <use xlinkHref="#icon-building"></use>
                           </svg>{item.house_type}
-                        
-                        </div>
-                      </div>
 
+                        </div>
+                        {/* <Link to="/home/imageupload">
+                        <svg className="header-container-icon" aria-hidden="true">
+                          <use xlinkHref="#icon-shouye-zhihui"></use>
+                        </svg>
+                      </Link> */}
+                      </div>
+                     
                     </div>
                   </div>
 

@@ -8,6 +8,12 @@ const path = require('path');
 const fs = require('fs');
 const archiver = require('archiver');
 
+//图片上传
+//const express = require("express");
+const multer = require("multer");
+//const fs = require("fs");
+//const path = require("path");
+
 
 app.use(cors());
 app.use(express.json()); // 解析 JSON 请求体
@@ -1251,8 +1257,43 @@ app.delete('/api/deleteSportsRecordingTable/:id', async (req, res) => {
 });
 
 
-
-
+//房屋图片上传
+// 配置 multer 中间件
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      const { region, location } = req.body;
+      const uploadPath = path.join(__dirname, "images", "Community", region, location);
+  
+      // 如果文件夹不存在，则创建
+      if (!fs.existsSync(uploadPath)) {
+        fs.mkdirSync(uploadPath, { recursive: true });
+      }
+  
+      cb(null, uploadPath); // 设置文件存储路径
+    },
+    filename: (req, file, cb) => {
+      // 使用原始文件名
+      cb(null, file.originalname);
+    },
+  });
+  
+  const upload = multer({ storage });
+  
+  // 处理文件上传
+  app.post("/upload", upload.array("images"), (req, res) => {
+    try {
+      const files = req.files;
+      if (!files || files.length === 0) {
+        return res.status(400).json({ message: "未上传任何文件" });
+      }
+  
+      res.status(200).json({ message: "文件上传成功" });
+    } catch (error) {
+      console.error("上传失败：", error);
+      res.status(500).json({ message: "服务器错误" });
+    }
+  });
+  
 
 // 启动服务器
 app.listen(port, () => {
