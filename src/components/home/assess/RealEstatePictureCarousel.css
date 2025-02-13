@@ -1,0 +1,48 @@
+.realestatepicturecarousel-container {
+    width: 100%;
+      max-width: 1200px;  
+    margin: 0 auto;
+    background-color: #fff; /* 白色背景 */
+    padding: 20px; /* 添加内边距 */
+    border-radius: 8px; /* 圆角 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+  }
+  
+  .realestatepicturecarousel-header {
+    text-align: center;
+    color: #333; /* 文字颜色 */
+    margin: 10px 0;
+  }
+  
+  .realestatepicturecarousel-carousel-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .realestatepicturecarousel-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .realestatepicturecarousel-no-images {
+    text-align: center;
+    color: #999; /* 文字颜色 */
+    font-size: 18px;
+    margin: 20px 0;
+  }
+  
+  .slick-prev:before,
+  .slick-next:before {
+    color: black; /* 箭头颜色 */
+  }
+  
+  .slick-dots li button:before {
+    color: black; /* 圆点颜色 */
+  }
+  
+  .slick-dots li.slick-active button:before {
+    color: #007bff; /* 活动圆点颜色 */
+  }
+  

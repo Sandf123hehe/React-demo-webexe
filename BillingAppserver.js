@@ -1295,6 +1295,41 @@ const storage = multer.diskStorage({
   });
   
 
+//读取服务器图片 realestatepicturecarousel
+// 定义图片目录
+// API接口：获取图片列表
+pp.get('/api/getrealestatepicturecarouselimages', (req, res) => {
+    const { region, folder } = req.query; // 从查询参数中获取 region 和 folder
+
+    if (!region || !folder) {
+        return res.status(400).json({ error: 'Region and folder are required' });
+    }
+
+    // 动态构建图片目录路径
+    const imageDir = path.join(__dirname, 'images/Community', region, folder);
+    console.log('Image directory path:', imageDir);
+
+    // 读取目录中的文件
+    fs.readdir(imageDir, (err, files) => {
+        if (err) {
+            console.error('Error reading image directory:', err);
+            return res.status(500).json({ error: 'Unable to read image directory' });
+        }
+
+        // 过滤出图片文件（假设图片格式为 .jpg, .png, .jpeg）
+        const imageFiles = files.filter(file => /\.(jpg|jpeg|png)$/i.test(file));
+
+        // 构造完整的图片URL
+        const imageUrls = imageFiles.map(file => 
+            `http://111.231.79.183:5679/backend/images/Community/${encodeURIComponent(region)}/${encodeURIComponent(folder)}/${file}`
+        );
+
+        // 返回图片URL列表
+        res.json(imageUrls);
+    });
+});
+
+
 // 启动服务器
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

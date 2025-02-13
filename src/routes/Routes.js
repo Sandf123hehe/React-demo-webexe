@@ -17,6 +17,7 @@ import Download from '../components/home/assess/Download';
 import Achievements from '../components/home/assess/Achievements';
 import TravelExpense from '../components/home/assess/TravelExpense';
 import Imageupload from '../components/home/assess/Imageupload';
+import RealEstatePictureCarousel from '../components/home/assess/RealEstatePictureCarousel';
 import FeeCalculation from '../components/home/feecalculation/FeeCalculation';
 import Carousel from '../components/home/amusement/Carousel';
 import Music from '../components/home/amusement/Music';
@@ -57,7 +58,10 @@ const AppRoutes = () => {
                 {/* 房地产价格查询 */}
                 <Route path="realestate" element={<RealEstate />} />
                 {/* 图片上传 */}
-                <Route path="imageupload" element={<Imageupload />} />
+                <Route path="imageupload/:area/:location" element={<Imageupload />} />
+
+                {/* 图片轮播 */}
+                <Route path="realestatepicturecarousel" element={<RealEstatePictureCarousel />} />
                 {/* 构筑物价格查询 */}
                 <Route path="buildings" element={<Buildings />} />
                 {/* 机器设备价格查询 */}

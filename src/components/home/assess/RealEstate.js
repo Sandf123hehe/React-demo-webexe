@@ -291,13 +291,25 @@ function RealEstate() {
                           </svg>{item.house_type}
 
                         </div>
-                        {/* <Link to="/home/imageupload">
-                        <svg className="header-container-icon" aria-hidden="true">
-                          <use xlinkHref="#icon-shouye-zhihui"></use>
-                        </svg>
-                      </Link> */}
+
+                        {username === "李中敬" && (
+                          <Link to={`/home/imageupload/${encodeURIComponent(item.area)}/${encodeURIComponent(item.location)}`}>
+                            <svg className="header-container-icon" aria-hidden="true">
+                              <use xlinkHref="#icon-tianjia1"></use>
+                            </svg>
+                          </Link>
+                        )}
+
+
+
+                        <Link to={`/home/realestatepicturecarousel?region=${encodeURIComponent(item.area)}&folder=${encodeURIComponent(item.location)}`}>
+                          <svg className="header-container-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-tupian1"></use>
+                          </svg>
+                        </Link>
+
                       </div>
-                     
+
                     </div>
                   </div>
 

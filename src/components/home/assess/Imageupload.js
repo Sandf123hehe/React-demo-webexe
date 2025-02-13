@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom"; // 导入 useParams
 import axios from "axios";
 import './Imageupload.css'; // 引入 CSS 文件
 
 const ImageUpload = () => {
-  const [region, setRegion] = useState(""); // 区域
-  const [location, setLocation] = useState(""); // 坐落
+  const { area, location: loc } = useParams(); // 获取路径参数并重命名
+  const [region, setRegion] = useState(area || ""); // 区域
+  const [location, setLocation] = useState(loc || ""); // 坐落
   const [files, setFiles] = useState([]); // 选中的图片文件
   const [message, setMessage] = useState(""); // 上传结果消息
 
@@ -48,10 +50,11 @@ const ImageUpload = () => {
         setMessage("只支持 .jpg 格式的图片");
         return;
       }
-      if (file.size > 1200 * 2024) { // 更新为 200KB
-        setMessage("图片大小不能超过 200KB");
+      if (file.size > 800 * 1024) { // 更新为 300KB
+        setMessage("图片大小不能超过 300KB");
         return;
       }
+      
     }
 
     // 创建 FormData 对象
@@ -78,14 +81,14 @@ const ImageUpload = () => {
   return (
     <div className="realEstate-imageupload-container">
       <h1>图片上传</h1>
-      <div>
+      {/* <div>
         <label>区域：</label>
         <input type="text" value={region} onChange={handleRegionChange} />
       </div>
       <div>
         <label>坐落：</label>
         <input type="text" value={location} onChange={handleLocationChange} />
-      </div>
+      </div> */}
       <div>
         <label>选择图片：</label>
         <input type="file" multiple accept=".jpg" onChange={handleFileChange} />
@@ -93,9 +96,9 @@ const ImageUpload = () => {
       <div className="realEstate-imageupload-preview">
         {files.map((file, index) => (
           <div key={index} className="realEstate-imageupload-preview-item">
-            <img 
-              src={URL.createObjectURL(file)} 
-              alt={`preview-${index}`} 
+            <img
+              src={URL.createObjectURL(file)}
+              alt={`preview-${index}`}
               className="realEstate-imageupload-preview-image"
             />
             <button onClick={() => handleRemoveFile(index)}>删除</button>
