@@ -258,15 +258,11 @@ const ProjectDispatchForm = () => {
                     <div className="projectdispatchform-modal-div">
                         <label>委托号：</label>
                         <input type="text" name="OrderNumber" value={formData.OrderNumber || ''} onChange={handleChange} />
-                    </div>
-                    
-                    
-
+                    </div>                           
                     <div className="projectdispatchform-modal-div">
                         <label>项目来源：</label>
                         <input type="text" name="ProjectSource" value={formData.ProjectSource || ''} onChange={handleChange} />
-                    </div>
-                   
+                    </div>            
                    
                     {/* 其他字段 */}
                     <div className="projectdispatchform-modal-div">

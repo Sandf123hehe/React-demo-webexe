@@ -1,38 +1,35 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom"; // 导入 useParams
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import './Imageupload.css'; // 引入 CSS 文件
+import "./Imageupload.css";
 
 const ImageUpload = () => {
-  const { area, location: loc } = useParams(); // 获取路径参数并重命名
-  const [region, setRegion] = useState(area || ""); // 区域
-  const [location, setLocation] = useState(loc || ""); // 坐落
-  const [files, setFiles] = useState([]); // 选中的图片文件
-  const [message, setMessage] = useState(""); // 上传结果消息
+  const { area, location: loc } = useParams();
+  const [region, setRegion] = useState(area || "");
+  const [location, setLocation] = useState(loc || "");
+  const [files, setFiles] = useState([]);
+  const [message, setMessage] = useState("");
+  const [hoveredImage, setHoveredImage] = useState(null); // 用于跟踪当前放大的图片
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false); // 控制模拟框的显示
 
-  // 处理区域输入
   const handleRegionChange = (e) => {
     setRegion(e.target.value);
   };
 
-  // 处理坐落输入
   const handleLocationChange = (e) => {
     setLocation(e.target.value);
   };
 
-  // 处理文件选择
   const handleFileChange = (e) => {
-    const selectedFiles = Array.from(e.target.files); // 将文件列表转换为数组
+    const selectedFiles = Array.from(e.target.files);
     setFiles(selectedFiles);
   };
 
-  // 删除选中的文件
   const handleRemoveFile = (index) => {
     const newFiles = files.filter((_, i) => i !== index);
     setFiles(newFiles);
   };
 
-  // 处理文件上传
   const handleUpload = async () => {
     if (!region || !location) {
       setMessage("请填写区域和坐落");
@@ -44,54 +41,80 @@ const ImageUpload = () => {
       return;
     }
 
-    // 检查文件格式和大小
     for (const file of files) {
       if (file.type !== "image/jpeg") {
         setMessage("只支持 .jpg 格式的图片");
         return;
       }
-      if (file.size > 800 * 1024) { // 更新为 300KB
+      if (file.size > 1000 * 1024) {
         setMessage("图片大小不能超过 300KB");
         return;
       }
-      
     }
 
-    // 创建 FormData 对象
     const formData = new FormData();
     formData.append("region", region);
     formData.append("location", location);
     files.forEach((file) => {
-      formData.append("images", file); // 将文件添加到 FormData
+      formData.append("images", file);
     });
 
     try {
-      // 发送 POST 请求到服务器
       const response = await axios.post("http://111.231.79.183:5201/upload", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // 设置请求头
+          "Content-Type": "multipart/form-data",
         },
       });
-      setMessage(response.data.message); // 显示上传结果
+      setMessage(response.data.message);
     } catch (error) {
       setMessage("上传失败：" + error.message);
     }
   };
 
+  // 显示模拟框
+  const showOverlay = (file) => {
+    setHoveredImage(file);
+    setIsOverlayVisible(true);
+  };
+
+  // 隐藏模拟框
+  const hideOverlay = () => {
+    setIsOverlayVisible(false);
+    setHoveredImage(null);
+  };
+
   return (
     <div className="realEstate-imageupload-container">
-      <h1>图片上传</h1>
-      {/* <div>
-        <label>区域：</label>
-        <input type="text" value={region} onChange={handleRegionChange} />
-      </div>
-      <div>
-        <label>坐落：</label>
-        <input type="text" value={location} onChange={handleLocationChange} />
-      </div> */}
-      <div>
-        <label>选择图片：</label>
-        <input type="file" multiple accept=".jpg" onChange={handleFileChange} />
+      {/* <h1 className="realEstate-imageupload-container-title">
+        {location} {region}
+      </h1> */}
+      <div className="realEstate-imageupload-container-choose">
+        {/* 文件选择按钮 */}
+        <label htmlFor="file-upload" className="imageupload-container-label">
+          <svg className="imageupload-container-icon" aria-hidden="true">
+            <use xlinkHref="#icon-ziyuan"></use>
+          </svg>
+        </label>
+        <input
+          id="file-upload"
+          type="file"
+          multiple
+          accept=".jpg"
+          onChange={handleFileChange}
+          style={{ display: "none" }}
+        />
+        {/* 上传按钮，没有图片时隐藏 */}
+        {files.length > 0 && (
+          <button
+            className="imageupload-container-buttonupload"
+            onClick={handleUpload}
+            title="开始上传"
+          >
+            <svg className="imageupload-container-icon" aria-hidden="true">
+              <use xlinkHref="#icon-yunduanshangchuan" />
+            </svg>
+          </button>
+        )}
       </div>
       <div className="realEstate-imageupload-preview">
         {files.map((file, index) => (
@@ -101,11 +124,45 @@ const ImageUpload = () => {
               alt={`preview-${index}`}
               className="realEstate-imageupload-preview-image"
             />
-            <button onClick={() => handleRemoveFile(index)}>删除</button>
+            {/* 按钮容器 */}
+            <div className="realEstate-imageupload-preview-item-button">
+              {/* 删除按钮 */}
+              <button onClick={() => handleRemoveFile(index)}>
+                <svg className="imageupload-container-icon" aria-hidden="true">
+                  <use xlinkHref="#icon-delete1"></use>
+                </svg>
+              </button>
+              {/* 放大按钮 */}
+              <button onClick={() => showOverlay(file)}>
+                <svg className="imageupload-container-icon" aria-hidden="true">
+                  <use xlinkHref="#icon-sousuofangda"></use>
+                </svg>
+              </button>
+            </div>
           </div>
         ))}
       </div>
-      <button onClick={handleUpload}>上传</button>
+      {/* 模拟框，点击放大按钮时显示 */}
+      {isOverlayVisible && (
+        <div className="realEstate-imageupload-overlay" onClick={hideOverlay}>
+          <div className="realEstate-imageupload-overlay-content">
+            <img
+              src={URL.createObjectURL(hoveredImage)}
+              alt="放大预览"
+              className="realEstate-imageupload-zoomed-image"
+            />
+            {/* 关闭按钮 */}
+            <button
+              className="realEstate-imageupload-close-button"
+              onClick={hideOverlay}
+            >
+              <svg className="imageupload-container-icon" aria-hidden="true">
+            <use xlinkHref="#icon-guanbi"></use>
+          </svg>
+            </button>
+          </div>
+        </div>
+      )}
       {message && <p>{message}</p>}
     </div>
   );

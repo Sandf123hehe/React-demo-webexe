@@ -275,7 +275,7 @@
 }
 .list-search-area {
   font-size: 15px;
-  color: rgb(34, 33, 33);
+  color: rgb(123, 121, 121);
   margin-bottom: 5px;
 }
 .first-column {
@@ -285,7 +285,7 @@
 
 .first-column-child {
   display: flex;
-  color: rgb(34, 33, 33);
+  color: rgb(123, 121, 121);
   flex-direction: row;
 }
 

@@ -271,6 +271,14 @@ function RealEstate() {
                             <use xlinkHref="#icon-jianzhumianji"></use>
                           </svg>{item.interior_area}㎡
                         </strong>
+                        
+                        <strong title="套内面积">
+                          <svg className="realEstate-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-fangwuzujin"></use>
+                          </svg>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.market_rent}元/㎡.月
+                        </strong>
+
+                      
                       </div>
                       <div className="first-column-child">
                         <div title="小区名称">
@@ -295,7 +303,7 @@ function RealEstate() {
                         {username === "李中敬" && (
                           <Link to={`/home/imageupload/${encodeURIComponent(item.area)}/${encodeURIComponent(item.location)}`}>
                             <svg className="header-container-icon" aria-hidden="true">
-                              <use xlinkHref="#icon-tianjia1"></use>
+                              <use xlinkHref="#icon-tupiantianjia"></use>
                             </svg>
                           </Link>
                         )}
@@ -304,7 +312,7 @@ function RealEstate() {
 
                         <Link to={`/home/realestatepicturecarousel?region=${encodeURIComponent(item.area)}&folder=${encodeURIComponent(item.location)}`}>
                           <svg className="header-container-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-tupian1"></use>
+                            <use xlinkHref="#icon-RectangleCopy18"></use>
                           </svg>
                         </Link>
 
@@ -315,15 +323,12 @@ function RealEstate() {
 
                   <div className="list-search-center">
                     <div>
-                      <svg className="realEstate-icon" aria-hidden="true">
+                      {/* <svg className="realEstate-icon" aria-hidden="true">
                         <use xlinkHref="#icon-nav3-2"></use>
-                      </svg>{item.market_price}元/㎡
+                      </svg> */}
+                      {item.market_price}元/㎡
                     </div>
-                    <div>
-                      <svg className="realEstate-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-fangwuzujin"></use>
-                      </svg>{item.market_rent}元/㎡.月
-                    </div>
+                    
                   </div>
                   {/* 只有李中敬可以看到编辑和删除按钮 */}
                   {/* {username === "李中敬" && ( 
