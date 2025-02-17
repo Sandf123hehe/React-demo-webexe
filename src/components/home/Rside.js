@@ -1,8 +1,8 @@
 import React from 'react';
-
+import "../../css/home/Rside.css";
 const Rside = () => {
     return (
-        <div>
+        <div className="rside-container">
             
             <p>?</p>
         </div>

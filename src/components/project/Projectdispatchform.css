@@ -1,19 +1,31 @@
 .projectdispatchform-container {
-    padding: 20px;
+
+    width: 100%;
+    
+}
+
+.projectdispatchform-tablecontainer {
+    width: 100%;
 }
 
 .projectdispatchform-table {
     width: 100%;
+    margin: 10px;
     border-collapse: collapse;
+
 }
 
 .projectdispatchform-table th,
 .projectdispatchform-table td {
-      border-bottom: 1px solid #dfdede;  /* 只设置下边框 */
-      border-left: 0px solid #dfdede; 
-      border-right: 0px solid #dfdede;
+    border-bottom: 1px solid #dfdede;
+    /* 只设置下边框 */
+    border-left: 0px solid #dfdede;
+    border-right: 0px solid #dfdede;
     padding: 8px;
-    text-align: left;
+    text-align: center;
+
+    min-width: 70px;
+    /* 设置最小宽度，根据需求调整 */
 }
 
 .projectdispatchform-modal-overlay {
@@ -63,8 +75,10 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-height: 80vh; /* 设置最大高度为视口的80%，防止表单过高 */
-    overflow-y: auto; /* 当内容超出时显示滚动条 */
+    max-height: 80vh;
+    /* 设置最大高度为视口的80%，防止表单过高 */
+    overflow-y: auto;
+    /* 当内容超出时显示滚动条 */
     padding: 5px;
     box-sizing: border-box;
     background-color: #f9f9f9;
@@ -154,13 +168,35 @@
         width: 100%;
     }
 }
+
 /*  #endregion end */
 
 .projectdispatchform-container-button {
     border: 0;
     background-color: transparent;
 }
+
 .projectdispatchform-container-headerbutton-container {
     display: flex;
     justify-content: space-between;
+}
+
+/* 搜索框样式 */
+.projectdispatchform-search-container {
+    margin-bottom: 20px;
+}
+
+.projectdispatchform-search-container input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* 已完成行的样式 */
+.completed-row {
+    color: green !important;
+    /* 设置字体颜色为绿色 */
 }
