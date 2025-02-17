@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./Imageupload.css";
-
+import { Link } from 'react-router-dom';
 const ImageUpload = () => {
   const { area, location: loc } = useParams();
   const [region, setRegion] = useState(area || "");
@@ -90,6 +90,12 @@ const ImageUpload = () => {
       </h1> */}
       <div className="realEstate-imageupload-container-choose">
         {/* 文件选择按钮 */}
+        <Link to="/home/imagecompressor">
+          <svg className="header-container-icon" aria-hidden="true">
+            <use xlinkHref="#icon-tianjiatupian1"></use>
+          </svg>
+        </Link>
+
         <label htmlFor="file-upload" className="imageupload-container-label">
           <svg className="imageupload-container-icon" aria-hidden="true">
             <use xlinkHref="#icon-ziyuan"></use>
@@ -157,8 +163,8 @@ const ImageUpload = () => {
               onClick={hideOverlay}
             >
               <svg className="imageupload-container-icon" aria-hidden="true">
-            <use xlinkHref="#icon-guanbi"></use>
-          </svg>
+                <use xlinkHref="#icon-guanbi"></use>
+              </svg>
             </button>
           </div>
         </div>

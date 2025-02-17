@@ -9,7 +9,9 @@
 
 .projectdispatchform-table th,
 .projectdispatchform-table td {
-    border: 1px solid #ccc;
+      border-bottom: 1px solid #dfdede;  /* 只设置下边框 */
+      border-left: 0px solid #dfdede; 
+      border-right: 0px solid #dfdede;
     padding: 8px;
     text-align: left;
 }
@@ -153,3 +155,12 @@
     }
 }
 /*  #endregion end */
+
+.projectdispatchform-container-button {
+    border: 0;
+    background-color: transparent;
+}
+.projectdispatchform-container-headerbutton-container {
+    display: flex;
+    justify-content: space-between;
+}

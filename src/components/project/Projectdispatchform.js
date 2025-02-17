@@ -125,17 +125,26 @@ const ProjectDispatchForm = () => {
 
     return (
         <div className="projectdispatchform-container">
-            <Link to="/home/personalhome" className="tree-link">
-                <svg className="lside-container-icon" aria-hidden="true">
-                    <use xlinkHref="#icon-fanhui2"></use>
-                </svg>
-            </Link>
-            {/* <h2>项目派单管理</h2> */}
-            <button onClick={() => {
-                setIsModalOpen(true);
-                setFormData({});
-                setEditingId(null);
-            }}>添加派单</button>
+            <div className="projectdispatchform-container-headerbutton-container">
+                <Link to="/home/personalhome" className="tree-link">
+                    <svg className="lside-container-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-fanhui2"></use>
+                    </svg>
+                </Link>
+                {/* <h2>项目派单管理</h2> */}
+                {/* 添加派单 */}
+                <button className="projectdispatchform-container-button" onClick={() => {
+                    setIsModalOpen(true);
+                    setFormData({});
+                    setEditingId(null);
+                }}>
+                    <svg className="lside-container-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-tianjia1"></use>
+                    </svg>
+                </button>
+            </div>
+
+
 
             <table className="projectdispatchform-table">
                 <thead>
@@ -149,14 +158,14 @@ const ProjectDispatchForm = () => {
                         <th>委托号</th>
                         <th>项目来源</th>
                         <th>完成进度</th>
-                        <th>操作</th>
+                        <th> </th>
                     </tr>
                 </thead>
                 <tbody>
                     {dispatches.map((dispatch) => (
                         <tr
                             key={dispatch.id}
-                            onClick={() => handleRowClick(dispatch)}
+
                             style={{ color: isOverdue(dispatch.EntrustDate) ? 'red' : 'black' }} // 根据日期设置行颜色
                         >
                             <td>{dispatch.ProjectNumber}</td>
@@ -187,6 +196,13 @@ const ProjectDispatchForm = () => {
                                         <use xlinkHref="#icon-beixuanzhongx"></use>
                                     </svg>
                                 </Link>
+
+
+                                <button title='编辑' className="projectdispatchform-container-button" onClick={() => handleRowClick(dispatch)}>
+                                    <svg className="lside-container-icon" aria-hidden="true">
+                                        <use xlinkHref="#icon-beizhu1"></use>
+                                    </svg>
+                                </button>
                             </td>
 
                         </tr>
@@ -199,12 +215,12 @@ const ProjectDispatchForm = () => {
                 <form className="projectdispatchform-modal-form" onSubmit={handleSubmit}>
                     <h3>{editingId ? '编辑派单' : '添加派单'}</h3>
                     {/* 表单输入 */}
-                   
+
                     <div className="projectdispatchform-modal-div">
                         <label>项目编号：</label>
                         &#42;<input type="text" name="ProjectNumber" value={formData.ProjectNumber || ''} onChange={handleChange} />
                     </div>
-                     <div className="projectdispatchform-modal-div">
+                    <div className="projectdispatchform-modal-div">
                         <label>项目名称：</label>
                         &#42;<input type="text" name="ProjectName" value={formData.ProjectName || ''} onChange={handleChange} required />
                     </div>
@@ -258,12 +274,12 @@ const ProjectDispatchForm = () => {
                     <div className="projectdispatchform-modal-div">
                         <label>委托号：</label>
                         <input type="text" name="OrderNumber" value={formData.OrderNumber || ''} onChange={handleChange} />
-                    </div>                           
+                    </div>
                     <div className="projectdispatchform-modal-div">
                         <label>项目来源：</label>
                         <input type="text" name="ProjectSource" value={formData.ProjectSource || ''} onChange={handleChange} />
-                    </div>            
-                   
+                    </div>
+
                     {/* 其他字段 */}
                     <div className="projectdispatchform-modal-div">
                         <label>项目来源联系人：</label>

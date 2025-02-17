@@ -1,0 +1,174 @@
+/* ImageCompressor.css */
+ 
+
+.compressImage-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  min-width: 800px;
+  width: 100%;
+  height:100%
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.compressImage-upload-area {
+  border: 2px dashed #007bff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.compressImage-upload-area p {
+  margin: 0;
+  color: #007bff;
+}
+
+.compressImage-file-input {
+  display: none;
+}
+
+.compressImage-preview-upload-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.compressImage-preview-upload-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+}
+
+.compressImage-preview-upload-item img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.compressImage-preview-upload-item button {
+  margin-top: 5px;
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.compressImage-preview-upload-item button:hover {
+  background-color: #cc0000;
+}
+
+.compressImage-quality-selector {
+  margin-bottom: 20px;
+}
+
+.compressImage-quality-selector label {
+  margin-right: 10px;
+}
+
+.compressImage-quality-selector input {
+  width: 200px;
+}
+
+.compressImage-quality-selector span {
+  margin-left: 10px;
+}
+
+.compressImage-preview-modal-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.compressImage-preview-modal-button:hover {
+  background-color: #0056b3;
+}
+
+.compressImage-preview-modal-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.compressImage-message {
+  color: #ff0000;
+  margin-bottom: 20px;
+}
+
+.compressImage-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.compressImage-preview-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.compressImage-preview-item img {
+  max-width: 100%;
+  max-height: 150px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.compressImage-preview-item p {
+  margin: 5px 0;
+}
+
+.compressImage-preview-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.compressImage-preview-modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+}
+
+.compressImage-preview-large {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+}
+
+.compressImage-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #000;
+}
+
+.compressImage-actions {
+  margin-top: 20px;
+}

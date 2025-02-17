@@ -296,7 +296,7 @@ const AsingleTravelExpense = () => {
               >
                 <td>
                   <svg className="asingletravelexpense-expanded-icon" aria-hidden="true">
-                    <use xlinkHref={expandedRows[expense.ID] ? "#icon-arrow-up-bold" : "#icon-arrow-down-bold"}></use>
+                    <use xlinkHref={expandedRows[expense.ID] ? "#icon-jiantou_liebiaoshouqi" : "#icon-jiantou_liebiaoxiangyou"}></use>
                   </svg>
                 </td>
                 {/* 显示项目编号 */}
